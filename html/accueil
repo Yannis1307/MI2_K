@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Table des Jedi - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<video autoplay muted loop playsinline id="video-bg">
+    <source src="etoile.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la vidéo HTML5.
+</video>
+
+<div class="overlay"></div>
+    <header>
+       <img src="logo.png" alt="Logo" width="15%" > 
+        <div id="place"> </div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html">Accueil</a></li> 
+                <li><a href="produits.html">La Carte</a></li>
+                <li><a href="connexion.html">Connexion</a></li>
+                <li><a href="profil.html">Mon Profil</a></li>
+                <li><a href="notation.html">Donner mon avis</a></li>
+                
+                <input type="text" class="search-input" placeholder="Ex: Lait bleu, Ronto Wrap...">
+                <button class="search-btn">
+                🔍  
+                </button>
+            </ul>
+            
+        </nav>
+    </header>
+
+    <main>
+        
+
+        <section id="plat-du-jour"> 
+            <h2>La Recommandation du Conseil : Plat du Jour</h2>
+            <article>
+                <h3>Ragoût de racine d'Endor</h3>
+                <p>Une spécialité forestière savoureuse préparée selon la recette originale de Maître Yoda sur Dagobah.</p>
+                <h4>Ingrédients :</h4>
+                <ul>
+                    <li>Racines de bois de fer d'Endor</li>
+                    <li>Champignons luminescents de Felucia</li>
+                    <li>Épices rares de Kessel</li>
+                </ul>
+            </article>
+        </section>
+
+        <section id="frequents"> 
+            <h2>Les Incontournables de la Galaxie</h2>
+            <ul>
+                <li><strong>Lait Bleu (Blue Milk)</strong> : Le célèbre lait de bantha de Tatooine 🥛.</li>
+                <li><strong>Macarons de Nevarro</strong> : Les petits biscuits bleus de Grogu 🍪.</li>
+                <li><strong>Portion de survie (Polystarch)</strong> : Le pain déshydraté instantané de Jakku 🍞.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 La Table des Jedi - Projet Creative-Yumland (Phase #1)</p>
+    </footer>
+
+</body>
+</html>
