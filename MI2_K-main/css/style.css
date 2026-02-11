@@ -1,0 +1,639 @@
+#logo {
+    display: flex;
+
+}
+
+body {
+    background-color: transparent;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+}
+
+::selection {
+    background: #f8e042;
+    color: #000;
+}
+
+
+
+a {
+
+
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+}
+
+header {
+    display: flex;
+    border-bottom: 1px solid #333;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+nav {
+
+
+    display: inline-block;
+}
+
+ul li {
+    display: inline-block;
+    padding: 10px 15px;
+}
+
+/* --- Search Bar Design --- */
+.search-box {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    /* Effet verre */
+    border: 1px solid rgba(248, 224, 66, 0.3);
+    border-radius: 50px;
+    padding: 5px 15px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.search-box:focus-within {
+    border-color: #f8e042;
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    outline: none;
+    width: 200px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    color: #f8e042;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 0 5px;
+}
+
+.search-btn:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 10px #f8e042;
+}
+
+#place {
+    display: inline-block;
+    width: 15%;
+}
+
+a:hover {
+    color: #f8e042;
+}
+
+/* Style de la vidéo */
+#video-bg {
+    position: fixed;
+    /* Reste fixe même quand on scrolle */
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    /* On la met tout au fond, très loin derrière */
+    object-fit: cover;
+    /* Assure que la vidéo couvre tout sans être déformée */
+}
+
+/* (Optionnel) Style du filtre sombre */
+/* Cela ajoute un voile noir semi-transparent pour qu'on puisse lire ton texte blanc */
+/* L'overlay fixe est désactivé car nous utilisons le fondu de <main> */
+.overlay {
+    display: none;
+}
+
+main {
+    position: relative;
+    /* Dégradé de semi-transparent à noir opaque sur la hauteur du viewport */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, black 100vh, black 100%);
+    z-index: 1;
+}
+
+#bienvenue {
+    display: flex;
+    flex-direction: column;
+    /* Aligner titre et bouton verticalement */
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    /* Prendre presque tout l'écran */
+    z-index: 1;
+    text-align: center;
+}
+
+#bienvenue h1 {
+    font-size: 4rem;
+    /* Plus grand pour l'impact */
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-carte {
+    background-color: #f8e042;
+    color: #000;
+    padding: 15px 40px;
+    /* Un peu plus large */
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    /* Bouton plus arrondi/moderne */
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid #f8e042;
+}
+
+.btn-carte:hover {
+    background-color: transparent;
+    color: #f8e042;
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
+}
+
+#presentation {
+    border-bottom: 2px solid rgba(148, 148, 148, 0.521);
+    /* Ligne jaune plus marquée */
+    margin: 5vh 0 10vh 0;
+    padding: 20px;
+    text-align: center;
+}
+
+#presentation h1 {
+    color: #f8e042;
+    /* Titre en jaune */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#plats-container {
+    max-width: 800px;
+    margin: 50px auto;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 20px;
+    /* Arrondi pour le conteneur du slider */
+}
+
+#slider {
+    display: flex;
+    width: 400%;
+    /* 4 slides * 100% */
+    animation: sliding 16s infinite ease-in-out;
+}
+
+.slide {
+    width: 25%;
+    /* Chaque slide fait 1/4 du parent (400%) */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.slide img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 30px;
+    /* Bords arrondis pour les images qui défilent */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.slide:hover img {
+    transform: scale(1.02);
+}
+
+.slide-caption {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.slide-caption h2 {
+    font-size: 1.2rem;
+    color: #f8e042;
+    margin: 5px 0;
+}
+
+.slide-caption h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+@keyframes sliding {
+
+    0%,
+    20% {
+        transform: translateX(0);
+    }
+
+    25%,
+    45% {
+        transform: translateX(-25%);
+    }
+
+    50%,
+    70% {
+        transform: translateX(-50%);
+    }
+
+    75%,
+    95% {
+        transform: translateX(-75%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* --- Section Plat du Jour --- */
+#plat-du-jour {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+#plat-du-jour h2 {
+    color: #f8e042;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+
+
+/* --- Section Incontournables --- */
+/* --- Section Histoire Galactique --- */
+#histoire-galactique {
+    padding: 60px 10%;
+    margin-top: 100px;
+    /* Ajout d'espace entre les sections */
+    background: transparent;
+}
+
+.history-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 3px solid #f8e042;
+    padding: 60px;
+    border-radius: 20px;
+    position: relative;
+    gap: 40px;
+}
+
+.history-content {
+    flex: 2;
+    text-align: left;
+}
+
+.history-content h1 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.history-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    max-width: 90%;
+}
+
+#history-logo {
+    width: 120px;
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid #f8e042;
+    background: #000;
+}
+
+.history-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.history-visual img {
+    max-width: 100%;
+    border-radius: 10px;
+    border: 2px solid #f8e042;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.star-corner {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    color: #f8e042;
+    font-size: 2rem;
+}
+
+/* --- Section Avis Clients (Sci-Fi Dashboard) --- */
+#avis-clients {
+    padding: 80px 5%;
+    background: transparent;
+    text-align: center;
+}
+
+.section-title {
+    color: #f8e042;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    letter-spacing: 5px;
+    text-shadow: 0 0 15px rgba(248, 224, 66, 0.5);
+}
+
+.reviews-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.review-card {
+    position: relative;
+    width: 350px;
+    height: 100%;
+    background: rgba(0, 20, 40, 0.6);
+    border-radius: 15px;
+    padding: 2px;
+    /* Pour la bordure néon */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* Bordure néon alternée jaune/cyan */
+.review-card:nth-child(odd) {
+    background: linear-gradient(135deg, #f8e042 0%, #00ffff 100%);
+}
+
+.review-card:nth-child(even) {
+    background: linear-gradient(135deg, #00ffff 0%, #f8e042 100%);
+}
+
+.review-card:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.card-content {
+    background: #000b1a;
+    /* Fond intérieur sombre */
+    border-radius: 13px;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    padding-bottom: 15px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #f8e042;
+    padding: 2px;
+    background: #000;
+}
+
+.user-info h3 {
+    color: #f8e042;
+    font-size: 1.1rem;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: white;
+    margin: 0;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.translation {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #00ffff;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+#frequents {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+#frequents h2 {
+    color: #f8e042;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+#frequents ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#frequents li {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+}
+
+#frequents strong {
+    color: #f8e042;
+}
+
+#main-footer {
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 100%);
+    padding: 60px 5% 20px 5%;
+    border-top: 2px solid #f8e042;
+    position: relative;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-info h3 {
+    color: #f8e042;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-info .icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px #f8e042);
+}
+
+.transmission {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-transmission {
+    background: transparent;
+    color: #f8e042;
+    border: 2px solid #f8e042;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.2);
+}
+
+.btn-transmission:hover {
+    background: #f8e042;
+    color: #000;
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6);
+    transform: scale(1.05);
+}
+
+.unit-status {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.broken-droid {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    animation: flicker 4s infinite;
+}
+
+.joke-text {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 320px;
+    line-height: 1.5;
+    text-align: right;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes flicker {
+
+    0%,
+    19.9%,
+    22%,
+    62.9%,
+    65%,
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    }
+
+    20%,
+    21.9%,
+    63%,
+    64.9% {
+        opacity: 0.4;
+        transform: translateX(1px);
+        filter: drop-shadow(0 0 5px rgba(248, 224, 66, 0.2));
+    }
+}
