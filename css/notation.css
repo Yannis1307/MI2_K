@@ -352,13 +352,87 @@ main {
     letter-spacing: 2px;
 }
 
-/* --- champs du formulaire --- */
+/* --- rappel de la commande --- */
 
-.notation-form {
+.order-recall {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+}
+
+.recall-icon {
+    font-size: 2rem;
+}
+
+.recall-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.recall-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recall-id {
+    font-size: 1.1rem;
+    color: #00ffff;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.recall-status {
+    font-size: 0.85rem;
+    color: #00ff88;
+}
+
+/* --- formulaire de notation --- */
+
+.rating-form {
     display: flex;
     /* flex-direction column : les champs s'empilent verticalement */
     flex-direction: column;
     gap: 30px;
+}
+
+/* fieldset sans bordure par defaut */
+.rating-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* legende du fieldset en cyan */
+.rating-legend {
+    font-size: 1.1rem;
+    color: #00ffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-icon {
+    font-size: 1.3rem;
+}
+
+/* texte d'aide sous la legende */
+.rating-hint {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    margin-bottom: 8px;
 }
 
 .form-group {
@@ -453,7 +527,7 @@ main {
 
 /* --- zone de commentaire --- */
 
-.comment-section textarea {
+.comment-area {
     width: 100%;
     min-height: 150px;
     background: rgba(0, 0, 0, 0.4);
@@ -469,12 +543,12 @@ main {
     resize: vertical;
 }
 
-.comment-section textarea::placeholder {
+.comment-area::placeholder {
     color: rgba(255, 255, 255, 0.35);
     font-style: italic;
 }
 
-.comment-section textarea:focus {
+.comment-area:focus {
     border-color: #00ffff;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
     background: rgba(0, 10, 30, 0.5);
@@ -508,6 +582,18 @@ main {
     color: #000;
     border: 2px solid #f8e042;
     box-shadow: 0 0 20px rgba(248, 224, 66, 0.4);
+    width: 100%;
+}
+
+/* style neon du bouton */
+.btn-neon {
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4),
+        0 0 40px rgba(248, 224, 66, 0.1);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 1;
 }
 
 /* ::before : cercle invisible qui grandit au survol (effet ripple) */
