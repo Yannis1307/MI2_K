@@ -1,40 +1,28 @@
-/* --- accueil.css - styles specifiques a la page d'accueil --- */
-
-/* --- barre de recherche --- */
-/* (Styles specifiques a la barre de recherche si besoin, sinon on garde common) */
-
-#place {
-    display: inline-block;
-    width: 15%;
-}
-
-a:hover {
-    color: #f8e042;
-}
+/* accueil.css - styles specifiques a la page d'accueil */
 
 
-/* --- contenu principal --- */
-
+/* degrade de semi-transparent a noir opaque sur la hauteur de l'ecran */
+/* ca permet de voir la video de fond en haut, puis fond noir en bas */
 main {
     position: relative;
-    /* degrade de semi-transparent a noir opaque sur la hauteur du viewport */
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, black 100vh, black 100%);
+    /* z-index : pour que le contenu passe au dessus de la video */
     z-index: 1;
 }
 
-/* --- section bienvenue --- */
 
 #bienvenue {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* 90vh : prend presque tout l'ecran */
+    /* 90vh : prend presque tout l'ecran en hauteur */
     height: 90vh;
     z-index: 1;
     text-align: center;
 }
 
+/* titre principal avec ombre lumineuse */
 #bienvenue h1 {
     font-size: 4rem;
     margin-bottom: 30px;
@@ -43,6 +31,7 @@ main {
     text-transform: uppercase;
 }
 
+/* champ de saisie generique */
 input {
     padding: 10px;
     border-radius: 5px;
@@ -50,7 +39,7 @@ input {
     cursor: crosshair;
 }
 
-/* bouton "voir la carte" */
+
 .cta-container {
     display: flex;
     justify-content: center;
@@ -58,6 +47,7 @@ input {
     z-index: 10;
 }
 
+/* bouton jaune arrondi */
 .btn-carte {
     background-color: #f8e042;
     color: #000;
@@ -73,17 +63,17 @@ input {
     text-align: center;
 }
 
+/* au survol le bouton devient transparent avec un halo */
 .btn-carte:hover {
     background-color: transparent;
     color: #f8e042;
     box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
 }
 
-/* --- section presentation --- */
 
 #presentation {
     border-bottom: 2px solid rgba(148, 148, 148, 0.521);
-    margin: 5vh 0 10vh 0;
+    margin: 5vh 0 10vh;
     padding: 20px;
     text-align: center;
 }
@@ -94,7 +84,7 @@ input {
     letter-spacing: 3px;
 }
 
-/* --- slider de plats --- */
+/* astuce trouvee en ligne pour faire un slider avec des radio boutons */
 
 #plats-container {
     max-width: 800px;
@@ -102,11 +92,11 @@ input {
     overflow: hidden;
     background: transparent;
     border-radius: 20px;
+    /* position relative : necessaire pour positionner les fleches par dessus */
     position: relative;
-    /* Pour positionner les flèches */
 }
 
-/* Cacher les inputs radio */
+/* on cache les boutons radio, ils servent juste de declencheurs */
 #plats-container input[type="radio"] {
     display: none;
 }
@@ -114,15 +104,14 @@ input {
 /* le slider contient 4 slides cote a cote */
 #slider {
     display: flex;
+    /* 4 slides x 100% = 400% */
     width: 400%;
-    /* 4 slides * 100% */
     transition: transform 0.6s ease-in-out;
-    /* Transition fluide pour le manuel */
-    /* Animation par défaut (active tant qu'aucun bouton n'est cliqué) */
+    /* animation par defaut : defilement automatique */
     animation: sliding 16s infinite ease-in-out;
 }
 
-/* Si un slide spécifique est sélectionné, on arrête l'animation */
+/* quand on clique sur un slide, on arrete l'animation automatique */
 #slide1:checked~#slider,
 #slide2:checked~#slider,
 #slide3:checked~#slider,
@@ -130,7 +119,8 @@ input {
     animation: none;
 }
 
-/* Positionnement du slider selon le radio checké */
+/* positionnement du slider selon le radio coche */
+/* translateX deplace le slider horizontalement */
 #slide1:checked~#slider {
     transform: translateX(0%);
 }
@@ -147,78 +137,71 @@ input {
     transform: translateX(-75%);
 }
 
-/* --- Flèches de Navigation --- */
 
-.slider-controls label {
-    display: none;
-    /* Cachées par défaut */
+/* conteneur des fleches : couvre tout le slider, centre verticalement */
+.slider-controls {
     position: absolute;
+    width: 100%;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    /* pointer-events none : les clics traversent le conteneur vers le slider */
+    pointer-events: none;
+    z-index: 100;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* style des fleches rondes */
+.arrow {
     background: rgba(0, 0, 0, 0.6);
     color: #f8e042;
-    border: 2px solid #f8e042;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
     border-radius: 50%;
     text-align: center;
-    line-height: 36px;
     cursor: pointer;
+    border: 2px solid #f8e042;
     font-size: 1.5rem;
-    z-index: 100;
     transition: all 0.3s ease;
+    /* pointer-events auto : reactive les clics sur les fleches */
+    pointer-events: auto;
     user-select: none;
+    box-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
+    /* cachees par defaut, affichees selon le slide actif */
+    display: none;
 }
 
-.slider-controls label:hover {
+.arrow:hover {
     background: #f8e042;
     color: #000;
-    box-shadow: 0 0 15px #f8e042;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.6);
 }
 
-.slider-controls .prev {
-    left: 20px;
-}
-
-.slider-controls .next {
-    right: 20px;
-}
-
-/* 
-   Logique d'affichage des flèches :
-   Par défaut (animation auto), on n'affiche PAS les flèches pour éviter la confusion
-   car on ne peut pas synchroniser les flèches purement en CSS avec une animation keyframe complexe.
-   
-   Dès que l'utilisateur clique sur la slide (ou interagit), on pourrait afficher les flèches...
-   MAIS pour que ce soit utilisable dès le début, on va tricher :
-   On affiche par défaut les flèches de la Slide 1 sur laquelle commence l'anim.
-   Si l'anim avance, les flèches ne bougent pas (limitations CSS pur).
-   
-   SOLUTION "U.I. FIXE" :
-   On affiche les flèches correspondant à la position "par défaut" (Slide 1).
-   Dès qu'on clique, le radio est checké, et le bon set de flèches apparaît.
-*/
-
-/* Affichage dynamique des flèches selon le slide actif */
+/* affichage des bonnes fleches selon le slide actif */
+/* ~ : selecteur de frere, cible les elements qui suivent le radio */
 #auto:checked~.slider-controls .slide1-control,
-#slide1:checked~.slider-controls .slide1-control,
-#slide2:checked~.slider-controls .slide2-control,
-#slide3:checked~.slider-controls .slide3-control,
+#slide1:checked~.slider-controls .slide1-control {
+    display: block;
+}
+
+#slide2:checked~.slider-controls .slide2-control {
+    display: block;
+}
+
+#slide3:checked~.slider-controls .slide3-control {
+    display: block;
+}
+
 #slide4:checked~.slider-controls .slide4-control {
     display: block;
 }
 
-/* 
-   FALLBACK POUR LE DEMARRAGE : 
-   Quand aucun radio n'est explicitement "cliqué" par l'user (mais slide1 est checked par défaut dans le HTML),
-   on affiche les flèches du Slide 1.
-   Le problème c'est que l'anim tourne. Si l'anim est à la slide 3 mais que les flèches sont celles de la slide 1...
-   C'est le compromis du "100% CSS No-JS".
-   
-   L'utilisateur accepte que l'auto s'arrête au clic.
-*/
 
-/* chaque slide fait 1/4 du parent */
+/* chaque slide fait 1/4 du parent (car slider = 400%) */
 .slide {
     width: 25%;
     position: relative;
@@ -229,20 +212,22 @@ input {
     padding: 20px;
 }
 
+/* object-fit cover : l'image remplit la zone sans se deformer */
 .slide img {
     width: 100%;
     max-height: 450px;
-    /* object-fit cover : l'image remplit la zone sans se deformer */
     object-fit: cover;
     border-radius: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
 }
 
+/* leger zoom au survol */
 .slide:hover img {
     transform: scale(1.02);
 }
 
+/* legende sous l'image */
 .slide-caption {
     margin-top: 15px;
     text-align: center;
@@ -287,7 +272,6 @@ input {
     }
 }
 
-/* --- section plat du jour --- */
 
 #plat-du-jour {
     text-align: center;
@@ -302,15 +286,13 @@ input {
 }
 
 
-
-/* --- section histoire galactique --- */
-
 #histoire-galactique {
     padding: 60px 10%;
     margin-top: 100px;
     background: transparent;
 }
 
+/* conteneur avec bordure doree et disposition flex */
 .history-container {
     display: flex;
     align-items: center;
@@ -322,8 +304,8 @@ input {
     gap: 40px;
 }
 
+/* flex: 2 : la partie texte prend 2 fois plus de place que l'image */
 .history-content {
-    /* flex: 2 : prend 2 fois plus de place que les autres flex items */
     flex: 2;
     text-align: left;
 }
@@ -343,6 +325,7 @@ input {
     max-width: 90%;
 }
 
+/* petit logo du chef jedi */
 #history-logo {
     width: 120px;
     height: auto;
@@ -351,6 +334,7 @@ input {
     background: #000;
 }
 
+/* partie image a droite */
 .history-visual {
     flex: 1;
     display: flex;
@@ -364,6 +348,7 @@ input {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
+/* petite etoile decorative en bas a droite */
 .star-corner {
     position: absolute;
     bottom: 10px;
@@ -372,7 +357,6 @@ input {
     font-size: 2rem;
 }
 
-/* --- section avis clients --- */
 
 #avis-clients {
     padding: 80px 5%;
@@ -388,6 +372,7 @@ input {
     text-shadow: 0 0 15px rgba(248, 224, 66, 0.5);
 }
 
+/* grille de cartes d'avis en flexbox */
 .reviews-container {
     display: flex;
     flex-wrap: wrap;
@@ -395,7 +380,7 @@ input {
     gap: 30px;
 }
 
-/* carte d'avis avec bordure neon */
+/* carte d'avis avec bordure neon en degrade */
 .review-card {
     position: relative;
     width: 350px;
@@ -408,8 +393,7 @@ input {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
-/* bordure neon alternee jaune/cyan avec nth-child */
-/* :nth-child(odd/even) : cible les elements pairs ou impairs */
+/* nth-child : cible les elements pairs ou impairs pour alterner les couleurs */
 .review-card:nth-child(odd) {
     background: linear-gradient(135deg, #f8e042 0%, #00ffff 100%);
 }
@@ -418,6 +402,7 @@ input {
     background: linear-gradient(135deg, #00ffff 0%, #f8e042 100%);
 }
 
+/* la carte monte legerement au survol */
 .review-card:hover {
     transform: translateY(-10px) scale(1.02);
 }
@@ -459,6 +444,7 @@ input {
     letter-spacing: 2px;
 }
 
+/* texte de l'avis en italique */
 .review-text {
     font-size: 1rem;
     line-height: 1.6;
@@ -468,6 +454,7 @@ input {
     letter-spacing: 1px;
 }
 
+/* traduction en cyan */
 .translation {
     display: block;
     margin-top: 10px;
@@ -477,7 +464,6 @@ input {
     text-transform: uppercase;
 }
 
-/* --- section plats les plus commandes --- */
 
 #frequents {
     text-align: center;
@@ -506,116 +492,4 @@ input {
 
 #frequents strong {
     color: #f8e042;
-}
-
-/* --- RESPONSIVE HEADER (Deplace dans common.css) --- */
-
-/* --- Slider Controls & Navigation --- */
-
-/* Ensure controls are positioned correctly */
-/* Note: #plats-container already has position: relative */
-
-#plats-container {
-    position: relative;
-}
-
-/* Force hide radio inputs just in case */
-#plats-container input[type="radio"] {
-    display: none;
-}
-
-/* Container for arrows - centered vertically */
-.slider-controls {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    /* Allow clicks to pass through to slider */
-    z-index: 100;
-    padding: 0 10px;
-    /* Space from edges */
-    box-sizing: border-box;
-}
-
-/* Arrow Styles */
-.arrow {
-    background: rgba(0, 0, 0, 0.6);
-    color: #f8e042;
-    /* Jedi Yellow */
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 50%;
-    text-align: center;
-    cursor: pointer;
-    border: 2px solid #f8e042;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-    pointer-events: auto;
-    /* Re-enable clicks on arrows */
-    user-select: none;
-    box-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
-
-    /* Hidden by default, shown selectively */
-    display: none;
-}
-
-.arrow:hover {
-    background: #f8e042;
-    color: #000;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(248, 224, 66, 0.6);
-}
-
-/* Show correct arrows based on Checked Radio */
-/* Logic:
-   Slide 1 Active (or Auto) -> Show arrows pointing to 4 (Prev) and 2 (Next).
-   These are labeled with class .slide1-control in HTML.
-*/
-
-#auto:checked~.slider-controls .slide1-control,
-#slide1:checked~.slider-controls .slide1-control {
-    display: block;
-}
-
-#slide2:checked~.slider-controls .slide2-control {
-    display: block;
-}
-
-#slide3:checked~.slider-controls .slide3-control {
-    display: block;
-}
-
-#slide4:checked~.slider-controls .slide4-control {
-    display: block;
-}
-
-/* Slider Movement Logic */
-
-/* Stop animation when manual controls are used */
-#slide1:checked~#slider,
-#slide2:checked~#slider,
-#slide3:checked~#slider,
-#slide4:checked~#slider {
-    animation: none;
-}
-
-/* Move slider to correct position */
-#slide1:checked~#slider {
-    transform: translateX(0);
-}
-
-#slide2:checked~#slider {
-    transform: translateX(-25%);
-}
-
-#slide3:checked~#slider {
-    transform: translateX(-50%);
-}
-
-#slide4:checked~#slider {
-    transform: translateX(-75%);
 }

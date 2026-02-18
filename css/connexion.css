@@ -1,21 +1,18 @@
-/* connexion.css - styles specifiques a la connexion et inscription --- */
+/* connexion.css - styles specifiques aux pages connexion et inscription */
 
-/* --- styles specifiques au contenu principal --- */
 
-/* --- contenu principal --- */
-
+/* fond sombre avec formulaire centre au milieu de l'ecran */
 main {
     position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
     min-height: 100vh;
-    /* display flex + center : centre le formulaire au milieu de la page */
+    /* flex + center : centre le formulaire au milieu */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 60px 5%;
 }
 
-/* --- formulaire --- */
 
 .form-container {
     width: 100%;
@@ -23,7 +20,7 @@ main {
     animation: fadeInUp 0.8s ease-out;
 }
 
-/* animation d'apparition vers le haut */
+/* le formulaire apparait en glissant vers le haut */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -36,19 +33,18 @@ main {
     }
 }
 
-/* panneau glassmorphism */
-/* backdrop-filter blur : flou derriere le panneau, donne un effet de verre */
+/* panneau avec effet de verre */
+/* backdrop-filter blur : flou derriere le panneau, donne un aspect glassmorphism */
 .form-panel {
     background: rgba(0, 20, 40, 0.85);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(248, 224, 66, 0.3);
     border-radius: 20px;
     padding: 50px 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
-        0 0 40px rgba(248, 224, 66, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(248, 224, 66, 0.2);
 }
 
-/* titre du formulaire avec animation lumineuse */
+/* titre avec animation lumineuse */
 .form-title {
     font-size: 2.5rem;
     color: #f8e042;
@@ -60,6 +56,7 @@ main {
     animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
+/* animation definie dans common.css, redeclaree ici pour cette page */
 @keyframes titleGlow {
     from {
         text-shadow: 0 0 20px rgba(248, 224, 66, 0.6);
@@ -79,7 +76,6 @@ main {
     letter-spacing: 2px;
 }
 
-/* --- champs du formulaire --- */
 
 .auth-form {
     display: flex;
@@ -102,7 +98,7 @@ main {
     letter-spacing: 2px;
 }
 
-/* champs avec bordure en bas seulement (style minimal) */
+/* champs avec seulement une bordure en bas (style minimal) */
 .form-group input,
 .form-group select {
     background: transparent;
@@ -136,7 +132,7 @@ main {
     color: white;
 }
 
-/* --- choix du camp (jedi/sith) avec radio boutons css --- */
+/* astuce trouvee en ligne pour styliser des radio boutons */
 
 .radio-group {
     display: flex;
@@ -178,7 +174,7 @@ main {
     color: #ff4444;
 }
 
-/* + : selecteur d'element adjacent, le label juste apres le radio */
+/* + : selecteur d'element adjacent, cible le label juste apres le radio */
 /* quand le radio est coche, on met en surbrillance */
 .radio-label input[type="radio"]:checked+.radio-custom {
     border-color: #f8e042;
@@ -194,7 +190,6 @@ main {
     background: rgba(255, 0, 0, 0.3);
 }
 
-/* --- boutons d'envoi --- */
 
 .btn-submit {
     margin-top: 20px;
@@ -211,7 +206,8 @@ main {
     overflow: hidden;
 }
 
-/* effet ripple au survol */
+/* effet ripple : rond qui grandit depuis le centre au survol */
+/* astuce trouvee en ligne pour creer un effet de vague */
 .btn-submit::before {
     content: '';
     position: absolute;
@@ -256,7 +252,6 @@ main {
     transform: translateY(-3px);
 }
 
-/* --- bas du formulaire --- */
 
 .form-footer {
     margin-top: 30px;
@@ -282,8 +277,6 @@ main {
     text-shadow: 0 0 10px rgba(248, 224, 66, 0.8);
 }
 
-
-/* --- responsive --- */
 
 @media (max-width: 768px) {
     .form-panel {

@@ -1,9 +1,7 @@
-/* notation.css - styles specifiques a la page notation --- */
+/* notation.css - styles specifiques a la page de notation */
 
-/* --- styles specifiques au contenu principal --- */
 
-/* --- contenu principal --- */
-
+/* fond sombre avec formulaire centre */
 main {
     position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
@@ -14,7 +12,6 @@ main {
     padding: 60px 5%;
 }
 
-/* --- panneau du formulaire (style holo-pad) --- */
 
 .form-container {
     width: 100%;
@@ -22,7 +19,7 @@ main {
     animation: fadeInUp 0.8s ease-out;
 }
 
-/* animation d'apparition du formulaire */
+/* le formulaire apparait en glissant vers le haut */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -35,19 +32,18 @@ main {
     }
 }
 
-/* panneau avec effet glassmorphism */
-/* backdrop-filter blur : flou derriere le panneau, donne un effet de verre */
+/* panneau avec effet de verre */
+/* backdrop-filter blur : flou derriere le panneau, effet glassmorphism */
 .form-panel {
     background: rgba(0, 20, 40, 0.85);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(248, 224, 66, 0.3);
     border-radius: 20px;
     padding: 50px 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
-        0 0 40px rgba(248, 224, 66, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(248, 224, 66, 0.2);
 }
 
-/* titre du formulaire */
+/* titre avec animation lumineuse */
 .form-title {
     font-size: 2.2rem;
     color: #f8e042;
@@ -78,7 +74,6 @@ main {
     letter-spacing: 2px;
 }
 
-/* --- rappel de la commande --- */
 
 .order-recall {
     display: flex;
@@ -120,7 +115,6 @@ main {
     color: #00ff88;
 }
 
-/* --- formulaire de notation --- */
 
 .rating-form {
     display: flex;
@@ -129,14 +123,14 @@ main {
     gap: 30px;
 }
 
-/* fieldset sans bordure par defaut */
+/* fieldset sans bordure */
 .rating-fieldset {
     border: none;
     padding: 0;
     margin: 0;
 }
 
-/* legende du fieldset en cyan */
+/* legende en cyan */
 .rating-legend {
     font-size: 1.1rem;
     color: #00ffff;
@@ -210,12 +204,13 @@ main {
     color: white;
 }
 
-/* --- systeme de notation par etoiles (css pur, sans javascript) --- */
-/* astuce css pour noter sans javascript (trouvé sur internet) */
+/* astuce trouvee en ligne pour noter avec des etoiles sans javascript */
 
 .star-rating {
     display: flex;
-    /* flex-direction row-reverse : les etoiles sont inversees pour que le ~ fonctionne */
+    /* row-reverse : les etoiles sont inversees pour que le selecteur ~ fonctionne */
+    /* le ~ selectionne les elements suivants, donc en inversant on peut colorer */
+    /* toutes les etoiles precedentes quand on en survole une */
     flex-direction: row-reverse;
     justify-content: flex-end;
     gap: 5px;
@@ -227,7 +222,7 @@ main {
     display: none;
 }
 
-/* etoiles en gris par defaut */
+/* etoiles grises par defaut */
 .star-rating label {
     font-size: 2.2rem;
     color: rgba(255, 255, 255, 0.2);
@@ -236,7 +231,7 @@ main {
     text-shadow: none;
 }
 
-/* au survol : l'etoile survolee et toutes celles apres deviennent jaunes */
+/* au survol : l'etoile et toutes celles apres deviennent jaunes */
 .star-rating label:hover,
 .star-rating label:hover~label {
     color: #f8e042;
@@ -244,14 +239,12 @@ main {
     transform: scale(1.1);
 }
 
-/* ~ : selecteur de frere, selectionne tous les elements qui suivent */
-/* quand un radio est coche, l'etoile et toutes celles apres deviennent jaunes */
+/* ~ : selecteur de frere, colore toutes les etoiles apres celle cochee */
 .star-rating input:checked~label {
     color: #f8e042;
     text-shadow: 0 0 10px rgba(248, 224, 66, 0.5);
 }
 
-/* --- zone de commentaire --- */
 
 .comment-area {
     width: 100%;
@@ -266,6 +259,7 @@ main {
     line-height: 1.6;
     outline: none;
     transition: all 0.3s ease;
+    /* resize vertical : on peut agrandir la zone seulement en hauteur */
     resize: vertical;
 }
 
@@ -289,7 +283,6 @@ main {
     letter-spacing: 1px;
 }
 
-/* --- bouton envoyer --- */
 
 .btn-submit {
     margin-top: 20px;
@@ -313,16 +306,17 @@ main {
 
 /* style neon du bouton */
 .btn-neon {
-    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4),
-        0 0 40px rgba(248, 224, 66, 0.1);
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4), 0 0 40px rgba(248, 224, 66, 0.1);
 }
 
 .btn-text {
     position: relative;
+    /* z-index : pour que le texte reste au dessus de l'effet ripple */
     z-index: 1;
 }
 
-/* ::before : cercle invisible qui grandit au survol (effet ripple) */
+/* effet ripple au survol */
+/* astuce trouvee en ligne pour creer un effet de vague */
 .btn-submit::before {
     content: '';
     position: absolute;
@@ -346,7 +340,6 @@ main {
     transform: translateY(-3px);
 }
 
-/* --- bas du formulaire --- */
 
 .form-footer {
     margin-top: 30px;
@@ -373,9 +366,6 @@ main {
 }
 
 
-/* --- responsive --- */
-
-/* tablette */
 @media (max-width: 768px) {
     .form-panel {
         padding: 40px 30px;
@@ -391,7 +381,6 @@ main {
     }
 }
 
-/* mobile */
 @media (max-width: 480px) {
     .form-panel {
         padding: 30px 20px;

@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-/* fond sombre, design mobile first */
+/* fond sombre, design pense pour mobile en priorite */
 body {
     background: #06090f;
     color: #e0e4ec;
@@ -23,24 +23,19 @@ a {
     color: inherit;
 }
 
-/* --- header mobile --- */
 
 .mobile-header {
     display: flex;
-    /* justify-content space-between : logo a gauche, bouton a droite */
     justify-content: space-between;
     align-items: center;
     padding: 12px 18px;
     background: #0a0e18;
     border-bottom: 2px solid #151d30;
-    /* sticky : le header reste colle en haut */
     position: sticky;
     top: 0;
-    /* z-index : pour que le header reste au dessus du contenu */
     z-index: 100;
 }
 
-/* petit logo */
 .mobile-logo {
     width: 46px;
     height: auto;
@@ -79,7 +74,6 @@ a {
     animation: dotPulse 1.5s ease-in-out infinite;
 }
 
-/* animation du point vert */
 @keyframes dotPulse {
 
     0%,
@@ -94,7 +88,7 @@ a {
     }
 }
 
-/* bouton retour (fleche) */
+/* bouton retour */
 .btn-header-action {
     width: 40px;
     height: 40px;
@@ -112,13 +106,11 @@ a {
     background: rgba(255, 255, 255, 0.08);
 }
 
-/* --- contenu principal centre --- */
 
 .mobile-main {
     display: flex;
     justify-content: center;
     padding: 16px;
-    /* calc : on enleve la hauteur du header */
     min-height: calc(100vh - 80px);
 }
 
@@ -131,7 +123,6 @@ a {
     gap: 16px;
 }
 
-/* --- banniere mission en cours --- */
 
 .mission-banner {
     display: flex;
@@ -169,7 +160,6 @@ a {
     text-shadow: 0 0 12px rgba(255, 140, 0, 0.3);
 }
 
-/* --- carte de la mission --- */
 
 .mission-card {
     background: rgba(10, 15, 28, 0.7);
@@ -178,18 +168,15 @@ a {
     overflow: hidden;
 }
 
-/* section generique dans la carte */
 .mission-section {
     padding: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-/* :last-child : pas de bordure apres la derniere section */
 .mission-section:last-child {
     border-bottom: none;
 }
 
-/* titre de section */
 .section-label {
     font-size: 0.8rem;
     font-weight: bold;
@@ -206,7 +193,6 @@ a {
     gap: 16px;
 }
 
-/* avatar du client */
 .client-avatar {
     width: 60px;
     height: 60px;
@@ -274,16 +260,13 @@ a {
     transform: translateY(0);
 }
 
-/* --- bulles d'acces (digicode, etage, telephone) --- */
 
 .access-grid {
     display: grid;
-    /* grid-template-columns : 2 colonnes de taille egale */
     grid-template-columns: 1fr 1fr;
     gap: 12px;
 }
 
-/* bulle d'information */
 .access-bubble {
     display: flex;
     flex-direction: column;
@@ -300,9 +283,8 @@ a {
     border-color: #ff8c00;
 }
 
-/* le telephone prend toute la largeur */
+/* grid-column 1 / -1 : le telephone prend toute la largeur */
 .access-phone {
-    /* grid-column 1 / -1 : s'etend sur toutes les colonnes */
     grid-column: 1 / -1;
     border-color: rgba(0, 255, 136, 0.25);
     background: rgba(0, 255, 136, 0.04);
@@ -323,7 +305,6 @@ a {
     color: rgba(224, 228, 236, 0.4);
 }
 
-/* valeur en gros avec police monospace */
 .access-value {
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 1.4rem;
@@ -338,7 +319,6 @@ a {
     text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
 }
 
-/* --- liste de la commande --- */
 
 .order-list {
     list-style: none;
@@ -356,7 +336,6 @@ a {
     border-left: 3px solid #1a2540;
 }
 
-/* quantite en orange */
 .qty {
     font-weight: bold;
     color: #ff8c00;
@@ -365,7 +344,6 @@ a {
     display: inline-block;
 }
 
-/* total de la commande */
 .order-total {
     display: flex;
     justify-content: space-between;
@@ -386,14 +364,12 @@ a {
     text-shadow: 0 0 8px rgba(255, 140, 0, 0.3);
 }
 
-/* --- slider de confirmation (astuce css sans javascript) --- */
-/* astuce css pour confirmer sans javascript (trouvé sur internet) */
+/* astuce trouvee en ligne pour creer un toggle sans javascript */
 
 .confirm-zone {
     margin-top: 4px;
 }
 
-/* on cache la checkbox */
 .slider-input {
     display: none;
 }
@@ -403,7 +379,6 @@ a {
     cursor: crosshair;
 }
 
-/* piste du slider */
 .slider-track {
     display: flex;
     align-items: center;
@@ -417,7 +392,7 @@ a {
     transition: all 0.4s ease;
 }
 
-/* poignee du slider (la fleche) */
+/* flex-shrink: 0 : empeche la poignee de retrecir */
 .slider-thumb {
     display: flex;
     align-items: center;
@@ -430,13 +405,11 @@ a {
     font-size: 1.5rem;
     color: #000;
     font-weight: bold;
-    /* flex-shrink: 0 : empeche la poignee de retrecir */
     flex-shrink: 0;
     box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
     animation: thumbSlide 2s ease-in-out infinite;
 }
 
-/* petite animation pour indiquer de glisser */
 @keyframes thumbSlide {
 
     0%,
@@ -460,7 +433,6 @@ a {
     text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
 }
 
-/* etat confirme : s'affiche quand la checkbox est cochee */
 .slider-done {
     display: none;
     width: 100%;
@@ -477,13 +449,11 @@ a {
     box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
 }
 
-/* ~ : selecteur de frere, selectionne les elements qui suivent la checkbox */
-/* quand la checkbox est cochee, on cache la piste */
+/* ~ : selecteur de frere, quand la checkbox est cochee */
 .slider-input:checked~.slider-track {
     display: none;
 }
 
-/* quand la checkbox est cochee, on montre le message "confirme" */
 .slider-input:checked~.slider-done {
     display: flex;
     animation: confirmPop 0.4s ease-out;
@@ -501,7 +471,6 @@ a {
     }
 }
 
-/* --- bouton signaler un probleme --- */
 
 .help-zone {
     margin-bottom: 10px;
@@ -530,7 +499,6 @@ a {
     box-shadow: 0 0 15px rgba(255, 68, 68, 0.15);
 }
 
-/* --- footer mobile --- */
 
 .mobile-footer {
     text-align: center;
@@ -545,11 +513,7 @@ a {
     letter-spacing: 1.5px;
 }
 
-/* --- responsive --- */
 
-/* deja mobile-first par defaut (conteneur max 450px) */
-
-/* tres petits ecrans */
 @media (max-width: 380px) {
     .mission-banner h1 {
         font-size: 0.95rem;
@@ -557,7 +521,6 @@ a {
     }
 
     .access-grid {
-        /* 1 seule colonne sur petit ecran */
         grid-template-columns: 1fr;
     }
 
@@ -581,12 +544,11 @@ a {
 }
 
 /* sur desktop : on simule un ecran de telephone centre */
+/* radial-gradient : cree un halo lumineux au centre */
 @media (min-width: 600px) {
     .mobile-main {
         padding: 30px;
-        /* radial-gradient : cree un halo lumineux au centre */
-        background:
-            radial-gradient(ellipse at center, rgba(10, 15, 28, 1) 0%, #06090f 70%);
+        background: radial-gradient(ellipse at center, rgba(10, 15, 28, 1) 0%, #06090f 70%);
     }
 
     .mobile-container {

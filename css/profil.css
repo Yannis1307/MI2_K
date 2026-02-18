@@ -1,8 +1,6 @@
-/* profil.css - styles specifiques au profil --- */
+/* profil.css - styles specifiques au profil */
 
-/* --- styles specifiques au contenu principal --- */
 
-/* --- contenu principal --- */
 
 main {
     position: relative;
@@ -15,7 +13,6 @@ main {
     color: var(--text);
 }
 
-/* --- en-tete du dashboard --- */
 
 .dashboard-header {
     text-align: center;
@@ -41,7 +38,6 @@ main {
     text-transform: uppercase;
 }
 
-/* --- grille du dashboard (2 colonnes) --- */
 /* grid-template-columns : colonne gauche 340px fixe, colonne droite flexible */
 
 .dashboard-grid {
@@ -71,7 +67,6 @@ main {
     grid-row: 2;
 }
 
-/* --- style commun des panneaux (glassmorphism) --- */
 /* backdrop-filter blur : flou derriere le panneau, donne un effet de verre */
 
 .panel {
@@ -109,7 +104,6 @@ main {
     padding: 25px;
 }
 
-/* --- panneau 1 : carte d'identite --- */
 
 /* section avatar centree */
 .avatar-section {
@@ -265,7 +259,6 @@ main {
     transform: translateY(-2px);
 }
 
-/* --- panneau 2 : fidelite et recompenses --- */
 
 /* affichage des points */
 .points-display {
@@ -396,7 +389,6 @@ main {
     letter-spacing: 1px;
 }
 
-/* --- section recompenses / coupons --- */
 
 .rewards-section {
     margin-top: 25px;
@@ -555,7 +547,6 @@ main {
     font-size: 0.6rem;
 }
 
-/* --- panneau 3 : historique des commandes --- */
 
 /* overflow-x auto : ajoute un scroll horizontal si le tableau depasse */
 .table-wrapper {
@@ -666,7 +657,6 @@ main {
     }
 }
 
-/* --- footer --- */
 
 #main-footer {
     background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 100%);
@@ -802,7 +792,6 @@ main {
     }
 }
 
-/* --- responsive --- */
 
 /* tablette : une seule colonne */
 @media (max-width: 1100px) {

@@ -1,9 +1,7 @@
-/* produits.css - styles specifiques a la page produits --- */
+/* produits.css - styles specifiques a la page produits */
 
-/* --- styles specifiques au contenu principal --- */
 
-/* --- contenu principal --- */
-
+/* fond semi-transparent avec degrade sombre */
 main {
     position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
@@ -12,7 +10,7 @@ main {
     z-index: 1;
 }
 
-/* en-tete du menu */
+
 .menu-header {
     text-align: center;
     margin-bottom: 60px;
@@ -25,20 +23,18 @@ main {
     text-transform: uppercase;
     letter-spacing: 8px;
     margin-bottom: 15px;
-    text-shadow: 0 0 30px rgba(248, 224, 66, 0.8),
-        0 0 60px rgba(248, 224, 66, 0.4);
+    text-shadow: 0 0 30px rgba(248, 224, 66, 0.8), 0 0 60px rgba(248, 224, 66, 0.4);
     animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
+/* animation de pulsation du titre (definie dans common.css aussi) */
 @keyframes titleGlow {
     from {
-        text-shadow: 0 0 20px rgba(248, 224, 66, 0.6),
-            0 0 40px rgba(248, 224, 66, 0.3);
+        text-shadow: 0 0 20px rgba(248, 224, 66, 0.6), 0 0 40px rgba(248, 224, 66, 0.3);
     }
 
     to {
-        text-shadow: 0 0 40px rgba(248, 224, 66, 1),
-            0 0 80px rgba(248, 224, 66, 0.6);
+        text-shadow: 0 0 40px rgba(248, 224, 66, 1), 0 0 80px rgba(248, 224, 66, 0.6);
     }
 }
 
@@ -49,7 +45,6 @@ main {
     letter-spacing: 2px;
 }
 
-/* --- barre de recherche centree --- */
 
 .search-bar-container {
     display: flex;
@@ -57,6 +52,8 @@ main {
     margin-bottom: 40px;
 }
 
+/* champ de recherche avec effet de verre */
+/* backdrop-filter blur : flou derriere le champ, effet glassmorphism */
 .product-search-input {
     width: 500px;
     padding: 15px 25px;
@@ -76,27 +73,27 @@ main {
     color: rgba(255, 255, 255, 0.5);
 }
 
+/* :focus : quand on clique dans le champ */
 .product-search-input:focus {
     border-color: #f8e042;
     box-shadow: 0 0 30px rgba(248, 224, 66, 0.5);
     background: rgba(0, 30, 60, 0.7);
 }
 
-/* --- filtrage css pur (sans javascript) --- */
-/* astuce css pour filtrer sans javascript (trouvé sur internet) */
+/* astuce trouvee en ligne pour filtrer les produits avec des radio boutons */
 
 /* on cache les boutons radio */
 input[type="radio"][name="filter"] {
     display: none;
 }
 
-/* par defaut, toutes les cartes produit sont visibles */
+/* par defaut toutes les cartes sont visibles */
 .product-card {
     display: block;
 }
 
 /* quand un filtre est coche, on masque les cartes qui ne correspondent pas */
-/* ~ : selecteur de frere, selectionne les elements qui suivent le radio */
+/* ~ : selecteur de frere, cible les elements qui suivent le radio */
 #filter-boissons:checked~.products-grid .product-card:not([data-category="boissons"]) {
     display: none;
 }
@@ -114,7 +111,7 @@ input[type="radio"][name="filter"] {
 }
 
 /* filtres de regime */
-/* data-diet* : on utilise *= pour verifier si l'attribut contient la valeur */
+/* *= : verifie si l'attribut contient la valeur (pas juste egal) */
 #filter-vege:checked~.products-grid .product-card:not([data-diet*="vege"]) {
     display: none;
 }
@@ -127,7 +124,7 @@ input[type="radio"][name="filter"] {
     display: none;
 }
 
-/* style du filtre actif */
+/* style du filtre actif : bordure et halo dore */
 #filter-tous:checked~.filters-container label[for="filter-tous"],
 #filter-boissons:checked~.filters-container label[for="filter-boissons"],
 #filter-plats:checked~.filters-container label[for="filter-plats"],
@@ -139,11 +136,9 @@ input[type="radio"][name="filter"] {
     background: linear-gradient(135deg, rgba(248, 224, 66, 0.3), rgba(0, 255, 255, 0.2));
     border-color: #f8e042;
     color: #f8e042;
-    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6),
-        inset 0 0 20px rgba(248, 224, 66, 0.2);
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6), inset 0 0 20px rgba(248, 224, 66, 0.2);
 }
 
-/* --- boutons de filtre --- */
 
 .filters-container {
     display: flex;
@@ -165,13 +160,15 @@ input[type="radio"][name="filter"] {
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: crosshair;
+    /* cubic-bezier : courbe d'animation avec rebond */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
 }
 
-/* effet ripple au survol du filtre */
+/* effet ripple au survol : rond qui grandit depuis le centre */
+/* astuce trouvee en ligne pour creer un effet de vague */
 .filter-btn::before {
     content: '';
     position: absolute;
@@ -227,17 +224,15 @@ input[type="radio"][name="filter"] {
     box-shadow: 0 0 25px rgba(255, 69, 0, 0.4);
 }
 
-/* --- grille de produits --- */
 
 .products-grid {
     display: grid;
-    /* repeat auto-fill : cree autant de colonnes que possible de 300px minimum */
+    /* repeat auto-fill : cree autant de colonnes que possible, minimum 300px */
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 40px;
     padding: 0 20px;
 }
 
-/* --- cartes produit --- */
 
 .product-card {
     position: relative;
@@ -248,6 +243,7 @@ input[type="radio"][name="filter"] {
 }
 
 /* effet de lueur autour de la carte au survol */
+/* filter blur : rend les contours flous pour un effet neon */
 .card-glow {
     position: absolute;
     top: -2px;
@@ -264,7 +260,7 @@ input[type="radio"][name="filter"] {
 
 .product-card:hover .card-glow {
     opacity: 0.6;
-    /* hue-rotate : fait tourner les couleurs en boucle */
+    /* hue-rotate : fait tourner les couleurs en boucle, astuce trouvee en ligne */
     animation: rotateGlow 3s linear infinite;
 }
 
@@ -279,6 +275,7 @@ input[type="radio"][name="filter"] {
 }
 
 /* contenu interne de la carte */
+/* backdrop-filter blur : flou derriere la carte, effet glassmorphism */
 .card-inner {
     position: relative;
     background: rgba(0, 20, 40, 0.85);
@@ -291,27 +288,31 @@ input[type="radio"][name="filter"] {
 }
 
 /* :has(details[open]) : change le style quand les details sont ouverts */
+/* astuce css avancee pour reagir a l'etat d'un element enfant */
 .product-card:has(details[open]) .card-inner {
     background: rgba(0, 30, 60, 0.95);
     border-color: rgba(248, 224, 66, 0.5);
     box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
 }
 
+/* la carte monte au survol */
 .product-card:hover .card-inner {
     transform: translateY(-10px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
-        0 0 40px rgba(248, 224, 66, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(248, 224, 66, 0.3);
 }
 
+/* image du produit */
+/* object-fit cover : l'image remplit la zone sans se deformer */
 .card-inner img {
     width: 100%;
     height: 250px;
-    /* object-fit cover : l'image remplit la zone sans se deformer */
     object-fit: cover;
     display: block;
     transition: transform 0.5s ease, filter 0.5s ease;
 }
 
+/* zoom et luminosite au survol de l'image */
+/* brightness et contrast : filtres css pour eclaircir l'image */
 .product-card:hover .card-inner img {
     transform: scale(1.05);
     filter: brightness(1.1) contrast(1.1);
@@ -324,7 +325,7 @@ input[type="radio"][name="filter"] {
     position: relative;
 }
 
-/* ligne de separation doree en haut du contenu */
+/* ligne doree decorative en haut du contenu */
 .card-content::before {
     content: '';
     position: absolute;
@@ -353,7 +354,6 @@ input[type="radio"][name="filter"] {
     min-height: 45px;
 }
 
-/* --- details du produit (element html5 details/summary) --- */
 
 .product-details {
     margin-bottom: 15px;
@@ -377,12 +377,12 @@ input[type="radio"][name="filter"] {
     text-shadow: 0 0 10px rgba(248, 224, 66, 0.8);
 }
 
-/* on masque le triangle par defaut de details */
+/* on masque le triangle par defaut de l'element details */
 .details-btn::-webkit-details-marker {
     display: none;
 }
 
-/* contenu qui apparait a l'ouverture */
+/* contenu qui apparait quand on ouvre les details */
 .details-content {
     padding: 15px;
     margin-top: 10px;
@@ -395,6 +395,7 @@ input[type="radio"][name="filter"] {
 }
 
 /* ligne de scan animee (effet holographique) */
+/* astuce trouvee en ligne pour creer un effet de scan */
 .details-content::before {
     content: '';
     position: absolute;
@@ -402,10 +403,7 @@ input[type="radio"][name="filter"] {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(0, 255, 255, 0.8),
-            transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.8), transparent);
     animation: scanline 2s ease-in-out;
     pointer-events: none;
 }
@@ -455,7 +453,8 @@ input[type="radio"][name="filter"] {
     position: relative;
 }
 
-/* animation de glitch pour l'effet "decryptage" */
+/* animation de glitch pour simuler un hologramme qui se stabilise */
+/* astuce trouvee en ligne pour l'effet de decryptage */
 @keyframes holoGlitch {
     0% {
         opacity: 0;
@@ -505,7 +504,7 @@ input[type="radio"][name="filter"] {
     color: #f8e042;
 }
 
-/* prix et bouton d'ajout */
+/* prix et bouton d'ajout cote a cote */
 .price-section {
     display: flex;
     justify-content: space-between;
@@ -520,7 +519,7 @@ input[type="radio"][name="filter"] {
     text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
-/* bouton d'ajout rond */
+/* bouton d'ajout rond avec degrade dore */
 .add-btn {
     width: 45px;
     height: 45px;
@@ -538,6 +537,7 @@ input[type="radio"][name="filter"] {
     justify-content: center;
 }
 
+/* le bouton tourne de 90 degres au survol (le + devient un x) */
 .add-btn:hover {
     background: linear-gradient(135deg, #ffa500, #f8e042);
     box-shadow: 0 0 30px rgba(248, 224, 66, 0.8);
@@ -548,8 +548,9 @@ input[type="radio"][name="filter"] {
     transform: rotate(90deg) scale(0.95);
 }
 
-/* --- badges sur les cartes (best-seller, piquant, nouveau) --- */
 
+/* clip-path : forme biseautee pour les badges */
+/* astuce trouvee en ligne pour creer une forme geometrique en css */
 .holo-badge {
     position: absolute;
     top: 15px;
@@ -560,29 +561,26 @@ input[type="radio"][name="filter"] {
     letter-spacing: 2px;
     text-transform: uppercase;
     z-index: 10;
-    /* clip-path : forme biseautee generee avec un outil en ligne */
     clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
 }
 
-/* badge best-seller (jaune) */
+/* badge best-seller en jaune */
 .badge-bestseller {
     background: linear-gradient(135deg, #f8e042, #ffa500);
     color: #000;
     border: 1px solid #f8e042;
-    box-shadow: 0 0 20px rgba(248, 224, 66, 0.8),
-        inset 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.3);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* badge piquant (rouge clignotant) */
+/* badge piquant en rouge qui clignote */
 .badge-hot {
     background: linear-gradient(135deg, #ff4500, #dc143c);
     color: #fff;
     border: 1px solid #ff6347;
-    box-shadow: 0 0 20px rgba(255, 69, 0, 0.8),
-        inset 0 0 10px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.2);
     animation: blinkHot 1.5s ease-in-out infinite;
 }
 
@@ -600,151 +598,15 @@ input[type="radio"][name="filter"] {
     }
 }
 
-/* badge nouveau (cyan) */
+/* badge nouveau en cyan */
 .badge-nouveau {
     background: linear-gradient(135deg, #00ffff, #00bfff);
     color: #000;
     border: 1px solid #00ffff;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8),
-        inset 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.3);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* --- footer --- */
-
-#main-footer {
-    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 100%);
-    padding: 60px 5% 20px 5%;
-    border-top: 2px solid #f8e042;
-    position: relative;
-    overflow: hidden;
-    margin-top: 100px;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-.footer-section {
-    flex: 1;
-    min-width: 300px;
-}
-
-.contact-info h3 {
-    color: #f8e042;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
-    text-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
-}
-
-.contact-info ul {
-    list-style: none;
-    padding: 0;
-}
-
-.contact-info li {
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.contact-info .icon {
-    margin-right: 10px;
-    font-size: 1.2rem;
-    filter: drop-shadow(0 0 5px #f8e042);
-}
-
-.transmission {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btn-transmission {
-    background: transparent;
-    color: #f8e042;
-    border: 2px solid #f8e042;
-    padding: 15px 35px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    border-radius: 5px;
-    cursor: crosshair;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 15px rgba(248, 224, 66, 0.2);
-}
-
-.btn-transmission:hover {
-    background: #f8e042;
-    color: #000;
-    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6);
-    transform: scale(1.05);
-}
-
-.unit-status {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.broken-droid {
-    width: 100px;
-    height: auto;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
-    animation: flicker 4s infinite;
-}
-
-.joke-text {
-    font-size: 0.85rem;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 320px;
-    line-height: 1.5;
-    text-align: right;
-}
-
-.footer-bottom {
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
-}
-
-/* animation de scintillement holographique */
-@keyframes flicker {
-
-    0%,
-    19.9%,
-    22%,
-    62.9%,
-    65%,
-    100% {
-        opacity: 1;
-        filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
-    }
-
-    20%,
-    21.9%,
-    63%,
-    64.9% {
-        opacity: 0.4;
-        transform: translateX(1px);
-        filter: drop-shadow(0 0 5px rgba(248, 224, 66, 0.2));
-    }
-}
-
-/* --- responsive --- */
 
 @media (max-width: 1200px) {
     .products-grid {

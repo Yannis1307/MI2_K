@@ -8,6 +8,8 @@
 }
 
 /* fond sombre style terminal, police monospace */
+/* repeating-linear-gradient : cree des lignes de scan subtiles */
+/* astuce trouvee en ligne pour un effet ecran crt */
 body {
     background: #080c14;
     color: #c8ccd4;
@@ -15,16 +17,11 @@ body {
     min-height: 100vh;
     cursor: crosshair;
     line-height: 1.5;
-    /* repeating-linear-gradient : cree des lignes de scan subtiles sur tout le fond */
-    background-image:
-        repeating-linear-gradient(0deg,
-            transparent,
-            transparent 2px,
-            rgba(0, 150, 255, 0.015) 2px,
-            rgba(0, 150, 255, 0.015) 3px);
+    background-image: repeating-linear-gradient(0deg,
+            transparent, transparent 2px,
+            rgba(0, 150, 255, 0.015) 2px, rgba(0, 150, 255, 0.015) 3px);
 }
 
-/* couleur de selection du texte */
 ::selection {
     background: #ff2222;
     color: #fff;
@@ -35,17 +32,14 @@ a {
     color: inherit;
 }
 
-/* --- header admin --- */
 
 .admin-header {
     display: flex;
-    /* justify-content space-between : logo a gauche, boutons a droite */
     justify-content: space-between;
     align-items: center;
     padding: 14px 30px;
     background: linear-gradient(180deg, #0a0e18 0%, #0d1220 100%);
     border-bottom: 2px solid #1a2540;
-    /* sticky + z-index : reste colle en haut au dessus du contenu */
     position: sticky;
     top: 0;
     z-index: 100;
@@ -59,6 +53,7 @@ a {
 }
 
 /* logo grise pour le cote "imperial" */
+/* filter grayscale : desature l'image */
 .admin-logo {
     width: 80px;
     height: auto;
@@ -102,7 +97,6 @@ a {
     gap: 12px;
 }
 
-/* style commun des boutons admin */
 .btn-admin {
     padding: 8px 18px;
     font-family: 'Consolas', 'Courier New', monospace;
@@ -116,7 +110,6 @@ a {
     transition: all 0.3s ease;
 }
 
-/* bouton retour bleu */
 .btn-back {
     background: rgba(100, 160, 255, 0.08);
     color: #6498ff;
@@ -130,7 +123,6 @@ a {
     color: #90bbff;
 }
 
-/* bouton deconnexion rouge */
 .btn-logout-admin {
     background: rgba(255, 68, 68, 0.08);
     color: #ff4444;
@@ -143,16 +135,14 @@ a {
     box-shadow: 0 0 15px rgba(255, 68, 68, 0.25);
 }
 
-/* --- contenu principal --- */
 
+/* margin 0 auto : centre le contenu horizontalement */
 main {
     padding: 40px 30px 60px;
     max-width: 1400px;
-    /* margin 0 auto : centre le contenu horizontalement */
     margin: 0 auto;
 }
 
-/* --- titre de la console --- */
 
 .console-header {
     text-align: center;
@@ -179,11 +169,11 @@ main {
     text-transform: uppercase;
 }
 
-/* petit point vert qui clignote */
+/* point vert qui clignote (curseur terminal) */
+/* animation step-end : clignotement net, pas progressif */
 .blink {
     color: #00ff88;
     text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
-    /* animation step-end : clignotement net, pas progressif */
     animation: blink 1.5s step-end infinite;
 }
 
@@ -199,19 +189,17 @@ main {
     }
 }
 
-/* --- barre de statistiques --- */
 
+/* flex-wrap : les cartes passent a la ligne si pas assez de place */
 .stats-bar {
     display: flex;
     gap: 16px;
     margin-bottom: 30px;
-    /* flex-wrap : les cartes passent a la ligne si pas assez de place */
     flex-wrap: wrap;
 }
 
-/* carte de statistique individuelle */
+/* flex: 1 : chaque carte prend la meme largeur */
 .stat-card {
-    /* flex: 1 : chaque carte prend la meme largeur */
     flex: 1;
     min-width: 120px;
     display: flex;
@@ -229,7 +217,6 @@ main {
     border-color: #2a3a60;
 }
 
-/* nombre en gros bleu */
 .stat-value {
     font-size: 1.8rem;
     font-weight: bold;
@@ -237,7 +224,6 @@ main {
     text-shadow: 0 0 10px rgba(100, 152, 255, 0.3);
 }
 
-/* libelle sous le nombre */
 .stat-label {
     font-size: 0.65rem;
     text-transform: uppercase;
@@ -251,7 +237,6 @@ main {
     text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
 }
 
-/* --- barre d'outils / filtres --- */
 
 .toolbar {
     display: flex;
@@ -271,18 +256,16 @@ main {
     gap: 10px;
 }
 
-/* label des filtres */
+/* white-space nowrap : empeche le texte de passer a la ligne */
 .toolbar-label {
     font-size: 0.7rem;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: rgba(200, 204, 212, 0.5);
-    /* white-space nowrap : empeche le texte de passer a la ligne */
     white-space: nowrap;
 }
 
-/* champs select et input de la toolbar */
 .toolbar-select,
 .toolbar-input {
     font-family: 'Consolas', 'Courier New', monospace;
@@ -296,7 +279,6 @@ main {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* :focus : quand le champ est selectionne */
 .toolbar-select:focus,
 .toolbar-input:focus {
     border-color: #6498ff;
@@ -316,35 +298,30 @@ main {
     color: rgba(200, 204, 212, 0.3);
 }
 
-/* info "x entrees trouvees" alignee a droite */
+/* margin-left auto : pousse l'element a droite dans un flex */
 .toolbar-info {
     font-size: 0.75rem;
     color: rgba(200, 204, 212, 0.35);
     letter-spacing: 1px;
-    /* margin-left auto : pousse l'element a droite dans un flex */
     margin-left: auto;
 }
 
-/* --- tableau des utilisateurs --- */
 
-/* conteneur avec scroll horizontal si trop large */
+/* overflow-x auto : ajoute un scroll horizontal si le tableau depasse */
 .table-container {
-    /* overflow-x auto : ajoute un scroll horizontal si le tableau depasse */
     overflow-x: auto;
     border: 1px solid #1a2540;
     border-radius: 6px;
     background: rgba(10, 16, 30, 0.5);
 }
 
-/* tableau en pleine largeur */
+/* border-collapse : fusionne les bordures des cellules */
 .admin-table {
     width: 100%;
-    /* border-collapse : fusionne les bordures des cellules */
     border-collapse: collapse;
     font-size: 0.85rem;
 }
 
-/* en-tete du tableau */
 .admin-table thead tr {
     background: linear-gradient(180deg, #111830 0%, #0d1220 100%);
     border-bottom: 2px solid #1a2540;
@@ -362,8 +339,7 @@ main {
     position: relative;
 }
 
-/* separateur vertical entre les colonnes du header */
-/* ::after : on ajoute un trait a droite de chaque colonne */
+/* ::after : separateur vertical entre les colonnes */
 .admin-table th::after {
     content: '';
     position: absolute;
@@ -374,12 +350,10 @@ main {
     background: rgba(255, 68, 68, 0.15);
 }
 
-/* :last-child : pas de trait apres la derniere colonne */
 .admin-table th:last-child::after {
     display: none;
 }
 
-/* cellules du tableau */
 .admin-table td {
     padding: 14px 18px;
     border-bottom: 1px solid rgba(26, 37, 64, 0.5);
@@ -387,7 +361,7 @@ main {
     vertical-align: middle;
 }
 
-/* :nth-child(even/odd) : permet de faire des lignes zebrees */
+/* nth-child : lignes zebrees (pair/impair) */
 .admin-table tbody tr:nth-child(even) {
     background: rgba(15, 22, 40, 0.4);
 }
@@ -396,12 +370,10 @@ main {
     background: rgba(8, 12, 25, 0.3);
 }
 
-/* surbrillance au survol d'une ligne */
 .admin-table tbody tr:hover td {
     background: rgba(100, 152, 255, 0.06);
 }
 
-/* id de l'utilisateur en bleu */
 .cell-id {
     font-weight: bold;
     color: #6498ff;
@@ -424,7 +396,7 @@ main {
     letter-spacing: 1px;
 }
 
-/* badges de role (client, livreur, restaurateur) */
+/* badges de role */
 .role-badge {
     font-size: 0.65rem;
     font-weight: bold;
@@ -453,7 +425,7 @@ main {
     border: 1px solid rgba(255, 170, 0, 0.25);
 }
 
-/* badges de statut (actif, banni) */
+/* badges de statut */
 .status-badge {
     font-size: 0.65rem;
     font-weight: bold;
@@ -538,7 +510,6 @@ main {
     box-shadow: 0 0 10px rgba(255, 68, 68, 0.15);
 }
 
-/* --- pied du tableau --- */
 
 .table-footer {
     display: flex;
@@ -560,7 +531,6 @@ main {
     letter-spacing: 1px;
 }
 
-/* --- footer admin --- */
 
 .admin-footer {
     text-align: center;
@@ -576,9 +546,7 @@ main {
     text-transform: uppercase;
 }
 
-/* --- responsive --- */
 
-/* tablette */
 @media (max-width: 900px) {
     .admin-header {
         flex-direction: column;
@@ -625,7 +593,7 @@ main {
 
     .admin-table th,
     .admin-table td {
-        padding: 10px 10px;
+        padding: 10px;
     }
 
     .table-footer {
@@ -635,7 +603,6 @@ main {
     }
 }
 
-/* mobile */
 @media (max-width: 600px) {
     .console-header h1 {
         font-size: 0.85rem;

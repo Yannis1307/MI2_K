@@ -1,8 +1,9 @@
-/* common.css - Styles partagés pour toutes les pages */
+/* common.css - styles partages entre toutes les pages du site */
 
-/* --- Polices & Variables --- */
+/* police google fonts pour les titres et le texte */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
+/* variables css : on stocke les couleurs ici pour les reutiliser partout */
 :root {
     --gold: #f8e042;
     --gold-dim: rgba(248, 224, 66, 0.3);
@@ -20,12 +21,14 @@
     --font-body: 'Rajdhani', 'Segoe UI', sans-serif;
 }
 
+/* reset : on retire les marges par defaut du navigateur */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* style de base du body */
 body {
     background-color: transparent;
     color: white;
@@ -34,7 +37,7 @@ body {
     cursor: crosshair;
 }
 
-/* Curseur viseur pour les éléments interactifs */
+/* curseur en forme de viseur pour les elements interactifs */
 a,
 button,
 label,
@@ -50,11 +53,13 @@ label:hover {
     cursor: crosshair;
 }
 
+/* couleur de selection du texte (quand on surligne avec la souris) */
 ::selection {
     background: #f8e042;
     color: #000;
 }
 
+/* liens : pas de soulignement, couleur blanche */
 a {
     text-decoration: none;
     color: white;
@@ -62,17 +67,20 @@ a {
     transition: color 0.3s ease;
 }
 
+/* au survol les liens deviennent jaunes */
 a:hover {
     color: #f8e042;
 }
 
+/* lien actif : en gras avec un effet lumineux */
 a.active {
     color: #f8e042;
     font-weight: bold;
     text-shadow: 0 0 10px rgba(248, 224, 66, 0.6);
 }
 
-/* --- Navigation (Header) --- */
+
+/* grid-template-columns : divise le header en 3 colonnes (logo, nav, droite) */
 header {
     display: grid;
     grid-template-columns: 200px 1fr 320px;
@@ -81,13 +89,17 @@ header {
     padding: 15px 30px;
     position: sticky;
     top: 0;
+    /* backdrop-filter blur : donne un effet de verre flou derriere le header */
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
+    /* z-index : pour que le header reste au dessus de tout le contenu */
     z-index: 1000;
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(248, 224, 66, 0.2);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* logo dans le header */
+/* drop-shadow : petit halo dore autour du logo */
 header img {
     width: 100%;
     max-width: 140px;
@@ -101,21 +113,22 @@ header img:hover {
     filter: drop-shadow(0 0 20px rgba(248, 224, 66, 0.6));
 }
 
+/* navigation centree */
 nav {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* barre de navigation avec fond semi-transparent et bordure arrondie */
 nav ul {
     list-style: none;
-    padding: 0;
+    padding: 8px 16px;
     margin: 0;
     display: flex;
     align-items: center;
     gap: 15px;
     background: rgba(255, 255, 255, 0.03);
-    padding: 8px 16px;
     border-radius: 50px;
     border: 1px solid rgba(248, 224, 66, 0.15);
     box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -125,6 +138,7 @@ ul li {
     display: inline-block;
 }
 
+/* partie droite du header : boutons membre + recherche */
 .header-right {
     display: flex;
     align-items: center;
@@ -132,12 +146,14 @@ ul li {
     justify-content: flex-end;
 }
 
+/* conteneur des boutons connexion / inscription */
 .member-space {
     display: flex;
     gap: 8px;
     align-items: center;
 }
 
+/* style commun des boutons membre */
 .btn-member {
     padding: 6px 14px;
     font-size: 0.8rem;
@@ -153,6 +169,7 @@ ul li {
     border: 2px solid transparent;
 }
 
+/* bouton connexion en bleu */
 .btn-login {
     background: rgba(0, 100, 255, 0.2);
     color: #00bfff;
@@ -166,6 +183,7 @@ ul li {
     transform: translateY(-2px);
 }
 
+/* bouton inscription en jaune */
 .btn-signup {
     background: rgba(248, 224, 66, 0.2);
     color: var(--gold);
@@ -179,6 +197,7 @@ ul li {
     transform: translateY(-2px);
 }
 
+/* etat actif des boutons membre */
 .btn-login.active {
     background: rgba(0, 100, 255, 0.4);
     border-color: #00bfff;
@@ -191,6 +210,7 @@ ul li {
     box-shadow: 0 0 20px rgba(248, 224, 66, 0.5);
 }
 
+/* barre de recherche arrondie dans le header */
 .search-box {
     display: inline-flex;
     align-items: center;
@@ -203,12 +223,14 @@ ul li {
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+/* focus-within : quand on clique dans la barre de recherche */
 .search-box:focus-within {
     border-color: var(--gold);
     box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
     background: rgba(255, 255, 255, 0.08);
 }
 
+/* champ de saisie de la recherche */
 .search-input {
     background: transparent;
     border: none;
@@ -225,6 +247,7 @@ ul li {
     font-size: 0.8rem;
 }
 
+/* bouton loupe */
 .search-btn {
     background: transparent;
     border: none;
@@ -240,16 +263,17 @@ ul li {
     text-shadow: 0 0 10px var(--gold);
 }
 
-/* --- Footer --- */
+
 #main-footer {
     background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 100%);
-    padding: 60px 5% 20px 5%;
+    padding: 60px 5% 20px;
     border-top: 2px solid var(--gold);
     position: relative;
     overflow: hidden;
     margin-top: 100px;
 }
 
+/* flexbox pour les 3 colonnes du footer */
 .footer-container {
     display: flex;
     justify-content: space-between;
@@ -258,11 +282,13 @@ ul li {
     gap: 40px;
 }
 
+/* chaque section prend la meme largeur grace a flex: 1 */
 .footer-section {
     flex: 1;
     min-width: 300px;
 }
 
+/* titre de la section contact */
 .contact-info h3 {
     color: var(--gold);
     text-transform: uppercase;
@@ -283,12 +309,15 @@ ul li {
     color: rgba(255, 255, 255, 0.8);
 }
 
+/* drop-shadow sur les icones emoji du footer */
+/* astuce trouvee en ligne pour donner un halo aux emoji */
 .contact-info .icon {
     margin-right: 10px;
     font-size: 1.2rem;
     filter: drop-shadow(0 0 5px var(--gold));
 }
 
+/* bouton central "envoyer une transmission" */
 .transmission {
     display: flex;
     justify-content: center;
@@ -306,6 +335,7 @@ ul li {
     letter-spacing: 3px;
     border-radius: 5px;
     cursor: crosshair;
+    /* cubic-bezier : courbe d'animation avec un petit rebond */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 0 15px rgba(248, 224, 66, 0.2);
 }
@@ -317,6 +347,7 @@ ul li {
     transform: scale(1.05);
 }
 
+/* section droite du footer avec le droide r2-d2 */
 .unit-status {
     text-align: right;
     display: flex;
@@ -324,14 +355,17 @@ ul li {
     align-items: flex-end;
 }
 
+/* image du droide avec halo et animation de scintillement */
 .broken-droid {
     width: 100px;
     height: auto;
     margin-bottom: 20px;
+    /* drop-shadow : astuce trouvee en ligne pour creer un halo autour d'une image */
     filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
     animation: flicker 4s infinite;
 }
 
+/* texte humoristique sous le droide */
 .joke-text {
     font-size: 0.85rem;
     font-style: italic;
@@ -341,6 +375,7 @@ ul li {
     text-align: right;
 }
 
+/* barre de copyright tout en bas */
 .footer-bottom {
     margin-top: 50px;
     padding-top: 20px;
@@ -350,7 +385,9 @@ ul li {
     color: rgba(255, 255, 255, 0.4);
 }
 
-/* --- Common Animations --- */
+
+/* scintillement holographique pour le droide r2-d2 */
+/* le droide clignote comme un hologramme abime */
 @keyframes flicker {
 
     0%,
@@ -373,6 +410,7 @@ ul li {
     }
 }
 
+/* animation de pulsation lumineuse pour les titres */
 @keyframes titleGlow {
     from {
         text-shadow: 0 0 20px rgba(248, 224, 66, 0.6);
@@ -383,7 +421,8 @@ ul li {
     }
 }
 
-/* --- Responsive Header --- */
+
+/* tablette : on reduit les espacements */
 @media (max-width: 1300px) {
     header {
         grid-template-columns: auto 1fr auto;
@@ -405,6 +444,7 @@ ul li {
     }
 }
 
+/* petit ecran : le header passe en colonne */
 @media (max-width: 1100px) {
     header {
         display: flex;
@@ -423,6 +463,7 @@ ul li {
 
     nav {
         width: 100%;
+        /* order: 2 : la nav passe en deuxieme position */
         order: 2;
     }
 
@@ -431,7 +472,8 @@ ul li {
     }
 }
 
-/* --- Background Video & Overlay (Common) --- */
+
+/* la video reste fixe en arriere-plan meme quand on scrolle */
 #video-bg {
     position: fixed;
     right: 0;
@@ -440,10 +482,13 @@ ul li {
     min-height: 100%;
     width: auto;
     height: auto;
+    /* z-index negatif : la video est tout au fond */
     z-index: -2;
+    /* object-fit cover : la video couvre tout sans deformation */
     object-fit: cover;
 }
 
+/* voile sombre semi-transparent par dessus la video */
 .overlay {
     position: fixed;
     top: 0;
