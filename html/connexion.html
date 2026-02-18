@@ -6,18 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Table des Jedi - Connexion</title>
+    <!-- common.css : styles globaux (header, footer, reset) -->
     <link rel="stylesheet" href="../css/common.css">
+    <!-- connexion.css : styles specifiques aux pages connexion et inscription -->
     <link rel="stylesheet" href="../css/connexion.css">
 </head>
 
 <body>
+    <!-- video de fond -->
     <video autoplay muted loop playsinline id="video-bg">
         <source src="../video/etoile.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
+    <!-- filtre sombre -->
     <div class="overlay"></div>
 
+    <!-- header commun -->
     <header>
         <a href="accueil.html"> <img src="../images/logo.png" alt="Logo"></a>
         <nav>
@@ -43,6 +48,7 @@
     </header>
 
     <main>
+        <!-- formulaire de connexion -->
         <div class="form-container">
             <div class="form-panel">
                 <h1 class="form-title">IDENTIFICATION</h1>
@@ -64,6 +70,7 @@
                     <button type="submit" class="btn-submit btn-yellow">OUVRIR LE SAS</button>
                 </form>
 
+                <!-- lien vers inscription -->
                 <div class="form-footer">
                     <p>Pas encore de compte ? <a href="inscription.html" class="link-highlight">S'enrôler</a></p>
                 </div>
@@ -71,8 +78,10 @@
         </div>
     </main>
 
+    <!-- footer commun -->
     <footer id="main-footer">
         <div class="footer-container">
+            <!-- colonne gauche : contact -->
             <div class="footer-section contact-info">
                 <h3>Comment nous contacter ?</h3>
                 <ul>
@@ -84,10 +93,12 @@
                 </ul>
             </div>
 
+            <!-- colonne centre : bouton transmission -->
             <div class="footer-section transmission">
                 <button class="btn-transmission">ENVOYER UNE TRANSMISSION</button>
             </div>
 
+            <!-- colonne droite : droide r2-d2 -->
             <div class="footer-section unit-status">
                 <img src="../images/r2d2_avatar.png" alt="Unité R2-D2 en maintenance" class="broken-droid">
                 <p class="joke-text">

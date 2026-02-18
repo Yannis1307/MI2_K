@@ -6,22 +6,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Table des Jedi - Accueil</title>
+    <!-- common.css : styles globaux (header, footer, reset) -->
     <link rel="stylesheet" href="../css/common.css">
+    <!-- accueil.css : styles specifiques a cette page -->
     <link rel="stylesheet" href="../css/accueil.css">
 
 </head>
 
 <body>
+    <!-- video de fond qui tourne en boucle -->
     <video autoplay muted loop playsinline id="video-bg">
         <source src="../video/etoile.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
+    <!-- filtre sombre par dessus la video -->
     <div class="overlay"></div>
 
+    <!-- header commun a toutes les pages du site principal -->
     <header>
         <a href="accueil.html"> <img src="../images/logo.png" alt="Logo"></a>
 
+        <!-- navigation principale -->
         <nav>
             <ul>
                 <li><a href="accueil.html" class="active">Accueil</a></li>
@@ -31,6 +37,7 @@
             </ul>
         </nav>
 
+        <!-- partie droite : boutons membre + barre de recherche -->
         <div class="header-right">
             <div class="member-space">
                 <a href="connexion.html" class="btn-member btn-login">Connexion</a>
@@ -45,6 +52,7 @@
     </header>
 
     <main>
+        <!-- section d'accueil avec titre et bouton -->
         <div id="bienvenue">
             <h1>Bienvenue sur la Table des Jedi</h1>
             <div class="cta-container">
@@ -54,25 +62,27 @@
         <div id="presentation">
             <h1> Goûtez au meilleur plat de la galaxie !</h1>
         </div>
+
+        <!-- slider des plats recommandes -->
         <section id="plat-du-jour">
             <h2>Ce que le Conseil des jedi vous recommande :</h2>
             <div id="plats-container">
-                <!-- Inputs Radio (Cachés) pour contrôler les slides -->
+                <!-- boutons radio caches pour controler les slides sans javascript -->
                 <input type="radio" name="slider" id="auto" checked>
                 <input type="radio" name="slider" id="slide1">
                 <input type="radio" name="slider" id="slide2">
                 <input type="radio" name="slider" id="slide3">
                 <input type="radio" name="slider" id="slide4">
 
-                <!-- Flèches de Navigation (Labels) -->
+                <!-- fleches de navigation (labels relies aux radios) -->
                 <div class="slider-controls">
-                    <!-- Flèches "Précédent" -->
+                    <!-- fleches precedent -->
                     <label for="slide4" class="arrow prev slide1-control">❮</label>
                     <label for="slide1" class="arrow prev slide2-control">❮</label>
                     <label for="slide2" class="arrow prev slide3-control">❮</label>
                     <label for="slide3" class="arrow prev slide4-control">❮</label>
 
-                    <!-- Flèches "Suivant" -->
+                    <!-- fleches suivant -->
                     <label for="slide2" class="arrow next slide1-control">❯</label>
                     <label for="slide3" class="arrow next slide2-control">❯</label>
                     <label for="slide4" class="arrow next slide3-control">❯</label>
@@ -112,6 +122,7 @@
             </div>
         </section>
 
+        <!-- section histoire du restaurant -->
         <section id="histoire-galactique">
             <div class="history-container">
                 <div class="history-content">
@@ -122,7 +133,7 @@
                         TATOOINE, KASHYYYK ET CORUSCANT. GRÂCE À DES CONTREBANDIERS DE CONFIANCE, PILOTANT
                         DES CARGOS RAPIDES, NOUS VOUS ASSURONS UN TRANSPORT TRANSGALAXY DES PRODUITS POUR UNE
                         EXPÉRIENCE D'EXCELLENCE ET DES SAVEURS AUTHENTIQUES SUR VOTRE TABLE.
-                        QUE LA FORCE (ET L’APPÉTIT) SOIT AVEC VOUS !
+                        QUE LA FORCE (ET L'APPÉTIT) SOIT AVEC VOUS !
                     </p>
                     <img id="history-logo" src="../images/jedi_chef_logo.png" alt="Jedi Chef Logo">
                 </div>
@@ -133,9 +144,11 @@
             </div>
         </section>
 
+        <!-- section avis clients -->
         <section id="avis-clients">
             <h2 class="section-title">RADIO-COMMUNICATIONS REÇUES</h2>
             <div class="reviews-container">
+                <!-- carte avis 1 -->
                 <div class="review-card">
                     <div class="card-glow"></div>
                     <div class="card-content">
@@ -147,6 +160,7 @@
                     </div>
                 </div>
 
+                <!-- carte avis 2 -->
                 <div class="review-card">
                     <div class="card-glow"></div>
                     <div class="card-content">
@@ -159,6 +173,7 @@
                     </div>
                 </div>
 
+                <!-- carte avis 3 -->
                 <div class="review-card">
                     <div class="card-glow"></div>
                     <div class="card-content">
@@ -175,9 +190,10 @@
 
     </main>
 
+    <!-- footer commun a toutes les pages du site principal -->
     <footer id="main-footer">
         <div class="footer-container">
-            <!-- Left: Contact Section -->
+            <!-- colonne gauche : contact -->
             <div class="footer-section contact-info">
                 <h3>Comment nous contacter ?</h3>
                 <ul>
@@ -189,12 +205,12 @@
                 </ul>
             </div>
 
-            <!-- Center: Transmission Button -->
+            <!-- colonne centre : bouton transmission -->
             <div class="footer-section transmission">
                 <button class="btn-transmission">ENVOYER UNE TRANSMISSION</button>
             </div>
 
-            <!-- Right: Broken R2-D2 -->
+            <!-- colonne droite : droide r2-d2 en maintenance -->
             <div class="footer-section unit-status">
                 <img src="../images/r2d2_avatar.png" alt="Unité R2-D2 en maintenance" class="broken-droid">
                 <p class="joke-text">

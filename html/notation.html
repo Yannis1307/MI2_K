@@ -6,18 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Table des Jedi - Donner mon avis</title>
+    <!-- common.css : styles globaux -->
     <link rel="stylesheet" href="../css/common.css">
+    <!-- notation.css : styles specifiques a cette page -->
     <link rel="stylesheet" href="../css/notation.css">
 </head>
 
 <body>
+    <!-- video de fond -->
     <video autoplay muted loop playsinline id="video-bg">
         <source src="../video/etoile.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
+    <!-- filtre sombre -->
     <div class="overlay"></div>
 
+    <!-- header commun -->
     <header>
         <a href="accueil.html"> <img src="../images/logo.png" alt="Logo"></a>
         <nav>
@@ -50,7 +55,7 @@
                 <h1 class="form-title">TRANSMISSION D'ÉVALUATION</h1>
                 <p class="form-subtitle">Votre avis aide l'Alliance à améliorer ses rations.</p>
 
-                <!-- rappel de la commande -->
+                <!-- rappel de la commande concernee -->
                 <div class="order-recall">
                     <span class="recall-icon">📦</span>
                     <div class="recall-info">
@@ -63,7 +68,7 @@
                 <!-- formulaire de notation -->
                 <form class="rating-form" action="#" method="post">
 
-                    <!-- CRITÈRE 1 : Qualité des Vivres -->
+                    <!-- critere 1 : qualite des vivres -->
                     <fieldset class="rating-fieldset">
                         <legend class="rating-legend">
                             <span class="legend-icon">🍽️</span> Qualité des Vivres
@@ -87,7 +92,7 @@
                         </div>
                     </fieldset>
 
-                    <!-- CRITÈRE 2 : Performance du Droïde Livreur -->
+                    <!-- critere 2 : performance du droide livreur -->
                     <fieldset class="rating-fieldset">
                         <legend class="rating-legend">
                             <span class="legend-icon">🤖</span> Performance du Droïde Livreur
@@ -111,7 +116,7 @@
                         </div>
                     </fieldset>
 
-                    <!-- CRITÈRE 3 : Commentaire Libre -->
+                    <!-- critere 3 : commentaire libre -->
                     <fieldset class="rating-fieldset">
                         <legend class="rating-legend">
                             <span class="legend-icon">📝</span> Commentaire de Transmission
@@ -121,7 +126,7 @@
                             placeholder="Rapport d'incident ou félicitations..."></textarea>
                     </fieldset>
 
-                    <!-- BOUTON ENVOI -->
+                    <!-- bouton d'envoi -->
                     <button type="submit" class="btn-submit btn-neon">
                         <span class="btn-text">⚡ ENVOYER LE RAPPORT</span>
                     </button>
@@ -132,9 +137,10 @@
         </div>
     </main>
 
+    <!-- footer commun -->
     <footer id="main-footer">
         <div class="footer-container">
-            <!-- Left: Contact Section -->
+            <!-- colonne gauche : contact -->
             <div class="footer-section contact-info">
                 <h3>Comment nous contacter ?</h3>
                 <ul>
@@ -146,12 +152,12 @@
                 </ul>
             </div>
 
-            <!-- Center: Transmission Button -->
+            <!-- colonne centre : bouton transmission -->
             <div class="footer-section transmission">
                 <button class="btn-transmission">ENVOYER UNE TRANSMISSION</button>
             </div>
 
-            <!-- Right: Broken R2-D2 -->
+            <!-- colonne droite : droide r2-d2 -->
             <div class="footer-section unit-status">
                 <img src="../images/r2d2_avatar.png" alt="Unité R2-D2 en maintenance" class="broken-droid">
                 <p class="joke-text">

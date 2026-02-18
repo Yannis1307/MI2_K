@@ -6,18 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Table des Jedi - La Carte</title>
+    <!-- common.css : styles globaux (header, footer, reset) -->
     <link rel="stylesheet" href="../css/common.css">
+    <!-- produits.css : styles specifiques a cette page -->
     <link rel="stylesheet" href="../css/produits.css">
 </head>
 
 <body>
+    <!-- video de fond qui tourne en boucle -->
     <video autoplay muted loop playsinline id="video-bg">
         <source src="../video/etoile.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
+    <!-- filtre sombre par dessus la video -->
     <div class="overlay"></div>
 
+    <!-- header commun -->
     <header>
         <a href="accueil.html"> <img src="../images/logo.png" alt="Logo"></a>
         <nav>
@@ -43,28 +48,29 @@
     </header>
 
     <main>
+        <!-- titre de la page -->
         <div class="menu-header">
             <h1 class="epic-title">Holo-Menu Galactique</h1>
             <p class="subtitle">Découvrez les saveurs de la galaxie lointaine, très lointaine...</p>
         </div>
 
-        <!-- Barre de Recherche Centrée -->
+        <!-- barre de recherche centree -->
         <div class="search-bar-container">
             <input type="text" id="product-search" class="product-search-input" placeholder="🔍 Rechercher un plat...">
         </div>
 
-        <!-- Radio Buttons Cachés pour le filtrage CSS  -->
+        <!-- boutons radio caches pour le filtrage css pur (sans javascript) -->
         <input type="radio" name="filter" id="filter-tous" checked hidden>
         <input type="radio" name="filter" id="filter-boissons" hidden>
         <input type="radio" name="filter" id="filter-plats" hidden>
         <input type="radio" name="filter" id="filter-snacks" hidden>
         <input type="radio" name="filter" id="filter-specialites" hidden>
-        <!-- Nouveaux filtres de régime -->
+        <!-- filtres de regime -->
         <input type="radio" name="filter" id="filter-vege" hidden>
         <input type="radio" name="filter" id="filter-gluten-free" hidden>
         <input type="radio" name="filter" id="filter-piquant" hidden>
 
-        <!-- Filtres -->
+        <!-- boutons de filtre visibles (labels relies aux radios) -->
         <div class="filters-container">
             <label for="filter-tous" class="filter-btn">Tous</label>
             <label for="filter-boissons" class="filter-btn">Boissons</label>
@@ -76,9 +82,10 @@
             <label for="filter-piquant" class="filter-btn filter-spicy">🌶️ Piquant</label>
         </div>
 
-        <!-- Grille de Produits -->
+        <!-- grille de produits -->
         <div class="products-grid">
-            <!-- Boissons -->
+
+            <!-- boissons -->
             <div class="product-card" data-category="boissons" data-diet="vege gluten-free">
                 <div class="card-glow"></div>
                 <div class="card-inner">
@@ -188,7 +195,7 @@
                 </div>
             </div>
 
-            <!-- Plats -->
+            <!-- plats -->
             <div class="product-card" data-category="plats" data-diet="gluten-free">
                 <div class="card-glow"></div>
                 <div class="card-inner">
@@ -271,7 +278,7 @@
                 </div>
             </div>
 
-            <!-- Snacks -->
+            <!-- snacks -->
             <div class="product-card" data-category="snacks">
                 <div class="card-glow"></div>
                 <div class="card-inner">
@@ -353,7 +360,7 @@
                 </div>
             </div>
 
-            <!-- Spécialités -->
+            <!-- specialites -->
             <div class="product-card" data-category="specialites" data-flavor="piquant">
                 <div class="card-glow"></div>
                 <div class="card-inner">
@@ -411,9 +418,10 @@
         </div>
     </main>
 
+    <!-- footer commun -->
     <footer id="main-footer">
         <div class="footer-container">
-            <!-- Left: Contact Section -->
+            <!-- colonne gauche : contact -->
             <div class="footer-section contact-info">
                 <h3>Comment nous contacter ?</h3>
                 <ul>
@@ -425,12 +433,12 @@
                 </ul>
             </div>
 
-            <!-- Center: Transmission Button -->
+            <!-- colonne centre : bouton transmission -->
             <div class="footer-section transmission">
                 <button class="btn-transmission">ENVOYER UNE TRANSMISSION</button>
             </div>
 
-            <!-- Right: Broken R2-D2 -->
+            <!-- colonne droite : droide r2-d2 -->
             <div class="footer-section unit-status">
                 <img src="../images/r2d2_avatar.png" alt="Unité R2-D2 en maintenance" class="broken-droid">
                 <p class="joke-text">

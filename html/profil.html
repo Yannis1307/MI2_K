@@ -6,18 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Table des Jedi - Mon Profil</title>
+    <!-- common.css : styles globaux -->
     <link rel="stylesheet" href="../css/common.css">
+    <!-- profil.css : styles specifiques a cette page -->
     <link rel="stylesheet" href="../css/profil.css">
 </head>
 
 <body>
+    <!-- video de fond -->
     <video autoplay muted loop playsinline id="video-bg">
         <source src="../video/etoile.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
+    <!-- filtre sombre -->
     <div class="overlay"></div>
 
+    <!-- header commun -->
     <header>
         <a href="accueil.html"> <img src="../images/logo.png" alt="Logo"></a>
         <nav>
@@ -57,7 +62,7 @@
                     <h2>📋 Carte d'Identité Galactique</h2>
                 </div>
                 <div class="panel-body">
-                    <!-- Avatar -->
+                    <!-- avatar du joueur -->
                     <div class="avatar-section">
                         <div class="avatar-frame">
                             <img src="../images/han_avatar.png" alt="Avatar du joueur" class="profile-avatar">
@@ -66,7 +71,7 @@
                         <span class="rank-badge">Chevalier Jedi</span>
                     </div>
 
-                    <!-- Champs éditables -->
+                    <!-- champs editables -->
                     <div class="identity-fields">
                         <div class="field-row">
                             <span class="field-label">Pseudo</span>
@@ -89,7 +94,7 @@
                         </div>
                     </div>
 
-                    <!-- Bouton Déconnexion -->
+                    <!-- bouton deconnexion -->
                     <button class="btn-logout">⚠️ Déconnexion</button>
                 </div>
             </section>
@@ -101,7 +106,7 @@
                 </div>
                 <div class="panel-body">
 
-                    <!-- Solde de Points -->
+                    <!-- solde de points -->
                     <div class="points-display">
                         <div class="points-icon">💎</div>
                         <div class="points-info">
@@ -110,7 +115,7 @@
                         </div>
                     </div>
 
-                    <!-- Barre de Progression -->
+                    <!-- barre de progression vers le prochain niveau -->
                     <div class="level-progress">
                         <div class="level-header">
                             <span class="level-name">Niveau : Chevalier Jedi</span>
@@ -126,12 +131,12 @@
                         </div>
                     </div>
 
-                    <!-- SECTION : Mes Avantages Débloqués -->
+                    <!-- avantages debloques -->
                     <div class="rewards-section">
                         <h3 class="rewards-title">🎁 Mes Avantages Débloqués</h3>
                         <div class="rewards-grid">
 
-                            <!-- Récompense 1 : Active/Brillante -->
+                            <!-- recompense 1 : active -->
                             <div class="reward-coupon reward-active">
                                 <div class="coupon-scanline"></div>
                                 <div class="coupon-icon">🎫</div>
@@ -142,7 +147,7 @@
                                 <span class="coupon-status status-unlocked">✅ Actif</span>
                             </div>
 
-                            <!-- Récompense 2 : Active -->
+                            <!-- recompense 2 : active -->
                             <div class="reward-coupon reward-active">
                                 <div class="coupon-scanline"></div>
                                 <div class="coupon-icon">🏷️</div>
@@ -156,12 +161,12 @@
                         </div>
                     </div>
 
-                    <!-- SECTION : Prochain Objectif -->
+                    <!-- prochain objectif -->
                     <div class="rewards-section">
                         <h3 class="rewards-title">🎯 Prochain Objectif</h3>
                         <div class="rewards-grid">
 
-                            <!-- Récompense Verrouillée -->
+                            <!-- recompense verrouillee -->
                             <div class="reward-coupon reward-locked">
                                 <div class="coupon-icon">🔒</div>
                                 <div class="coupon-content">
@@ -239,9 +244,10 @@
         </div>
     </main>
 
+    <!-- footer commun -->
     <footer id="main-footer">
         <div class="footer-container">
-            <!-- Left: Contact Section -->
+            <!-- colonne gauche : contact -->
             <div class="footer-section contact-info">
                 <h3>Comment nous contacter ?</h3>
                 <ul>
@@ -253,12 +259,12 @@
                 </ul>
             </div>
 
-            <!-- Center: Transmission Button -->
+            <!-- colonne centre : bouton transmission -->
             <div class="footer-section transmission">
                 <button class="btn-transmission">ENVOYER UNE TRANSMISSION</button>
             </div>
 
-            <!-- Right: Broken R2-D2 -->
+            <!-- colonne droite : droide r2-d2 -->
             <div class="footer-section unit-status">
                 <img src="../images/r2d2_avatar.png" alt="Unité R2-D2 en maintenance" class="broken-droid">
                 <p class="joke-text">
