@@ -1,0 +1,599 @@
+/* livraison.css - interface mobile du livreur */
+
+/* on retire les marges par defaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* fond sombre, design mobile first */
+body {
+    background: #06090f;
+    color: #e0e4ec;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    line-height: 1.5;
+    /* desactive le flash bleu au tap sur mobile */
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- header mobile --- */
+
+.mobile-header {
+    display: flex;
+    /* justify-content space-between : logo a gauche, bouton a droite */
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    background: #0a0e18;
+    border-bottom: 2px solid #151d30;
+    /* sticky : le header reste colle en haut */
+    position: sticky;
+    top: 0;
+    /* z-index : pour que le header reste au dessus du contenu */
+    z-index: 100;
+}
+
+/* petit logo */
+.mobile-logo {
+    width: 46px;
+    height: auto;
+    filter: brightness(0.9);
+}
+
+.header-status {
+    display: flex;
+    align-items: center;
+}
+
+/* badge "en ligne" vert */
+.status-online {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #00ff88;
+    padding: 6px 14px;
+    background: rgba(0, 255, 136, 0.08);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 30px;
+}
+
+/* point vert qui pulse */
+.online-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+    animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+/* animation du point vert */
+@keyframes dotPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(1.3);
+    }
+}
+
+/* bouton retour (fleche) */
+.btn-header-action {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid #1a2540;
+    background: rgba(255, 255, 255, 0.03);
+    transition: background 0.2s ease;
+}
+
+.btn-header-action:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* --- contenu principal centre --- */
+
+.mobile-main {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    /* calc : on enleve la hauteur du header */
+    min-height: calc(100vh - 80px);
+}
+
+/* conteneur limite a 450px pour simuler un ecran mobile */
+.mobile-container {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* --- banniere mission en cours --- */
+
+.mission-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.08), rgba(255, 68, 0, 0.05));
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    border-radius: 12px;
+}
+
+/* icone radar qui tourne */
+.mission-icon {
+    font-size: 1.4rem;
+    animation: radarSpin 3s linear infinite;
+}
+
+@keyframes radarSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.mission-banner h1 {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #ff8c00;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 12px rgba(255, 140, 0, 0.3);
+}
+
+/* --- carte de la mission --- */
+
+.mission-card {
+    background: rgba(10, 15, 28, 0.7);
+    border: 1px solid #151d30;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* section generique dans la carte */
+.mission-section {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* :last-child : pas de bordure apres la derniere section */
+.mission-section:last-child {
+    border-bottom: none;
+}
+
+/* titre de section */
+.section-label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(224, 228, 236, 0.5);
+    margin-bottom: 14px;
+}
+
+/* infos client */
+.client-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* avatar du client */
+.client-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #ff8c00;
+    padding: 2px;
+    background: #0a0e18;
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
+}
+
+.client-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.client-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.client-tag {
+    font-size: 0.75rem;
+    color: #ffcc00;
+    margin-top: 2px;
+}
+
+/* adresse avec bordure orange a gauche */
+.address-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #e0e4ec;
+    margin-bottom: 16px;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border-left: 4px solid #ff8c00;
+}
+
+/* gros bouton gps bleu */
+.btn-gps {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    background: linear-gradient(135deg, #0066ff, #0099ff);
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-gps:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 102, 255, 0.5);
+}
+
+.btn-gps:active {
+    transform: translateY(0);
+}
+
+/* --- bulles d'acces (digicode, etage, telephone) --- */
+
+.access-grid {
+    display: grid;
+    /* grid-template-columns : 2 colonnes de taille egale */
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* bulle d'information */
+.access-bubble {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 18px 12px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 2px solid #1a2540;
+    border-radius: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.access-bubble:hover {
+    border-color: #ff8c00;
+}
+
+/* le telephone prend toute la largeur */
+.access-phone {
+    /* grid-column 1 / -1 : s'etend sur toutes les colonnes */
+    grid-column: 1 / -1;
+    border-color: rgba(0, 255, 136, 0.25);
+    background: rgba(0, 255, 136, 0.04);
+}
+
+.access-phone:hover {
+    border-color: #00ff88;
+}
+
+.access-icon {
+    font-size: 1.6rem;
+}
+
+.access-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(224, 228, 236, 0.4);
+}
+
+/* valeur en gros avec police monospace */
+.access-value {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+}
+
+.access-phone .access-value {
+    color: #00ff88;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+/* --- liste de la commande --- */
+
+.order-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.order-list li {
+    font-size: 1.1rem;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border-left: 3px solid #1a2540;
+}
+
+/* quantite en orange */
+.qty {
+    font-weight: bold;
+    color: #ff8c00;
+    margin-right: 6px;
+    min-width: 28px;
+    display: inline-block;
+}
+
+/* total de la commande */
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px;
+    background: rgba(255, 140, 0, 0.06);
+    border: 1px solid rgba(255, 140, 0, 0.15);
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(224, 228, 236, 0.6);
+}
+
+.total-price {
+    font-size: 1.3rem;
+    color: #ff8c00;
+    text-shadow: 0 0 8px rgba(255, 140, 0, 0.3);
+}
+
+/* --- slider de confirmation (astuce css sans javascript) --- */
+/* astuce css pour confirmer sans javascript (trouvé sur internet) */
+
+.confirm-zone {
+    margin-top: 4px;
+}
+
+/* on cache la checkbox */
+.slider-input {
+    display: none;
+}
+
+.slider-confirm {
+    display: block;
+    cursor: crosshair;
+}
+
+/* piste du slider */
+.slider-track {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 68px;
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.06), rgba(0, 200, 100, 0.04));
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* poignee du slider (la fleche) */
+.slider-thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 58px;
+    margin: 3px;
+    background: linear-gradient(135deg, #00dd77, #00ff88);
+    border-radius: 12px;
+    font-size: 1.5rem;
+    color: #000;
+    font-weight: bold;
+    /* flex-shrink: 0 : empeche la poignee de retrecir */
+    flex-shrink: 0;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    animation: thumbSlide 2s ease-in-out infinite;
+}
+
+/* petite animation pour indiquer de glisser */
+@keyframes thumbSlide {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(8px);
+    }
+}
+
+.slider-text {
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #00ff88;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+/* etat confirme : s'affiche quand la checkbox est cochee */
+.slider-done {
+    display: none;
+    width: 100%;
+    height: 68px;
+    align-items: center;
+    justify-content: center;
+    background: #00dd77;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+}
+
+/* ~ : selecteur de frere, selectionne les elements qui suivent la checkbox */
+/* quand la checkbox est cochee, on cache la piste */
+.slider-input:checked~.slider-track {
+    display: none;
+}
+
+/* quand la checkbox est cochee, on montre le message "confirme" */
+.slider-input:checked~.slider-done {
+    display: flex;
+    animation: confirmPop 0.4s ease-out;
+}
+
+@keyframes confirmPop {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* --- bouton signaler un probleme --- */
+
+.help-zone {
+    margin-bottom: 10px;
+}
+
+.btn-help {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #ff6666;
+    background: rgba(255, 68, 68, 0.06);
+    border: 1px solid rgba(255, 68, 68, 0.2);
+    border-radius: 12px;
+    cursor: crosshair;
+    transition: all 0.3s ease;
+}
+
+.btn-help:hover {
+    background: rgba(255, 68, 68, 0.12);
+    border-color: rgba(255, 68, 68, 0.4);
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.15);
+}
+
+/* --- footer mobile --- */
+
+.mobile-footer {
+    text-align: center;
+    padding: 20px 14px;
+    border-top: 1px solid #151d30;
+    background: #06090f;
+}
+
+.mobile-footer p {
+    font-size: 0.6rem;
+    color: rgba(208, 212, 220, 0.2);
+    letter-spacing: 1.5px;
+}
+
+/* --- responsive --- */
+
+/* deja mobile-first par defaut (conteneur max 450px) */
+
+/* tres petits ecrans */
+@media (max-width: 380px) {
+    .mission-banner h1 {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+    }
+
+    .access-grid {
+        /* 1 seule colonne sur petit ecran */
+        grid-template-columns: 1fr;
+    }
+
+    .access-phone {
+        grid-column: 1;
+    }
+
+    .access-value {
+        font-size: 1.2rem;
+    }
+
+    .slider-text {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+
+    .btn-gps {
+        font-size: 0.85rem;
+        padding: 16px;
+    }
+}
+
+/* sur desktop : on simule un ecran de telephone centre */
+@media (min-width: 600px) {
+    .mobile-main {
+        padding: 30px;
+        /* radial-gradient : cree un halo lumineux au centre */
+        background:
+            radial-gradient(ellipse at center, rgba(10, 15, 28, 1) 0%, #06090f 70%);
+    }
+
+    .mobile-container {
+        border: 1px solid #1a2540;
+        border-radius: 24px;
+        padding: 16px;
+        background: rgba(6, 9, 15, 0.95);
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+    }
+}

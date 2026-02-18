@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <link rel="icon" href="../images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Table des Jedi - Livraison</title>
+    <link rel="stylesheet" href="../css/livraison.css">
+</head>
+
+<body>
+
+    <!-- header mobile -->
+    <header class="mobile-header">
+        <img src="../images/logo.png" alt="Logo" class="mobile-logo">
+        <div class="header-status">
+            <span class="status-online"><span class="online-dot"></span> EN LIGNE</span>
+        </div>
+        <a href="accueil.html" class="btn-header-action">↩</a>
+    </header>
+
+    <!-- contenu principal mobile -->
+    <main class="mobile-main">
+        <div class="mobile-container">
+
+            <!-- Titre Mission -->
+            <div class="mission-banner">
+                <span class="mission-icon">📡</span>
+                <h1>MISSION EN COURS</h1>
+            </div>
+
+            <!-- carte de la mission -->
+            <section class="mission-card">
+
+                <!-- Client -->
+                <div class="mission-section client-section">
+                    <div class="client-info">
+                        <img src="../images/lando_avatar.png" alt="Avatar Client" class="client-avatar">
+                        <div class="client-details">
+                            <span class="client-name">Princesse Leia</span>
+                            <span class="client-tag">👑 Client fidèle</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adresse + Bouton GPS -->
+                <div class="mission-section address-section">
+                    <h2 class="section-label">📍 Adresse de Livraison</h2>
+                    <p class="address-text">
+                        Résidence Alderaan<br>
+                        12 Allée des Sénateurs, Apt. 42<br>
+                        Secteur 7G — Coruscant
+                    </p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=12+All%C3%A9e+des+S%C3%A9nateurs+Apt+42+Secteur+7G+Coruscant"
+                        target="_blank" class="btn-gps">
+                        🌍 OUVRIR LA CARTE GALACTIQUE
+                    </a>
+                </div>
+
+                <!-- Détails d'accès — CRUCIAL -->
+                <div class="mission-section access-section">
+                    <h2 class="section-label">🔑 Détails d'Accès</h2>
+                    <div class="access-grid">
+                        <div class="access-bubble">
+                            <span class="access-icon">🔢</span>
+                            <span class="access-label">Digicode</span>
+                            <span class="access-value">A4 7 7 2</span>
+                        </div>
+                        <div class="access-bubble">
+                            <span class="access-icon">🏢</span>
+                            <span class="access-label">Étage</span>
+                            <span class="access-value">4ème</span>
+                        </div>
+                        <div class="access-bubble access-phone">
+                            <span class="access-icon">📞</span>
+                            <span class="access-label">Téléphone</span>
+                            <span class="access-value">07 77 42 19 83</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Détail de la commande -->
+                <div class="mission-section order-section">
+                    <h2 class="section-label">📦 Commande #JDI-7742</h2>
+                    <ul class="order-list">
+                        <li><span class="qty">1x</span> Ronto Wrap</li>
+                        <li><span class="qty">2x</span> Lait Bleu</li>
+                        <li><span class="qty">1x</span> Macarons de Nevarro</li>
+                    </ul>
+                    <div class="order-total">
+                        <span>Total</span>
+                        <span class="total-price">24,50 ₹</span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- confirmation de livraison -->
+            <div class="confirm-zone">
+                <label class="slider-confirm" for="confirm-check">
+                    <input type="checkbox" id="confirm-check" class="slider-input">
+                    <span class="slider-track">
+                        <span class="slider-thumb">➤</span>
+                        <span class="slider-text">GLISSER POUR CONFIRMER</span>
+                    </span>
+                    <span class="slider-done">✅ LIVRAISON CONFIRMÉE</span>
+                </label>
+            </div>
+
+            <!-- Dernier bouton de secours -->
+            <div class="help-zone">
+                <button class="btn-help">⚠️ SIGNALER UN PROBLÈME</button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- footer -->
+    <footer class="mobile-footer">
+        <p>&copy; 2026 La Table des Jedi — Interface Livreur · Projet Creative-Yumland (Phase #1)</p>
+    </footer>
+
+</body>
+
+</html>

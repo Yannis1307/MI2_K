@@ -1,0 +1,715 @@
+/* commandes.css - page cuisine / poste de preparation */
+
+/* on retire les marges par defaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* fond sombre theme cuisine */
+body {
+    background: #05080e;
+    color: #d0d4dc;
+    font-family: 'Consolas', 'Courier New', 'Lucida Console', monospace;
+    min-height: 100vh;
+    cursor: crosshair;
+    line-height: 1.5;
+}
+
+/* couleur de selection du texte */
+::selection {
+    background: #ff4444;
+    color: #fff;
+}
+
+/* on enleve le soulignement des liens */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- header barre du haut --- */
+
+.kds-header {
+    display: grid;
+    /* grid-template-columns : on divise le header en 3 colonnes (logo, titre, boutons) */
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 24px;
+    background: linear-gradient(180deg, #080c16 0%, #0a0f1a 100%);
+    border-bottom: 2px solid #151d30;
+    /* sticky : le header reste colle en haut quand on scrolle */
+    position: sticky;
+    top: 0;
+    /* z-index : pour que le header reste au dessus du contenu */
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* logo en haut a gauche */
+.kds-logo {
+    width: 70px;
+    height: auto;
+    filter: grayscale(0.5) brightness(0.85);
+    opacity: 0.75;
+    transition: all 0.3s ease;
+}
+
+.kds-logo:hover {
+    filter: grayscale(0) brightness(1);
+    opacity: 1;
+}
+
+/* titre central du header */
+.header-center {
+    text-align: center;
+}
+
+.kds-title {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff8c00;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    /* text-shadow : petit effet lumineux autour du texte */
+    text-shadow: 0 0 15px rgba(255, 140, 0, 0.4);
+}
+
+/* indicateur "en direct" avec le petit point vert */
+.kds-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    color: #00ff88;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 2px;
+}
+
+/* petit point vert qui pulse */
+.live-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+    animation: livePulse 1.5s ease-in-out infinite;
+}
+
+/* animation du point vert qui clignote doucement */
+@keyframes livePulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+    }
+
+    50% {
+        opacity: 0.4;
+        box-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
+    }
+}
+
+/* partie droite du header (boutons) */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* style des boutons du header */
+.btn-kds {
+    padding: 8px 16px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    border: 1px solid;
+    cursor: crosshair;
+    transition: all 0.3s ease;
+}
+
+/* bouton retour en bleu */
+.btn-back {
+    background: rgba(100, 160, 255, 0.08);
+    color: #6498ff;
+    border-color: rgba(100, 152, 255, 0.3);
+}
+
+.btn-back:hover {
+    background: rgba(100, 160, 255, 0.2);
+    border-color: #6498ff;
+    box-shadow: 0 0 12px rgba(100, 152, 255, 0.2);
+}
+
+/* bouton fermer service en rouge */
+.btn-close-service {
+    background: rgba(255, 68, 68, 0.08);
+    color: #ff4444;
+    border-color: rgba(255, 68, 68, 0.3);
+}
+
+.btn-close-service:hover {
+    background: rgba(255, 68, 68, 0.2);
+    border-color: #ff4444;
+    box-shadow: 0 0 12px rgba(255, 68, 68, 0.25);
+}
+
+/* --- layout principal en 2 colonnes --- */
+
+.kds-main {
+    display: grid;
+    /* grid-template-columns : 3fr 2fr = la colonne gauche prend 60% et la droite 40% */
+    grid-template-columns: 3fr 2fr;
+    gap: 20px;
+    padding: 20px;
+    /* calc : on enleve la hauteur du header pour remplir l'ecran */
+    min-height: calc(100vh - 100px);
+}
+
+/* zone generique (colonne) */
+.zone {
+    display: flex;
+    /* flex-direction column : les elements s'empilent verticalement */
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* en-tete de chaque zone */
+.zone-header {
+    display: flex;
+    /* justify-content space-between : pousse les elements aux extremites */
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+
+.zone-header h2 {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* compteur de commandes */
+.zone-count {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 3px;
+}
+
+/* zone commandes en attente - couleur orange */
+.zone-pending .zone-header {
+    background: rgba(255, 140, 0, 0.08);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.zone-pending .zone-header h2 {
+    color: #ff8c00;
+    text-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+}
+
+.zone-pending .zone-count {
+    color: #ff8c00;
+    background: rgba(255, 140, 0, 0.1);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+/* zone livraison - couleur bleu */
+.zone-delivery .zone-header {
+    background: rgba(100, 152, 255, 0.06);
+    border: 1px solid rgba(100, 152, 255, 0.15);
+}
+
+.zone-delivery .zone-header h2 {
+    color: #6498ff;
+    text-shadow: 0 0 10px rgba(100, 152, 255, 0.3);
+}
+
+.zone-delivery .zone-count {
+    color: #6498ff;
+    background: rgba(100, 152, 255, 0.1);
+    border: 1px solid rgba(100, 152, 255, 0.2);
+}
+
+/* --- tickets des commandes en attente --- */
+
+/* liste des tickets */
+.tickets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* carte ticket individuelle */
+.ticket {
+    background: rgba(10, 15, 28, 0.7);
+    border-radius: 8px;
+    border: 1px solid #151d30;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* petit effet au survol du ticket */
+.ticket:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* bordure gauche rouge = commande urgente */
+.ticket-urgent {
+    border-left: 5px solid #ff4444;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.08);
+}
+
+/* bordure gauche jaune = commande normale */
+.ticket-normal {
+    border-left: 5px solid #ffcc00;
+}
+
+/* en-tete du ticket */
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.ticket-id-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* numero de commande en gros */
+.ticket-number {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ff8c00;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(255, 140, 0, 0.3);
+}
+
+/* heure de la commande */
+.ticket-time {
+    font-size: 0.85rem;
+    color: rgba(208, 212, 220, 0.5);
+    letter-spacing: 1px;
+}
+
+/* timer en jaune */
+.ticket-timer {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #ffcc00;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    background: rgba(255, 204, 0, 0.08);
+    border: 1px solid rgba(255, 204, 0, 0.2);
+    border-radius: 4px;
+}
+
+/* timer critique en rouge qui clignote */
+.timer-critical {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+    border-color: rgba(255, 68, 68, 0.3);
+    /* animation step-end : le clignotement est net, pas progressif */
+    animation: timerBlink 1s step-end infinite;
+}
+
+@keyframes timerBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* corps du ticket avec la liste des plats */
+.ticket-body {
+    padding: 16px 18px;
+}
+
+/* liste des plats commandes */
+.ticket-items {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ticket-items li {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #e4e8f0;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    letter-spacing: 0.5px;
+}
+
+/* :last-child : on enleve la bordure du dernier element */
+.ticket-items li:last-child {
+    border-bottom: none;
+}
+
+/* quantite en orange */
+.item-qty {
+    display: inline-block;
+    font-weight: bold;
+    color: #ff8c00;
+    min-width: 30px;
+    margin-right: 6px;
+    text-shadow: 0 0 6px rgba(255, 140, 0, 0.3);
+}
+
+/* note client avec bordure en pointilles */
+.ticket-note {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(255, 204, 0, 0.05);
+    border: 1px dashed rgba(255, 204, 0, 0.2);
+    border-radius: 5px;
+    font-size: 0.85rem;
+    color: #ffcc00;
+}
+
+.note-label {
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+/* bas du ticket avec infos client et bouton pret */
+.ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.ticket-client {
+    font-size: 0.8rem;
+    color: rgba(208, 212, 220, 0.5);
+    letter-spacing: 1px;
+}
+
+/* bouton "pret pour livraison" en vert */
+.btn-ready {
+    padding: 12px 24px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.08);
+    border: 2px solid rgba(0, 255, 136, 0.35);
+    border-radius: 6px;
+    cursor: crosshair;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ::before : cercle invisible qui grandit au survol (effet ripple) */
+.btn-ready::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 255, 136, 0.12);
+    /* transform translate : on centre le cercle pile au milieu du bouton */
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+.btn-ready:hover::before {
+    width: 400px;
+    height: 400px;
+}
+
+.btn-ready:hover {
+    color: #fff;
+    border-color: #00ff88;
+    box-shadow:
+        0 0 20px rgba(0, 255, 136, 0.3),
+        0 0 40px rgba(0, 255, 136, 0.1);
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+    transform: scale(1.03);
+}
+
+.btn-ready:active {
+    transform: scale(0.98);
+}
+
+/* --- cartes des livraisons en cours --- */
+
+.delivery-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* carte de livraison */
+.delivery-card {
+    padding: 16px 18px;
+    background: rgba(10, 15, 28, 0.6);
+    border: 1px solid #151d30;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.delivery-card:hover {
+    border-color: rgba(100, 152, 255, 0.3);
+}
+
+/* infos de la livraison (id + statut) */
+.delivery-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delivery-id {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #6498ff;
+    letter-spacing: 2px;
+}
+
+/* badge de statut (en transit, arrive bientot) */
+.delivery-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #ffcc00;
+}
+
+.status-arriving {
+    color: #00ff88;
+}
+
+/* point qui pulse a cote du statut */
+.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffcc00;
+    box-shadow: 0 0 6px rgba(255, 204, 0, 0.5);
+    animation: pulseDot 1.8s ease-in-out infinite;
+}
+
+.dot-green {
+    background: #00ff88;
+    box-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+}
+
+/* details de la livraison (livreur + destination) */
+.delivery-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delivery-driver {
+    font-size: 0.85rem;
+    color: #d0d4dc;
+    letter-spacing: 0.5px;
+}
+
+.delivery-dest {
+    font-size: 0.8rem;
+    color: rgba(208, 212, 220, 0.4);
+    letter-spacing: 1px;
+}
+
+/* barre de progression de la livraison */
+.delivery-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* piste grise de la barre */
+.progress-track {
+    /* flex: 1 : prend tout l'espace disponible */
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* remplissage de la barre en bleu */
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #6498ff, #00bfff);
+    box-shadow: 0 0 8px rgba(100, 152, 255, 0.3);
+    transition: width 1s ease;
+}
+
+/* barre presque arrivee en vert */
+.progress-almost {
+    background: linear-gradient(90deg, #00cc88, #00ff88);
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+/* pourcentage a droite de la barre */
+.progress-label {
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: rgba(208, 212, 220, 0.4);
+    letter-spacing: 1px;
+    min-width: 30px;
+    text-align: right;
+}
+
+/* --- footer --- */
+
+.kds-footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #151d30;
+    background: #05080e;
+}
+
+.kds-footer p {
+    font-size: 0.6rem;
+    color: rgba(208, 212, 220, 0.2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* --- responsive --- */
+
+/* tablette : on passe en 1 colonne */
+@media (max-width: 1024px) {
+    .kds-main {
+        /* grid-template-columns 1fr : une seule colonne */
+        grid-template-columns: 1fr;
+    }
+
+    .zone-delivery {
+        border-top: 2px solid #151d30;
+        padding-top: 16px;
+    }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .kds-header {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px 14px;
+        text-align: center;
+    }
+
+    .header-left {
+        justify-content: center;
+    }
+
+    .header-right {
+        justify-content: center;
+        /* flex-wrap : les boutons passent a la ligne si pas assez de place */
+        flex-wrap: wrap;
+    }
+
+    .kds-title {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+    }
+
+    .kds-main {
+        padding: 12px;
+        gap: 14px;
+    }
+
+    .ticket-number {
+        font-size: 1.1rem;
+    }
+
+    .ticket-items li {
+        font-size: 1rem;
+    }
+
+    .ticket-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .btn-ready {
+        text-align: center;
+    }
+}
+
+/* petit mobile */
+@media (max-width: 480px) {
+    .kds-title {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+
+    .zone-header h2 {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+    }
+
+    .ticket-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .btn-ready {
+        padding: 10px 16px;
+        font-size: 0.75rem;
+    }
+}

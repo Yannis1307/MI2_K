@@ -1,0 +1,1132 @@
+/* profil.css - page profil utilisateur (dashboard) */
+
+/* polices personnalisees depuis google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* variables css : on centralise les couleurs pour les reutiliser partout */
+:root {
+    --gold: #f8e042;
+    --gold-dim: rgba(248, 224, 66, 0.3);
+    --cyan: #00ffff;
+    --cyan-dim: rgba(0, 255, 255, 0.15);
+    --red: #ff4444;
+    --green: #00ff88;
+    --yellow: #ffcc00;
+    --bg-dark: #000b1a;
+    --bg-panel: rgba(0, 15, 35, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text: #e8e8e8;
+    --text-dim: rgba(255, 255, 255, 0.5);
+    --font-display: 'Orbitron', 'Segoe UI', sans-serif;
+    --font-body: 'Rajdhani', 'Segoe UI', sans-serif;
+}
+
+/* on retire les marges par defaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* curseur en forme de viseur */
+body {
+    background-color: transparent;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    cursor: crosshair;
+    /* curseur en forme de viseur */
+}
+
+/* curseur pointer sur les elements interactifs */
+a,
+button,
+label,
+summary,
+input[type="text"] {
+    cursor: crosshair;
+}
+
+/* au survol des liens et boutons */
+a:hover,
+button:hover,
+label:hover {
+    cursor: crosshair;
+    /* curseur en forme de viseur */
+}
+
+/* couleur de selection du texte */
+::selection {
+    background: var(--gold);
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--gold);
+}
+
+/* lien de la page active en jaune */
+a.active {
+    color: var(--gold);
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.6);
+}
+
+/* --- video de fond --- */
+
+/* video en fond fixe qui couvre tout l'ecran */
+#video-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    /* z-index negatif : la video reste derriere tout le contenu */
+    z-index: -2;
+    object-fit: cover;
+}
+
+/* overlay sombre par dessus la video */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* --- header (navigation) --- */
+
+header {
+    display: grid;
+    /* grid-template-columns : 3 colonnes (logo 200px, nav flexible, droite 320px) */
+    grid-template-columns: 200px 1fr 320px;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 30px;
+    /* sticky : le header reste colle en haut quand on scrolle */
+    position: sticky;
+    top: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
+    /* z-index 1000 : le header est au dessus de tout le reste */
+    z-index: 1000;
+    /* backdrop-filter blur : effet de flou derriere le header (glassmorphism) */
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(248, 224, 66, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* logo */
+header img {
+    width: 100%;
+    max-width: 140px;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.3));
+    transition: filter 0.3s ease;
+}
+
+header img:hover {
+    filter: drop-shadow(0 0 20px rgba(248, 224, 66, 0.6));
+}
+
+/* navigation centree */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(248, 224, 66, 0.15);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+ul li {
+    display: inline-block;
+    padding: 0;
+}
+
+/* --- partie droite du header --- */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.member-space {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-member {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 2px solid transparent;
+}
+
+.btn-login {
+    background: rgba(0, 100, 255, 0.2);
+    color: #00bfff;
+    border-color: rgba(0, 191, 255, 0.3);
+}
+
+.btn-login:hover {
+    background: rgba(0, 100, 255, 0.4);
+    border-color: #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-signup {
+    background: rgba(248, 224, 66, 0.2);
+    color: var(--gold);
+    border-color: var(--gold-dim);
+}
+
+.btn-signup:hover {
+    background: rgba(248, 224, 66, 0.4);
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4);
+    transform: translateY(-2px);
+}
+
+/* barre de recherche */
+.search-box {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--gold-dim);
+    border-radius: 50px;
+    padding: 5px 15px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* :focus-within : s'active quand un enfant a le focus */
+.search-box:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    outline: none;
+    width: 200px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    color: var(--gold);
+    font-size: 1.1rem;
+    cursor: crosshair;
+    transition: transform 0.2s ease;
+    padding: 0 5px;
+}
+
+.search-btn:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 10px var(--gold);
+}
+
+/* --- contenu principal --- */
+
+main {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
+    z-index: 1;
+    padding: 40px 5% 80px;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--text);
+}
+
+/* --- en-tete du dashboard --- */
+
+.dashboard-header {
+    text-align: center;
+    padding: 40px 0 30px;
+}
+
+.dashboard-header h1 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(248, 224, 66, 0.4), 0 0 60px rgba(248, 224, 66, 0.1);
+    margin-bottom: 10px;
+}
+
+.dashboard-header .subtitle {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* --- grille du dashboard (2 colonnes) --- */
+/* grid-template-columns : colonne gauche 340px fixe, colonne droite flexible */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    grid-template-rows: auto auto;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* grid-row 1/3 : le panneau identite prend toute la hauteur gauche (2 lignes) */
+.panel-identity {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+/* panneau fidelite : colonne droite, ligne 1 */
+.panel-loyalty {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* panneau commandes : colonne droite, ligne 2 */
+.panel-orders {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* --- style commun des panneaux (glassmorphism) --- */
+/* backdrop-filter blur : flou derriere le panneau, donne un effet de verre */
+
+.panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 255, 255, 0.08), 0 0 1px rgba(248, 224, 66, 0.3);
+}
+
+/* en-tete des panneaux */
+.panel-header {
+    padding: 20px 25px 15px;
+    border-bottom: 1px solid rgba(248, 224, 66, 0.1);
+    background: linear-gradient(135deg, rgba(248, 224, 66, 0.06) 0%, transparent 60%);
+}
+
+.panel-header h2 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.panel-body {
+    padding: 25px;
+}
+
+/* --- panneau 1 : carte d'identite --- */
+
+/* section avatar centree */
+.avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.avatar-frame {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+/* avatar rond avec bordure doree */
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    padding: 3px;
+    background: var(--bg-dark);
+    box-shadow: 0 0 25px rgba(248, 224, 66, 0.3), inset 0 0 15px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-avatar:hover {
+    box-shadow: 0 0 40px rgba(248, 224, 66, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.6);
+}
+
+/* bouton modifier avatar (position absolue en bas a droite) */
+.btn-edit-avatar {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--bg-dark);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
+}
+
+.btn-edit-avatar:hover {
+    background: var(--gold);
+    transform: scale(1.15);
+}
+
+/* badge de rang */
+.rank-badge {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 6px 18px;
+    border: 1px solid var(--cyan-dim);
+    border-radius: 30px;
+    background: rgba(0, 255, 255, 0.06);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+/* champs d'identite empiles verticalement */
+.identity-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* chaque ligne de champ : grille 2 colonnes (texte + bouton modifier) */
+/* grid-template-columns : le texte prend 1fr, le bouton est en auto */
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 8px;
+}
+
+.field-row:last-child {
+    border-bottom: none;
+}
+
+.field-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    font-weight: 600;
+    display: block;
+}
+
+.field-value {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: white;
+    grid-column: 1;
+}
+
+/* bouton modifier (petit crayon) */
+/* grid-row 1/3 : le bouton s'etend sur les 2 lignes (label + valeur) */
+.btn-edit {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--text-dim);
+}
+
+.btn-edit:hover {
+    border-color: var(--gold);
+    background: rgba(248, 224, 66, 0.1);
+    box-shadow: 0 0 12px rgba(248, 224, 66, 0.2);
+    transform: scale(1.1);
+}
+
+/* bouton deconnexion rouge */
+.btn-logout {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--red);
+    background: rgba(255, 68, 68, 0.08);
+    border: 2px solid rgba(255, 68, 68, 0.3);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: rgba(255, 68, 68, 0.2);
+    border-color: var(--red);
+    box-shadow: 0 0 25px rgba(255, 68, 68, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- panneau 2 : fidelite et recompenses --- */
+
+/* affichage des points */
+.points-display {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(248, 224, 66, 0.08) 0%, rgba(0, 255, 255, 0.04) 100%);
+    border: 1px solid var(--gold-dim);
+    margin-bottom: 25px;
+}
+
+.points-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.5));
+    animation: float 3s ease-in-out infinite;
+}
+
+/* animation de flottement (monte et descend doucement) */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.points-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.points-number {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(248, 224, 66, 0.4);
+}
+
+.points-label {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* barre de progression du niveau */
+.level-progress {
+    margin-bottom: 30px;
+}
+
+.level-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.level-name {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cyan);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.level-percent {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+/* piste de la barre de progression */
+.progress-bar-track {
+    width: 100%;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* remplissage avec degrade dore vers cyan */
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--cyan) 100%);
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
+    position: relative;
+    /* transition : animation fluide quand la largeur change */
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: barPulse 2s ease-in-out infinite;
+}
+
+/* animation de pulsation de la barre */
+@keyframes barPulse {
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.3);
+    }
+}
+
+.progress-bar-glow {
+    display: none;
+}
+
+.level-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+}
+
+/* --- section recompenses / coupons --- */
+
+.rewards-section {
+    margin-top: 25px;
+}
+
+.rewards-title {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--gold-dim);
+}
+
+.rewards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* carte coupon de base */
+.reward-coupon {
+    position: relative;
+    /* flex: 1 : les coupons se partagent l'espace disponible */
+    flex: 1;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+/* coupon actif (bordure doree en pointilles) */
+.reward-active {
+    background: linear-gradient(135deg, rgba(248, 224, 66, 0.08) 0%, rgba(0, 255, 255, 0.05) 100%);
+    border: 2px dashed rgba(248, 224, 66, 0.45);
+    box-shadow: 0 0 18px rgba(248, 224, 66, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.reward-active:hover {
+    border-color: var(--gold);
+    box-shadow:
+        0 0 30px rgba(248, 224, 66, 0.25),
+        0 0 60px rgba(248, 224, 66, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translateY(-3px) scale(1.01);
+}
+
+/* effet de lignes de scan au survol (style holographique) */
+.coupon-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    /* repeating-linear-gradient : cree des lignes horizontales repetees */
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 3px,
+            rgba(0, 255, 255, 0.03) 3px,
+            rgba(0, 255, 255, 0.03) 4px);
+}
+
+.reward-active:hover .coupon-scanline {
+    opacity: 1;
+    animation: scanMove 2s linear infinite;
+}
+
+@keyframes scanMove {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(20px);
+    }
+}
+
+/* coupon verrouille (grise et transparent) */
+/* filter grayscale : desature les couleurs */
+.reward-locked {
+    background: rgba(255, 255, 255, 0.02);
+    border: 2px dashed rgba(255, 255, 255, 0.12);
+    opacity: 0.5;
+    filter: grayscale(0.6);
+}
+
+.reward-locked:hover {
+    opacity: 0.7;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* flex-shrink: 0 : empeche l'icone de retrecir */
+.coupon-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(248, 224, 66, 0.4));
+}
+
+.reward-locked .coupon-icon {
+    filter: none;
+}
+
+.coupon-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.coupon-title {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.coupon-detail {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+/* badge de statut (actif / verrouille) */
+.coupon-status {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.status-unlocked {
+    color: var(--green);
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.25);
+}
+
+.status-locked {
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.6rem;
+}
+
+/* --- panneau 3 : historique des commandes --- */
+
+/* overflow-x auto : ajoute un scroll horizontal si le tableau depasse */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+/* border-collapse separate + border-spacing : espace entre les lignes du tableau */
+.orders-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    font-size: 0.95rem;
+}
+
+.orders-table thead tr {
+    background: rgba(248, 224, 66, 0.06);
+}
+
+/* en-tetes du tableau */
+.orders-table th {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--gold-dim);
+    white-space: nowrap;
+}
+
+.orders-table td {
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.2s ease;
+}
+
+/* surbrillance au survol de la ligne */
+.orders-table tbody tr:hover td {
+    background: rgba(0, 255, 255, 0.04);
+}
+
+/* coins arrondis sur la premiere et derniere cellule de chaque ligne */
+.orders-table td:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.orders-table td:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+/* id de commande en cyan */
+.order-id {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--cyan);
+    letter-spacing: 1px;
+}
+
+.order-price {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: white;
+}
+
+/* badges de statut */
+.status-badge {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    white-space: nowrap;
+}
+
+/* statut livre (vert) */
+.status-delivered {
+    color: var(--green);
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.1);
+}
+
+/* statut en preparation (jaune clignotant) */
+.status-prep {
+    color: var(--yellow);
+    background: rgba(255, 204, 0, 0.1);
+    border: 1px solid rgba(255, 204, 0, 0.3);
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.1);
+    animation: prepPulse 2s ease-in-out infinite;
+}
+
+@keyframes prepPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(255, 204, 0, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(255, 204, 0, 0.25);
+    }
+}
+
+/* --- footer --- */
+
+#main-footer {
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 100%);
+    padding: 60px 5% 20px 5%;
+    border-top: 2px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-section {
+    /* flex: 1 : chaque section prend la meme largeur */
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-info h3 {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-info .icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px var(--gold));
+}
+
+.transmission {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-transmission {
+    background: transparent;
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-radius: 5px;
+    cursor: crosshair;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.2);
+}
+
+.btn-transmission:hover {
+    background: var(--gold);
+    color: #000;
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6);
+    transform: scale(1.05);
+}
+
+.unit-status {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* image r2d2 avec scintillement */
+.broken-droid {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    animation: flicker 4s infinite;
+}
+
+.joke-text {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 320px;
+    line-height: 1.5;
+    text-align: right;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* animation de scintillement holographique */
+@keyframes flicker {
+
+    0%,
+    19.9%,
+    22%,
+    62.9%,
+    65%,
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    }
+
+    20%,
+    21.9%,
+    63%,
+    64.9% {
+        opacity: 0.4;
+        transform: translateX(1px);
+        filter: drop-shadow(0 0 5px rgba(248, 224, 66, 0.2));
+    }
+}
+
+/* --- responsive --- */
+
+/* tablette : une seule colonne */
+@media (max-width: 1100px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .panel-identity {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .panel-loyalty {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .panel-orders {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    header {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px 15px;
+        justify-items: center;
+    }
+
+    .header-right {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .dashboard-header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+    }
+
+    .reward-coupon {
+        min-width: 100%;
+    }
+
+    .orders-table {
+        font-size: 0.8rem;
+    }
+
+    .orders-table th,
+    .orders-table td {
+        padding: 10px 8px;
+    }
+}

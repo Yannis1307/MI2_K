@@ -1,0 +1,823 @@
+/* notation.css - page d'avis / notation (theme holo-pad) */
+
+/* on retire les marges par defaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* curseur en forme de viseur */
+body {
+    background-color: transparent;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    cursor: crosshair;
+    /* curseur en forme de viseur */
+}
+
+/* curseur pointer sur les elements interactifs */
+a,
+button,
+label,
+summary,
+input[type="text"],
+textarea {
+    cursor: crosshair;
+}
+
+/* au survol des liens et boutons */
+a:hover,
+button:hover,
+label:hover {
+    cursor: crosshair;
+    /* curseur en forme de viseur */
+}
+
+/* couleur de selection du texte */
+::selection {
+    background: #f8e042;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #f8e042;
+}
+
+/* lien de la page active en jaune */
+a.active {
+    color: #f8e042;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.6);
+}
+
+/* --- video de fond --- */
+
+/* video en fond fixe qui couvre tout l'ecran */
+#video-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    /* z-index negatif : la video reste derriere tout le contenu */
+    z-index: -2;
+    object-fit: cover;
+}
+
+/* overlay sombre par dessus la video */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+/* --- header (navigation) --- */
+
+header {
+    display: grid;
+    /* grid-template-columns : 3 colonnes (logo 200px, nav flexible, droite 320px) */
+    grid-template-columns: 200px 1fr 320px;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 30px;
+    /* sticky : le header reste colle en haut quand on scrolle */
+    position: sticky;
+    top: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
+    /* z-index 1000 : le header est au dessus de tout le reste */
+    z-index: 1000;
+    /* backdrop-filter blur : effet de flou derriere le header (glassmorphism) */
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(248, 224, 66, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* logo avec effet lumineux */
+header img {
+    width: 100%;
+    max-width: 140px;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.3));
+    transition: filter 0.3s ease;
+}
+
+header img:hover {
+    filter: drop-shadow(0 0 20px rgba(248, 224, 66, 0.6));
+}
+
+/* barre de navigation centree */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* liste des liens en pilule */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(248, 224, 66, 0.15);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+ul li {
+    display: inline-block;
+    padding: 0;
+}
+
+/* --- partie droite du header (boutons + recherche) --- */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* boutons connexion / inscription */
+.member-space {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* style des boutons du header */
+.btn-member {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 2px solid transparent;
+}
+
+/* bouton connexion en bleu */
+.btn-login {
+    background: rgba(0, 100, 255, 0.2);
+    color: #00bfff;
+    border-color: rgba(0, 191, 255, 0.3);
+}
+
+.btn-login:hover {
+    background: rgba(0, 100, 255, 0.4);
+    border-color: #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* bouton inscription en jaune */
+.btn-signup {
+    background: rgba(248, 224, 66, 0.2);
+    color: #f8e042;
+    border-color: rgba(248, 224, 66, 0.3);
+}
+
+.btn-signup:hover {
+    background: rgba(248, 224, 66, 0.4);
+    border-color: #f8e042;
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4);
+    transform: translateY(-2px);
+}
+
+/* etats actifs des boutons */
+.btn-login.active {
+    background: rgba(0, 100, 255, 0.4);
+    border-color: #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+}
+
+.btn-signup.active {
+    background: rgba(248, 224, 66, 0.4);
+    border-color: #f8e042;
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.5);
+}
+
+#place {
+    display: inline-block;
+    width: 15%;
+}
+
+/* barre de recherche arrondie */
+.search-box {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(248, 224, 66, 0.3);
+    border-radius: 50px;
+    padding: 5px 15px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* :focus-within : s'active quand un enfant a le focus */
+.search-box:focus-within {
+    border-color: #f8e042;
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    outline: none;
+    width: 200px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    color: #f8e042;
+    font-size: 1.1rem;
+    cursor: crosshair;
+    transition: transform 0.2s ease;
+    padding: 0 5px;
+}
+
+.search-btn:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 10px #f8e042;
+}
+
+/* --- contenu principal --- */
+
+main {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 5%;
+}
+
+/* --- panneau du formulaire (style holo-pad) --- */
+
+.form-container {
+    width: 100%;
+    max-width: 700px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* animation d'apparition du formulaire */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* panneau avec effet glassmorphism */
+/* backdrop-filter blur : flou derriere le panneau, donne un effet de verre */
+.form-panel {
+    background: rgba(0, 20, 40, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(248, 224, 66, 0.3);
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(248, 224, 66, 0.2);
+}
+
+/* titre du formulaire */
+.form-title {
+    font-size: 2.2rem;
+    color: #f8e042;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(248, 224, 66, 0.8);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 20px rgba(248, 224, 66, 0.6);
+    }
+
+    to {
+        text-shadow: 0 0 40px rgba(248, 224, 66, 1);
+    }
+}
+
+.form-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+/* --- rappel de la commande --- */
+
+.order-recall {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+}
+
+.recall-icon {
+    font-size: 2rem;
+}
+
+.recall-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.recall-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recall-id {
+    font-size: 1.1rem;
+    color: #00ffff;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.recall-status {
+    font-size: 0.85rem;
+    color: #00ff88;
+}
+
+/* --- formulaire de notation --- */
+
+.rating-form {
+    display: flex;
+    /* flex-direction column : les champs s'empilent verticalement */
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* fieldset sans bordure par defaut */
+.rating-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* legende du fieldset en cyan */
+.rating-legend {
+    font-size: 1.1rem;
+    color: #00ffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-icon {
+    font-size: 1.3rem;
+}
+
+/* texte d'aide sous la legende */
+.rating-hint {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* labels en cyan */
+.form-group label {
+    color: #00ffff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* champs avec bordure en bas seulement */
+.form-group input,
+.form-group select {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+    color: white;
+    padding: 12px 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+}
+
+/* :focus : bordure cyan quand le champ est selectionne */
+.form-group input:focus,
+.form-group select:focus {
+    border-bottom-color: #00ffff;
+    box-shadow: 0 3px 10px rgba(0, 255, 255, 0.3);
+}
+
+.form-group select {
+    cursor: crosshair;
+}
+
+.form-group select option {
+    background: #001020;
+    color: white;
+}
+
+/* --- systeme de notation par etoiles (css pur, sans javascript) --- */
+/* astuce css pour noter sans javascript (trouvé sur internet) */
+
+.star-rating {
+    display: flex;
+    /* flex-direction row-reverse : les etoiles sont inversees pour que le ~ fonctionne */
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+    padding: 10px 0;
+}
+
+/* on cache les inputs radio */
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+/* etoiles en gris par defaut */
+.star-rating label {
+    font-size: 2.2rem;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: crosshair;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+
+/* au survol : l'etoile survolee et toutes celles apres deviennent jaunes */
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: #f8e042;
+    text-shadow: 0 0 15px rgba(248, 224, 66, 0.6);
+    transform: scale(1.1);
+}
+
+/* ~ : selecteur de frere, selectionne tous les elements qui suivent */
+/* quand un radio est coche, l'etoile et toutes celles apres deviennent jaunes */
+.star-rating input:checked~label {
+    color: #f8e042;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.5);
+}
+
+/* --- zone de commentaire --- */
+
+.comment-area {
+    width: 100%;
+    min-height: 150px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(0, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    outline: none;
+    transition: all 0.3s ease;
+    resize: vertical;
+}
+
+.comment-area::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+    font-style: italic;
+}
+
+.comment-area:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    background: rgba(0, 10, 30, 0.5);
+}
+
+/* compteur de caracteres */
+.char-counter {
+    text-align: right;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 1px;
+}
+
+/* --- bouton envoyer --- */
+
+.btn-submit {
+    margin-top: 20px;
+    padding: 18px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: none;
+    border-radius: 50px;
+    cursor: crosshair;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8e042, #ffa500);
+    color: #000;
+    border: 2px solid #f8e042;
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4);
+    width: 100%;
+}
+
+/* style neon du bouton */
+.btn-neon {
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4),
+        0 0 40px rgba(248, 224, 66, 0.1);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* ::before : cercle invisible qui grandit au survol (effet ripple) */
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-submit:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-submit:hover {
+    box-shadow: 0 0 40px rgba(248, 224, 66, 0.8);
+    transform: translateY(-3px);
+}
+
+/* --- bas du formulaire --- */
+
+.form-footer {
+    margin-top: 30px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-footer p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+}
+
+.link-highlight {
+    color: #00ffff;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+.link-highlight:hover {
+    color: #f8e042;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.8);
+}
+
+/* --- footer --- */
+
+#main-footer {
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 100%);
+    padding: 60px 5% 20px 5%;
+    border-top: 2px solid #f8e042;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-section {
+    /* flex: 1 : chaque section prend la meme largeur */
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-info h3 {
+    color: #f8e042;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-info .icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px #f8e042);
+}
+
+/* bouton de transmission centre */
+.transmission {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-transmission {
+    background: transparent;
+    color: #f8e042;
+    border: 2px solid #f8e042;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-radius: 5px;
+    cursor: crosshair;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.2);
+}
+
+.btn-transmission:hover {
+    background: #f8e042;
+    color: #000;
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6);
+    transform: scale(1.05);
+}
+
+/* section r2d2 */
+.unit-status {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* image r2d2 avec effet de scintillement */
+.broken-droid {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    animation: flicker 4s infinite;
+}
+
+/* animation de scintillement (comme un hologramme) */
+@keyframes flicker {
+
+    0%,
+    19.9%,
+    22%,
+    62.9%,
+    65%,
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    }
+
+    20%,
+    21.9%,
+    63%,
+    64.9% {
+        opacity: 0.4;
+        transform: translateX(1px);
+        filter: drop-shadow(0 0 5px rgba(248, 224, 66, 0.2));
+    }
+}
+
+.joke-text {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 320px;
+    line-height: 1.5;
+    text-align: right;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* --- responsive --- */
+
+/* tablette */
+@media (max-width: 768px) {
+    .form-panel {
+        padding: 40px 30px;
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+    }
+
+    .star-rating label {
+        font-size: 1.8rem;
+    }
+}
+
+/* mobile */
+@media (max-width: 480px) {
+    .form-panel {
+        padding: 30px 20px;
+    }
+
+    .form-title {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+
+    .star-rating label {
+        font-size: 1.5rem;
+    }
+
+    .btn-submit {
+        font-size: 1rem;
+        padding: 15px 30px;
+    }
+}

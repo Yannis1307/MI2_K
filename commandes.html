@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <link rel="icon" href="../images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Table des Jedi - Poste de Préparation</title>
+    <link rel="stylesheet" href="../css/commandes.css">
+</head>
+
+<body>
+
+
+    <!-- Header Simplifié -->
+    <header class="kds-header">
+        <div class="header-left">
+            <img src="../images/logo.png" alt="Logo" class="kds-logo">
+        </div>
+        <div class="header-center">
+            <h1 class="kds-title">POSTE DE PRÉPARATION — CANTINA 1</h1>
+            <span class="kds-live"><span class="live-dot"></span> EN SERVICE</span>
+        </div>
+        <div class="header-right">
+            <a href="accueil.html" class="btn-kds btn-back">↩ Accueil</a>
+            <button class="btn-kds btn-close-service">🔴 Fermer le service</button>
+        </div>
+    </header>
+
+
+    <!-- Main -->
+
+    <main class="kds-main">
+
+
+        <!-- Gauche: Commandes en attente -->
+
+        <section class="zone zone-pending">
+            <div class="zone-header">
+                <h2>🔥 COMMANDES EN ATTENTE</h2>
+                <span class="zone-count">3 tickets</span>
+            </div>
+
+            <div class="tickets-list">
+
+                <!-- Ticket 1 urgent -->
+                <article class="ticket ticket-urgent">
+                    <div class="ticket-header">
+                        <div class="ticket-id-group">
+                            <span class="ticket-number">#7742</span>
+                            <span class="ticket-time">12:05</span>
+                        </div>
+                        <span class="ticket-timer timer-critical">⏳ 22 min</span>
+                    </div>
+                    <div class="ticket-body">
+                        <ul class="ticket-items">
+                            <li><span class="item-qty">2x</span> Lait Bleu</li>
+                            <li><span class="item-qty">1x</span> Ronto Wrap</li>
+                        </ul>
+                        <div class="ticket-note">
+                            <span class="note-label">📌 Note :</span> Sans sauce Bantha
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <span class="ticket-client">👤 Han_Solo_77</span>
+                        <button class="btn-ready">✅ PRÊT POUR LIVRAISON</button>
+                    </div>
+                </article>
+
+                <!-- Ticket 2 normal -->
+                <article class="ticket ticket-normal">
+                    <div class="ticket-header">
+                        <div class="ticket-id-group">
+                            <span class="ticket-number">#7743</span>
+                            <span class="ticket-time">12:12</span>
+                        </div>
+                        <span class="ticket-timer">⏳ 15 min</span>
+                    </div>
+                    <div class="ticket-body">
+                        <ul class="ticket-items">
+                            <li><span class="item-qty">1x</span> Côtelettes de Dewback</li>
+                            <li><span class="item-qty">1x</span> Jus de Jabba</li>
+                            <li><span class="item-qty">1x</span> Macarons de Nevarro</li>
+                        </ul>
+                    </div>
+                    <div class="ticket-footer">
+                        <span class="ticket-client">👤 Leia_Organa</span>
+                        <button class="btn-ready">✅ PRÊT POUR LIVRAISON</button>
+                    </div>
+                </article>
+
+                <!-- Ticket 3 normal -->
+                <article class="ticket ticket-normal">
+                    <div class="ticket-header">
+                        <div class="ticket-id-group">
+                            <span class="ticket-number">#7744</span>
+                            <span class="ticket-time">12:18</span>
+                        </div>
+                        <span class="ticket-timer">⏳ 8 min</span>
+                    </div>
+                    <div class="ticket-body">
+                        <ul class="ticket-items">
+                            <li><span class="item-qty">3x</span> Thé de Caf</li>
+                            <li><span class="item-qty">1x</span> Portion de Survie</li>
+                        </ul>
+                    </div>
+                    <div class="ticket-footer">
+                        <span class="ticket-client">👤 Mando_Din</span>
+                        <button class="btn-ready">✅ PRÊT POUR LIVRAISON</button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- Droite: En cours de livraison -->
+
+        <section class="zone zone-delivery">
+            <div class="zone-header">
+                <h2>🚀 EN COURS DE LIVRAISON</h2>
+                <span class="zone-count">3 en transit</span>
+            </div>
+
+            <div class="delivery-list">
+
+                <!-- Livraison 1 -->
+                <div class="delivery-card">
+                    <div class="delivery-info">
+                        <span class="delivery-id">#7739</span>
+                        <span class="delivery-status">
+                            <span class="pulse-dot"></span> En transit
+                        </span>
+                    </div>
+                    <div class="delivery-details">
+                        <span class="delivery-driver">🤖 Droïde D-0</span>
+                        <span class="delivery-dest">→ Secteur 4B</span>
+                    </div>
+                    <div class="delivery-progress">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 70%;"></div>
+                        </div>
+                        <span class="progress-label">70%</span>
+                    </div>
+                </div>
+
+                <!-- Livraison 2 -->
+                <div class="delivery-card">
+                    <div class="delivery-info">
+                        <span class="delivery-id">#7740</span>
+                        <span class="delivery-status">
+                            <span class="pulse-dot"></span> En transit
+                        </span>
+                    </div>
+                    <div class="delivery-details">
+                        <span class="delivery-driver">🚀 Chewie_Wookiee</span>
+                        <span class="delivery-dest">→ Secteur 9A</span>
+                    </div>
+                    <div class="delivery-progress">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 40%;"></div>
+                        </div>
+                        <span class="progress-label">40%</span>
+                    </div>
+                </div>
+
+                <!-- Livraison 3 -->
+                <div class="delivery-card">
+                    <div class="delivery-info">
+                        <span class="delivery-id">#7741</span>
+                        <span class="delivery-status status-arriving">
+                            <span class="pulse-dot dot-green"></span> Arrivée imminente
+                        </span>
+                    </div>
+                    <div class="delivery-details">
+                        <span class="delivery-driver">🤖 Droïde R4-P17</span>
+                        <span class="delivery-dest">→ Secteur 2C</span>
+                    </div>
+                    <div class="delivery-progress">
+                        <div class="progress-track">
+                            <div class="progress-fill progress-almost" style="width: 92%;"></div>
+                        </div>
+                        <span class="progress-label">92%</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="kds-footer">
+        <p>&copy; 2026 La Table des Jedi — Poste de Préparation · Interface Cantina · Projet Creative-Yumland (Phase #1)
+        </p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <link rel="icon" href="../images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Table des Jedi - Donner mon avis</title>
+    <link rel="stylesheet" href="../css/notation.css">
+</head>
+
+<body>
+    <video autoplay muted loop playsinline id="video-bg">
+        <source src="../video/etoile.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo HTML5.
+    </video>
+
+    <div class="overlay"></div>
+
+    <header>
+         <a href="accueil.html"> <img src="../images/logo.png" alt="Logo"></a>
+        <nav>
+            <ul>
+                <li><a href="accueil.html">Accueil</a></li>
+                <li><a href="produits.html">La Carte</a></li>
+                <li><a href="profil.html">Mon Profil</a></li>
+                <li><a href="notation.html" class="active">Donner mon avis</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <div class="member-space">
+                <a href="connexion.html" class="btn-member btn-login">Connexion</a>
+                <a href="inscription.html" class="btn-member btn-signup">Inscription</a>
+            </div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="RECHERCHER...">
+                <button class="search-btn">🔍</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+
+            <!-- titre et sous-titre -->
+            <div class="form-panel">
+                <h1 class="form-title">TRANSMISSION D'ÉVALUATION</h1>
+                <p class="form-subtitle">Votre avis aide l'Alliance à améliorer ses rations.</p>
+
+                <!-- rappel de la commande -->
+                <div class="order-recall">
+                    <span class="recall-icon">📦</span>
+                    <div class="recall-info">
+                        <span class="recall-label">Concerne la commande</span>
+                        <span class="recall-id">#JDI-7742</span>
+                        <span class="recall-status">✅ Livrée</span>
+                    </div>
+                </div>
+
+                <!-- formulaire de notation -->
+                <form class="rating-form" action="#" method="post">
+
+                    <!-- CRITÈRE 1 : Qualité des Vivres -->
+                    <fieldset class="rating-fieldset">
+                        <legend class="rating-legend">
+                            <span class="legend-icon">🍽️</span> Qualité des Vivres
+                        </legend>
+                        <p class="rating-hint">Évaluez la qualité des rations reçues.</p>
+                        <div class="star-rating" id="stars-food">
+                            <input type="radio" id="food-5" name="food-rating" value="5">
+                            <label for="food-5" title="5 étoiles — Exceptionnel !">★</label>
+
+                            <input type="radio" id="food-4" name="food-rating" value="4">
+                            <label for="food-4" title="4 étoiles — Très bon">★</label>
+
+                            <input type="radio" id="food-3" name="food-rating" value="3">
+                            <label for="food-3" title="3 étoiles — Correct">★</label>
+
+                            <input type="radio" id="food-2" name="food-rating" value="2">
+                            <label for="food-2" title="2 étoiles — Moyen">★</label>
+
+                            <input type="radio" id="food-1" name="food-rating" value="1">
+                            <label for="food-1" title="1 étoile — Décevant">★</label>
+                        </div>
+                    </fieldset>
+
+                    <!-- CRITÈRE 2 : Performance du Droïde Livreur -->
+                    <fieldset class="rating-fieldset">
+                        <legend class="rating-legend">
+                            <span class="legend-icon">🤖</span> Performance du Droïde Livreur
+                        </legend>
+                        <p class="rating-hint">Évaluez la rapidité et l'efficacité de la livraison.</p>
+                        <div class="star-rating" id="stars-delivery">
+                            <input type="radio" id="delivery-5" name="delivery-rating" value="5">
+                            <label for="delivery-5" title="5 étoiles — Exceptionnel !">★</label>
+
+                            <input type="radio" id="delivery-4" name="delivery-rating" value="4">
+                            <label for="delivery-4" title="4 étoiles — Très bon">★</label>
+
+                            <input type="radio" id="delivery-3" name="delivery-rating" value="3">
+                            <label for="delivery-3" title="3 étoiles — Correct">★</label>
+
+                            <input type="radio" id="delivery-2" name="delivery-rating" value="2">
+                            <label for="delivery-2" title="2 étoiles — Moyen">★</label>
+
+                            <input type="radio" id="delivery-1" name="delivery-rating" value="1">
+                            <label for="delivery-1" title="1 étoile — Décevant">★</label>
+                        </div>
+                    </fieldset>
+
+                    <!-- CRITÈRE 3 : Commentaire Libre -->
+                    <fieldset class="rating-fieldset">
+                        <legend class="rating-legend">
+                            <span class="legend-icon">📝</span> Commentaire de Transmission
+                        </legend>
+                        <p class="rating-hint">Ajoutez des détails à votre rapport.</p>
+                        <textarea class="comment-area" name="comment" rows="6"
+                            placeholder="Rapport d'incident ou félicitations..."></textarea>
+                    </fieldset>
+
+                    <!-- BOUTON ENVOI -->
+                    <button type="submit" class="btn-submit btn-neon">
+                        <span class="btn-text">⚡ ENVOYER LE RAPPORT</span>
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="footer-container">
+            <!-- Left: Contact Section -->
+            <div class="footer-section contact-info">
+                <h3>Comment nous contacter ?</h3>
+                <ul>
+                    <li><span class="icon">📡</span> <strong>Via Holonet :</strong> Canal prioritaire 501.</li>
+                    <li><span class="icon">🤖</span> <strong>Par Droïde messager :</strong> Envoyez votre unité R2 au
+                        secteur 7G.</li>
+                    <li><span class="icon">✨</span> <strong>Par Force :</strong> Concentrez-vous très fort (temps de
+                        réponse variable selon votre taux de midichloriens).</li>
+                </ul>
+            </div>
+
+            <!-- Center: Transmission Button -->
+            <div class="footer-section transmission">
+                <button class="btn-transmission">ENVOYER UNE TRANSMISSION</button>
+            </div>
+
+            <!-- Right: Broken R2-D2 -->
+            <div class="footer-section unit-status">
+                <img src="../images/r2d2_avatar.png" alt="Unité R2-D2 en maintenance" class="broken-droid">
+                <p class="joke-text">
+                    "Veuillez noter que nous ne répondons plus aux appels masqués provenant de l'Étoile de la Mort.
+                    On a déjà donné pour les extensions de garantie sur les conduits d'aération..."
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 La Table des Jedi - Projet Creative-Yumland (Phase #1)</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

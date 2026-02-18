@@ -1,0 +1,660 @@
+/* admin.css - console d'administration */
+
+/* on retire les marges par defaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* fond sombre style terminal, police monospace */
+body {
+    background: #080c14;
+    color: #c8ccd4;
+    font-family: 'Consolas', 'Courier New', 'Lucida Console', monospace;
+    min-height: 100vh;
+    cursor: crosshair;
+    line-height: 1.5;
+    /* repeating-linear-gradient : cree des lignes de scan subtiles sur tout le fond */
+    background-image:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 150, 255, 0.015) 2px,
+            rgba(0, 150, 255, 0.015) 3px);
+}
+
+/* couleur de selection du texte */
+::selection {
+    background: #ff2222;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- header admin --- */
+
+.admin-header {
+    display: flex;
+    /* justify-content space-between : logo a gauche, boutons a droite */
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 30px;
+    background: linear-gradient(180deg, #0a0e18 0%, #0d1220 100%);
+    border-bottom: 2px solid #1a2540;
+    /* sticky + z-index : reste colle en haut au dessus du contenu */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* logo grise pour le cote "imperial" */
+.admin-logo {
+    width: 80px;
+    height: auto;
+    filter: grayscale(0.6) brightness(0.8);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.admin-logo:hover {
+    filter: grayscale(0) brightness(1);
+    opacity: 1;
+}
+
+/* tags de rang et secteur */
+.header-tag {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tag-rank {
+    font-size: 0.65rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ff4444;
+    text-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
+}
+
+.tag-sector {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: rgba(200, 204, 212, 0.4);
+    text-transform: uppercase;
+}
+
+/* boutons du header */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* style commun des boutons admin */
+.btn-admin {
+    padding: 8px 18px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    border: 1px solid;
+    cursor: crosshair;
+    transition: all 0.3s ease;
+}
+
+/* bouton retour bleu */
+.btn-back {
+    background: rgba(100, 160, 255, 0.08);
+    color: #6498ff;
+    border-color: rgba(100, 152, 255, 0.3);
+}
+
+.btn-back:hover {
+    background: rgba(100, 160, 255, 0.2);
+    border-color: #6498ff;
+    box-shadow: 0 0 15px rgba(100, 160, 255, 0.25);
+    color: #90bbff;
+}
+
+/* bouton deconnexion rouge */
+.btn-logout-admin {
+    background: rgba(255, 68, 68, 0.08);
+    color: #ff4444;
+    border-color: rgba(255, 68, 68, 0.3);
+}
+
+.btn-logout-admin:hover {
+    background: rgba(255, 68, 68, 0.2);
+    border-color: #ff4444;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.25);
+}
+
+/* --- contenu principal --- */
+
+main {
+    padding: 40px 30px 60px;
+    max-width: 1400px;
+    /* margin 0 auto : centre le contenu horizontalement */
+    margin: 0 auto;
+}
+
+/* --- titre de la console --- */
+
+.console-header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #1a2540;
+}
+
+.console-header h1 {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ff4444;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    text-shadow: 0 0 20px rgba(255, 68, 68, 0.4), 0 0 40px rgba(255, 68, 68, 0.1);
+    margin-bottom: 10px;
+}
+
+.console-subtitle {
+    font-size: 0.8rem;
+    color: rgba(200, 204, 212, 0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* petit point vert qui clignote */
+.blink {
+    color: #00ff88;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+    /* animation step-end : clignotement net, pas progressif */
+    animation: blink 1.5s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* --- barre de statistiques --- */
+
+.stats-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 30px;
+    /* flex-wrap : les cartes passent a la ligne si pas assez de place */
+    flex-wrap: wrap;
+}
+
+/* carte de statistique individuelle */
+.stat-card {
+    /* flex: 1 : chaque carte prend la meme largeur */
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 12px;
+    background: rgba(20, 30, 55, 0.6);
+    border: 1px solid #1a2540;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: #2a3a60;
+}
+
+/* nombre en gros bleu */
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #6498ff;
+    text-shadow: 0 0 10px rgba(100, 152, 255, 0.3);
+}
+
+/* libelle sous le nombre */
+.stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(200, 204, 212, 0.4);
+}
+
+/* stat d'alerte en rouge (bannis) */
+.stat-alert .stat-value {
+    color: #ff4444;
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+}
+
+/* --- barre d'outils / filtres --- */
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    background: rgba(15, 22, 40, 0.7);
+    border: 1px solid #1a2540;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* label des filtres */
+.toolbar-label {
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(200, 204, 212, 0.5);
+    /* white-space nowrap : empeche le texte de passer a la ligne */
+    white-space: nowrap;
+}
+
+/* champs select et input de la toolbar */
+.toolbar-select,
+.toolbar-input {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.8rem;
+    padding: 7px 12px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #c8ccd4;
+    border: 1px solid #1a2540;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* :focus : quand le champ est selectionne */
+.toolbar-select:focus,
+.toolbar-input:focus {
+    border-color: #6498ff;
+    box-shadow: 0 0 10px rgba(100, 152, 255, 0.15);
+}
+
+.toolbar-select option {
+    background: #0d1220;
+    color: #c8ccd4;
+}
+
+.toolbar-input {
+    width: 140px;
+}
+
+.toolbar-input::placeholder {
+    color: rgba(200, 204, 212, 0.3);
+}
+
+/* info "x entrees trouvees" alignee a droite */
+.toolbar-info {
+    font-size: 0.75rem;
+    color: rgba(200, 204, 212, 0.35);
+    letter-spacing: 1px;
+    /* margin-left auto : pousse l'element a droite dans un flex */
+    margin-left: auto;
+}
+
+/* --- tableau des utilisateurs --- */
+
+/* conteneur avec scroll horizontal si trop large */
+.table-container {
+    /* overflow-x auto : ajoute un scroll horizontal si le tableau depasse */
+    overflow-x: auto;
+    border: 1px solid #1a2540;
+    border-radius: 6px;
+    background: rgba(10, 16, 30, 0.5);
+}
+
+/* tableau en pleine largeur */
+.admin-table {
+    width: 100%;
+    /* border-collapse : fusionne les bordures des cellules */
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+/* en-tete du tableau */
+.admin-table thead tr {
+    background: linear-gradient(180deg, #111830 0%, #0d1220 100%);
+    border-bottom: 2px solid #1a2540;
+}
+
+.admin-table th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ff4444;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* separateur vertical entre les colonnes du header */
+/* ::after : on ajoute un trait a droite de chaque colonne */
+.admin-table th::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 25%;
+    height: 50%;
+    width: 1px;
+    background: rgba(255, 68, 68, 0.15);
+}
+
+/* :last-child : pas de trait apres la derniere colonne */
+.admin-table th:last-child::after {
+    display: none;
+}
+
+/* cellules du tableau */
+.admin-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(26, 37, 64, 0.5);
+    transition: background 0.2s ease;
+    vertical-align: middle;
+}
+
+/* :nth-child(even/odd) : permet de faire des lignes zebrees */
+.admin-table tbody tr:nth-child(even) {
+    background: rgba(15, 22, 40, 0.4);
+}
+
+.admin-table tbody tr:nth-child(odd) {
+    background: rgba(8, 12, 25, 0.3);
+}
+
+/* surbrillance au survol d'une ligne */
+.admin-table tbody tr:hover td {
+    background: rgba(100, 152, 255, 0.06);
+}
+
+/* id de l'utilisateur en bleu */
+.cell-id {
+    font-weight: bold;
+    color: #6498ff;
+    letter-spacing: 1px;
+}
+
+.cell-pseudo {
+    color: #e0e4ec;
+    font-weight: bold;
+}
+
+.cell-email {
+    color: rgba(200, 204, 212, 0.6);
+    font-size: 0.8rem;
+}
+
+.cell-date {
+    color: rgba(200, 204, 212, 0.5);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+/* badges de role (client, livreur, restaurateur) */
+.role-badge {
+    font-size: 0.65rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.role-client {
+    color: #6498ff;
+    background: rgba(100, 152, 255, 0.1);
+    border: 1px solid rgba(100, 152, 255, 0.25);
+}
+
+.role-livreur {
+    color: #00cc88;
+    background: rgba(0, 204, 136, 0.1);
+    border: 1px solid rgba(0, 204, 136, 0.25);
+}
+
+.role-restaurateur {
+    color: #ffaa00;
+    background: rgba(255, 170, 0, 0.1);
+    border: 1px solid rgba(255, 170, 0, 0.25);
+}
+
+/* badges de statut (actif, banni) */
+.status-badge {
+    font-size: 0.65rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.status-active {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.08);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+/* statut banni qui pulse en rouge */
+.status-banned {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.25);
+    animation: bannedPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes bannedPulse {
+
+    0%,
+    100% {
+        box-shadow: none;
+    }
+
+    50% {
+        box-shadow: 0 0 10px rgba(255, 68, 68, 0.2);
+    }
+}
+
+/* ligne d'un utilisateur banni : plus transparente */
+.row-banned td {
+    opacity: 0.55;
+}
+
+.row-banned:hover td {
+    opacity: 0.8;
+}
+
+/* boutons d'action (voir, editer, bannir) */
+.cell-actions {
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    border: 1px solid #1a2540;
+    background: rgba(0, 0, 0, 0.3);
+    cursor: crosshair;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-view:hover {
+    border-color: #6498ff;
+    background: rgba(100, 152, 255, 0.12);
+    box-shadow: 0 0 10px rgba(100, 152, 255, 0.15);
+}
+
+.action-edit:hover {
+    border-color: #ffaa00;
+    background: rgba(255, 170, 0, 0.12);
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.15);
+}
+
+.action-ban:hover {
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.12);
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.15);
+}
+
+/* --- pied du tableau --- */
+
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    margin-top: 10px;
+}
+
+.footer-info {
+    font-size: 0.7rem;
+    color: rgba(200, 204, 212, 0.35);
+    letter-spacing: 1px;
+}
+
+.footer-timestamp {
+    font-size: 0.65rem;
+    color: rgba(200, 204, 212, 0.25);
+    letter-spacing: 1px;
+}
+
+/* --- footer admin --- */
+
+.admin-footer {
+    text-align: center;
+    padding: 25px 20px;
+    border-top: 1px solid #1a2540;
+    background: #080c14;
+}
+
+.admin-footer p {
+    font-size: 0.65rem;
+    color: rgba(200, 204, 212, 0.25);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* --- responsive --- */
+
+/* tablette */
+@media (max-width: 900px) {
+    .admin-header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    main {
+        padding: 25px 12px 40px;
+    }
+
+    .console-header h1 {
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+    }
+
+    .stats-bar {
+        gap: 10px;
+    }
+
+    .stat-card {
+        min-width: 80px;
+        padding: 12px 8px;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .toolbar-info {
+        margin-left: 0;
+    }
+
+    .admin-table {
+        font-size: 0.75rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 10px 10px;
+    }
+
+    .table-footer {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+    }
+}
+
+/* mobile */
+@media (max-width: 600px) {
+    .console-header h1 {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+    }
+
+    .stat-value {
+        font-size: 1.4rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 6px;
+        font-size: 0.7rem;
+    }
+
+    .action-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 0.75rem;
+    }
+}

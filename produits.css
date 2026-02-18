@@ -1,0 +1,1055 @@
+/* produits.css - page de la carte / menu */
+
+/* on retire les marges par defaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* curseur en forme de viseur */
+body {
+    background-color: transparent;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    cursor: crosshair;
+    /* curseur en forme de viseur */
+}
+
+/* curseur pointer sur les elements interactifs */
+a,
+button,
+label,
+summary,
+input[type="text"] {
+    cursor: crosshair;
+}
+
+/* au survol des liens et boutons */
+a:hover,
+button:hover,
+label:hover {
+    cursor: crosshair;
+    /* curseur en forme de viseur */
+}
+
+/* couleur de selection du texte */
+::selection {
+    background: #f8e042;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #f8e042;
+}
+
+/* lien de la page active en jaune */
+a.active {
+    color: #f8e042;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.6);
+}
+
+/* --- header (navigation) --- */
+
+header {
+    display: grid;
+    /* grid-template-columns : 3 colonnes (logo 200px, nav flexible, droite 320px) */
+    grid-template-columns: 200px 1fr 320px;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 30px;
+    /* sticky : le header reste colle en haut quand on scrolle */
+    position: sticky;
+    top: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
+    /* z-index 1000 : le header est au dessus de tout le reste */
+    z-index: 1000;
+    /* backdrop-filter blur : effet de flou derriere le header (glassmorphism) */
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(248, 224, 66, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* logo */
+header img {
+    width: 100%;
+    max-width: 140px;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.3));
+    transition: filter 0.3s ease;
+}
+
+header img:hover {
+    filter: drop-shadow(0 0 20px rgba(248, 224, 66, 0.6));
+}
+
+/* navigation centree */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(248, 224, 66, 0.15);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+ul li {
+    display: inline-block;
+    padding: 0;
+}
+
+/* --- partie droite du header --- */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.member-space {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-member {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 2px solid transparent;
+}
+
+.btn-login {
+    background: rgba(0, 100, 255, 0.2);
+    color: #00bfff;
+    border-color: rgba(0, 191, 255, 0.3);
+}
+
+.btn-login:hover {
+    background: rgba(0, 100, 255, 0.4);
+    border-color: #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-signup {
+    background: rgba(248, 224, 66, 0.2);
+    color: #f8e042;
+    border-color: rgba(248, 224, 66, 0.3);
+}
+
+.btn-signup:hover {
+    background: rgba(248, 224, 66, 0.4);
+    border-color: #f8e042;
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-login.active {
+    background: rgba(0, 100, 255, 0.4);
+    border-color: #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+}
+
+.btn-signup.active {
+    background: rgba(248, 224, 66, 0.4);
+    border-color: #f8e042;
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.5);
+}
+
+#place {
+    display: inline-block;
+    width: 15%;
+}
+
+/* barre de recherche dans le header */
+.search-box {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(248, 224, 66, 0.3);
+    border-radius: 50px;
+    padding: 5px 15px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.search-box:focus-within {
+    border-color: #f8e042;
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    outline: none;
+    width: 200px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    color: #f8e042;
+    font-size: 1.1rem;
+    cursor: crosshair;
+    transition: transform 0.2s ease;
+    padding: 0 5px;
+}
+
+.search-btn:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 10px #f8e042;
+}
+
+/* --- video de fond --- */
+
+#video-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    object-fit: cover;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+/* --- contenu principal --- */
+
+main {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
+    min-height: 100vh;
+    padding: 60px 5%;
+    z-index: 1;
+}
+
+/* en-tete du menu */
+.menu-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* titre avec effet lumineux anime */
+.epic-title {
+    font-size: 4rem;
+    color: #f8e042;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 30px rgba(248, 224, 66, 0.8),
+        0 0 60px rgba(248, 224, 66, 0.4);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 20px rgba(248, 224, 66, 0.6),
+            0 0 40px rgba(248, 224, 66, 0.3);
+    }
+
+    to {
+        text-shadow: 0 0 40px rgba(248, 224, 66, 1),
+            0 0 80px rgba(248, 224, 66, 0.6);
+    }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    letter-spacing: 2px;
+}
+
+/* --- barre de recherche centree --- */
+
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.product-search-input {
+    width: 500px;
+    padding: 15px 25px;
+    background: rgba(0, 20, 40, 0.6);
+    border: 2px solid rgba(248, 224, 66, 0.4);
+    border-radius: 50px;
+    color: white;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    outline: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.product-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.product-search-input:focus {
+    border-color: #f8e042;
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.5);
+    background: rgba(0, 30, 60, 0.7);
+}
+
+/* --- filtrage css pur (sans javascript) --- */
+/* astuce css pour filtrer sans javascript (trouvé sur internet) */
+
+/* on cache les boutons radio */
+input[type="radio"][name="filter"] {
+    display: none;
+}
+
+/* par defaut, toutes les cartes produit sont visibles */
+.product-card {
+    display: block;
+}
+
+/* quand un filtre est coche, on masque les cartes qui ne correspondent pas */
+/* ~ : selecteur de frere, selectionne les elements qui suivent le radio */
+#filter-boissons:checked~.products-grid .product-card:not([data-category="boissons"]) {
+    display: none;
+}
+
+#filter-plats:checked~.products-grid .product-card:not([data-category="plats"]) {
+    display: none;
+}
+
+#filter-snacks:checked~.products-grid .product-card:not([data-category="snacks"]) {
+    display: none;
+}
+
+#filter-specialites:checked~.products-grid .product-card:not([data-category="specialites"]) {
+    display: none;
+}
+
+/* filtres de regime */
+/* data-diet* : on utilise *= pour verifier si l'attribut contient la valeur */
+#filter-vege:checked~.products-grid .product-card:not([data-diet*="vege"]) {
+    display: none;
+}
+
+#filter-gluten-free:checked~.products-grid .product-card:not([data-diet*="gluten-free"]) {
+    display: none;
+}
+
+#filter-piquant:checked~.products-grid .product-card:not([data-flavor*="piquant"]) {
+    display: none;
+}
+
+/* style du filtre actif */
+#filter-tous:checked~.filters-container label[for="filter-tous"],
+#filter-boissons:checked~.filters-container label[for="filter-boissons"],
+#filter-plats:checked~.filters-container label[for="filter-plats"],
+#filter-snacks:checked~.filters-container label[for="filter-snacks"],
+#filter-specialites:checked~.filters-container label[for="filter-specialites"],
+#filter-vege:checked~.filters-container label[for="filter-vege"],
+#filter-gluten-free:checked~.filters-container label[for="filter-gluten-free"],
+#filter-piquant:checked~.filters-container label[for="filter-piquant"] {
+    background: linear-gradient(135deg, rgba(248, 224, 66, 0.3), rgba(0, 255, 255, 0.2));
+    border-color: #f8e042;
+    color: #f8e042;
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6),
+        inset 0 0 20px rgba(248, 224, 66, 0.2);
+}
+
+/* --- boutons de filtre --- */
+
+.filters-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 12px 30px;
+    background: rgba(0, 20, 40, 0.7);
+    border: 2px solid rgba(248, 224, 66, 0.3);
+    display: inline-block;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: crosshair;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* effet ripple au survol du filtre */
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(248, 224, 66, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.filter-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.filter-btn:hover {
+    border-color: #f8e042;
+    box-shadow: 0 0 25px rgba(248, 224, 66, 0.4);
+    transform: translateY(-3px);
+}
+
+/* couleurs specifiques pour les filtres de regime */
+.filter-vege {
+    background: rgba(34, 139, 34, 0.3);
+    border-color: rgba(50, 205, 50, 0.5);
+}
+
+.filter-vege:hover {
+    border-color: #32cd32;
+    box-shadow: 0 0 25px rgba(50, 205, 50, 0.4);
+}
+
+.filter-gluten {
+    background: rgba(139, 69, 19, 0.3);
+    border-color: rgba(210, 180, 140, 0.5);
+}
+
+.filter-gluten:hover {
+    border-color: #d2b48c;
+    box-shadow: 0 0 25px rgba(210, 180, 140, 0.4);
+}
+
+.filter-spicy {
+    background: rgba(220, 20, 60, 0.3);
+    border-color: rgba(255, 69, 0, 0.5);
+}
+
+.filter-spicy:hover {
+    border-color: #ff4500;
+    box-shadow: 0 0 25px rgba(255, 69, 0, 0.4);
+}
+
+/* --- grille de produits --- */
+
+.products-grid {
+    display: grid;
+    /* repeat auto-fill : cree autant de colonnes que possible de 300px minimum */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px;
+    padding: 0 20px;
+}
+
+/* --- cartes produit --- */
+
+.product-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: visible;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 1;
+}
+
+/* effet de lueur autour de la carte au survol */
+.card-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #f8e042, #00ffff, #f8e042);
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+    filter: blur(8px);
+}
+
+.product-card:hover .card-glow {
+    opacity: 0.6;
+    /* hue-rotate : fait tourner les couleurs en boucle */
+    animation: rotateGlow 3s linear infinite;
+}
+
+@keyframes rotateGlow {
+    0% {
+        filter: blur(8px) hue-rotate(0deg);
+    }
+
+    100% {
+        filter: blur(8px) hue-rotate(360deg);
+    }
+}
+
+/* contenu interne de la carte */
+.card-inner {
+    position: relative;
+    background: rgba(0, 20, 40, 0.85);
+    border-radius: 13px;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(248, 224, 66, 0.2);
+    z-index: 1;
+    transition: transform 0.5s ease, background 0.3s ease;
+}
+
+/* :has(details[open]) : change le style quand les details sont ouverts */
+.product-card:has(details[open]) .card-inner {
+    background: rgba(0, 30, 60, 0.95);
+    border-color: rgba(248, 224, 66, 0.5);
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+.product-card:hover .card-inner {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(248, 224, 66, 0.3);
+}
+
+.card-inner img {
+    width: 100%;
+    height: 250px;
+    /* object-fit cover : l'image remplit la zone sans se deformer */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.product-card:hover .card-inner img {
+    transform: scale(1.05);
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* contenu texte de la carte */
+.card-content {
+    padding: 20px;
+    background: linear-gradient(to bottom, rgba(0, 10, 20, 0.9), rgba(0, 20, 40, 0.95));
+    position: relative;
+}
+
+/* ligne de separation doree en haut du contenu */
+.card-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f8e042, transparent);
+}
+
+.product-name {
+    font-size: 1.5rem;
+    color: #f8e042;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.5);
+}
+
+.product-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-style: italic;
+    min-height: 45px;
+}
+
+/* --- details du produit (element html5 details/summary) --- */
+
+.product-details {
+    margin-bottom: 15px;
+}
+
+/* bouton "en savoir plus" */
+.details-btn {
+    cursor: crosshair;
+    color: #00ffff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 8px 0;
+    list-style: none;
+    user-select: none;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.details-btn:hover {
+    color: #f8e042;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.8);
+}
+
+/* on masque le triangle par defaut de details */
+.details-btn::-webkit-details-marker {
+    display: none;
+}
+
+/* contenu qui apparait a l'ouverture */
+.details-content {
+    padding: 15px;
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-left: 3px solid #00ffff;
+    border-radius: 5px;
+    animation: fadeIn 0.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ligne de scan animee (effet holographique) */
+.details-content::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(0, 255, 255, 0.8),
+            transparent);
+    animation: scanline 2s ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes scanline {
+    0% {
+        top: -100%;
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.details-content p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* texte de l'histoire du plat */
+.details-content .lore {
+    color: #00ffff;
+    font-style: italic;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    padding-bottom: 10px;
+    animation: holoGlitch 0.8s ease-in-out;
+    position: relative;
+}
+
+/* animation de glitch pour l'effet "decryptage" */
+@keyframes holoGlitch {
+    0% {
+        opacity: 0;
+        transform: translateX(-5px);
+        text-shadow: 2px 0 #00ffff, -2px 0 #ff00ff;
+    }
+
+    20% {
+        opacity: 0.8;
+        transform: translateX(3px);
+        text-shadow: -1px 0 #00ffff, 1px 0 #ff00ff;
+    }
+
+    40% {
+        opacity: 1;
+        transform: translateX(-2px);
+        text-shadow: 1px 0 #00ffff, -1px 0 #ff00ff;
+    }
+
+    60% {
+        opacity: 0.9;
+        transform: translateX(1px);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateX(-1px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        text-shadow: none;
+    }
+}
+
+.details-content .ingredients {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.details-content .allergens {
+    color: #ffa500;
+    font-weight: bold;
+}
+
+.details-content strong {
+    color: #f8e042;
+}
+
+/* prix et bouton d'ajout */
+.price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 1.3rem;
+    color: #00ffff;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* bouton d'ajout rond */
+.add-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f8e042, #ffa500);
+    border: 2px solid #f8e042;
+    color: #000;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: crosshair;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-btn:hover {
+    background: linear-gradient(135deg, #ffa500, #f8e042);
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.8);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.add-btn:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+/* --- badges sur les cartes (best-seller, piquant, nouveau) --- */
+
+.holo-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 15px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    z-index: 10;
+    /* clip-path : forme biseautee generee avec un outil en ligne */
+    clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+/* badge best-seller (jaune) */
+.badge-bestseller {
+    background: linear-gradient(135deg, #f8e042, #ffa500);
+    color: #000;
+    border: 1px solid #f8e042;
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.8),
+        inset 0 0 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* badge piquant (rouge clignotant) */
+.badge-hot {
+    background: linear-gradient(135deg, #ff4500, #dc143c);
+    color: #fff;
+    border: 1px solid #ff6347;
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.8),
+        inset 0 0 10px rgba(255, 255, 255, 0.2);
+    animation: blinkHot 1.5s ease-in-out infinite;
+}
+
+@keyframes blinkHot {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+    }
+
+    50% {
+        opacity: 0.7;
+        box-shadow: 0 0 30px rgba(255, 69, 0, 1);
+    }
+}
+
+/* badge nouveau (cyan) */
+.badge-nouveau {
+    background: linear-gradient(135deg, #00ffff, #00bfff);
+    color: #000;
+    border: 1px solid #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8),
+        inset 0 0 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* --- footer --- */
+
+#main-footer {
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 100%);
+    padding: 60px 5% 20px 5%;
+    border-top: 2px solid #f8e042;
+    position: relative;
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-info h3 {
+    color: #f8e042;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-info .icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px #f8e042);
+}
+
+.transmission {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-transmission {
+    background: transparent;
+    color: #f8e042;
+    border: 2px solid #f8e042;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-radius: 5px;
+    cursor: crosshair;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.2);
+}
+
+.btn-transmission:hover {
+    background: #f8e042;
+    color: #000;
+    box-shadow: 0 0 30px rgba(248, 224, 66, 0.6);
+    transform: scale(1.05);
+}
+
+.unit-status {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.broken-droid {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    animation: flicker 4s infinite;
+}
+
+.joke-text {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 320px;
+    line-height: 1.5;
+    text-align: right;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* animation de scintillement holographique */
+@keyframes flicker {
+
+    0%,
+    19.9%,
+    22%,
+    62.9%,
+    65%,
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
+    }
+
+    20%,
+    21.9%,
+    63%,
+    64.9% {
+        opacity: 0.4;
+        transform: translateX(1px);
+        filter: drop-shadow(0 0 5px rgba(248, 224, 66, 0.2));
+    }
+}
+
+/* --- responsive --- */
+
+@media (max-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .epic-title {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+
+    .product-search-input {
+        width: 90%;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .filters-container {
+        gap: 10px;
+    }
+
+    .filter-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .epic-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .products-grid {
+        /* 1fr : une seule colonne sur petit ecran */
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+}
