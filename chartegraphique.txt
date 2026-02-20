@@ -1,0 +1,41 @@
+Charte Graphique - La Table des Jedi
+Ce document définit les standards visuels et techniques appliqués au projet La Table des Jedi. Il sert de référence pour maintenir la cohérence graphique entre les différentes pages du site.
+
+Palette de Couleurs
+L identité visuelle repose sur un contraste entre un fond sombre évoquant l espace et des accents lumineux inspirés des interfaces technologiques de la saga.
+
+Element : Accent principal Couleur : Jaune Valeur CSS : f8e042
+
+Element : Bouton Connexion Couleur : Bleu Valeur CSS : 00bfff
+
+Element : Accents neon Couleur : Cyan Valeur CSS : 00ffff
+
+Element : Fond general Couleur : Noir Valeur CSS : black
+
+Element : Fond des fiches Couleur : Sombre Valeur CSS : 000b1a
+
+Element : Bordures Couleur : Jaune attenue Valeur CSS : rgba(248, 224, 66, 0.2)
+
+Element : Texte Couleur : Blanc Valeur CSS : ffffff
+
+Typographie
+Le système utilise les polices par défaut du navigateur tout en privilégiant une hiérarchie claire :
+
+Police principale : Segoe UI, Arial, sans-serif.
+Titres : Texte en majuscules (uppercase) avec un espacement de caractères (letter-spacing) accentué pour un aspect structuré.
+Textes secondaires : Utilisation de l italique pour les citations ou les témoignages clients.
+Composants d Interface
+En-tete
+L en-tete utilise un effet de transparence (glassmorphism) avec un flou de 15px (backdrop-filter). Une bordure inférieure jaune très fine sépare la navigation du contenu principal.
+
+Boutons
+Les boutons respectent des codes couleurs précis selon leur fonction :
+
+Inscription : Bordure jaune, texte jaune.
+Connexion : Fond bleu translucide, avec un effet de lueur (drop-shadow) au survol.
+Cartes d avis clients
+Les cartes présentent un dégradé linéaire sur leurs bordures, alternant entre le jaune et le cyan selon la parité de l élément. Un effet de translation vers le haut est appliqué lors du survol de la souris.
+
+Navigation et Experience Utilisateur
+Curseur : Un curseur personnalisé de type crosshair est appliqué à l ensemble du site pour renforcer l immersion.
+Arriere-plan : Une boucle vidéo d un champ d étoiles est utilisée en arrière-plan fixe, couverte par un dégradé noir pour assurer la lisibilité du texte.
