@@ -1,6 +1,6 @@
 # 🌌 La Table des Jedi - Projet Creative-Yumland
 
-Bienvenue sur le dépôt du projet **La Table des Jedi** (Phase 1 - Maquettage statique). 
+Bienvenue sur le dépôt du projet **La Table des Jedi** (Phase 1 - Statique). 
 Ce projet a été réalisé dans le cadre de la filière préING2 (2025-2026).
 
 ## 🎯 Description
