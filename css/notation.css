@@ -1,0 +1,402 @@
+/* notation.css - styles specifiques a la page de notation */
+
+
+/* fond sombre avec formulaire centre */
+main {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 5%;
+}
+
+
+.form-container {
+    width: 100%;
+    max-width: 700px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* le formulaire apparait en glissant vers le haut */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* panneau avec effet de verre */
+/* backdrop-filter blur : flou derriere le panneau, effet glassmorphism */
+.form-panel {
+    background: rgba(0, 20, 40, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(248, 224, 66, 0.3);
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(248, 224, 66, 0.2);
+}
+
+/* titre avec animation lumineuse */
+.form-title {
+    font-size: 2.2rem;
+    color: #f8e042;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(248, 224, 66, 0.8);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 20px rgba(248, 224, 66, 0.6);
+    }
+
+    to {
+        text-shadow: 0 0 40px rgba(248, 224, 66, 1);
+    }
+}
+
+.form-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+
+.order-recall {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+}
+
+.recall-icon {
+    font-size: 2rem;
+}
+
+.recall-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.recall-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recall-id {
+    font-size: 1.1rem;
+    color: #00ffff;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.recall-status {
+    font-size: 0.85rem;
+    color: #00ff88;
+}
+
+
+.rating-form {
+    display: flex;
+    /* flex-direction column : les champs s'empilent verticalement */
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* fieldset sans bordure */
+.rating-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* legende en cyan */
+.rating-legend {
+    font-size: 1.1rem;
+    color: #00ffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-icon {
+    font-size: 1.3rem;
+}
+
+/* texte d'aide sous la legende */
+.rating-hint {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* labels en cyan */
+.form-group label {
+    color: #00ffff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* champs avec bordure en bas seulement */
+.form-group input,
+.form-group select {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+    color: white;
+    padding: 12px 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+}
+
+/* :focus : bordure cyan quand le champ est selectionne */
+.form-group input:focus,
+.form-group select:focus {
+    border-bottom-color: #00ffff;
+    box-shadow: 0 3px 10px rgba(0, 255, 255, 0.3);
+}
+
+.form-group select {
+    cursor: crosshair;
+}
+
+.form-group select option {
+    background: #001020;
+    color: white;
+}
+
+/* astuce trouvee en ligne pour noter avec des etoiles sans javascript */
+
+.star-rating {
+    display: flex;
+    /* row-reverse : les etoiles sont inversees pour que le selecteur ~ fonctionne */
+    /* le ~ selectionne les elements suivants, donc en inversant on peut colorer */
+    /* toutes les etoiles precedentes quand on en survole une */
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+    padding: 10px 0;
+}
+
+/* on cache les inputs radio */
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+/* etoiles grises par defaut */
+.star-rating label {
+    font-size: 2.2rem;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: crosshair;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+
+/* au survol : l'etoile et toutes celles apres deviennent jaunes */
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: #f8e042;
+    text-shadow: 0 0 15px rgba(248, 224, 66, 0.6);
+    transform: scale(1.1);
+}
+
+/* ~ : selecteur de frere, colore toutes les etoiles apres celle cochee */
+.star-rating input:checked~label {
+    color: #f8e042;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.5);
+}
+
+
+.comment-area {
+    width: 100%;
+    min-height: 150px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(0, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    outline: none;
+    transition: all 0.3s ease;
+    /* resize vertical : on peut agrandir la zone seulement en hauteur */
+    resize: vertical;
+}
+
+.comment-area::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+    font-style: italic;
+}
+
+.comment-area:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    background: rgba(0, 10, 30, 0.5);
+}
+
+/* compteur de caracteres */
+.char-counter {
+    text-align: right;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 1px;
+}
+
+
+.btn-submit {
+    margin-top: 20px;
+    padding: 18px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: none;
+    border-radius: 50px;
+    cursor: crosshair;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8e042, #ffa500);
+    color: #000;
+    border: 2px solid #f8e042;
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4);
+    width: 100%;
+}
+
+/* style neon du bouton */
+.btn-neon {
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.4), 0 0 40px rgba(248, 224, 66, 0.1);
+}
+
+.btn-text {
+    position: relative;
+    /* z-index : pour que le texte reste au dessus de l'effet ripple */
+    z-index: 1;
+}
+
+/* effet ripple au survol */
+/* astuce trouvee en ligne pour creer un effet de vague */
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-submit:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-submit:hover {
+    box-shadow: 0 0 40px rgba(248, 224, 66, 0.8);
+    transform: translateY(-3px);
+}
+
+
+.form-footer {
+    margin-top: 30px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-footer p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+}
+
+.link-highlight {
+    color: #00ffff;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+.link-highlight:hover {
+    color: #f8e042;
+    text-shadow: 0 0 10px rgba(248, 224, 66, 0.8);
+}
+
+
+@media (max-width: 768px) {
+    .form-panel {
+        padding: 40px 30px;
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+    }
+
+    .star-rating label {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-panel {
+        padding: 30px 20px;
+    }
+
+    .form-title {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+
+    .star-rating label {
+        font-size: 1.5rem;
+    }
+
+    .btn-submit {
+        font-size: 1rem;
+        padding: 15px 30px;
+    }
+}

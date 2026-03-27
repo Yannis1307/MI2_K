@@ -1,0 +1,495 @@
+/* accueil.css - styles specifiques a la page d'accueil */
+
+
+/* degrade de semi-transparent a noir opaque sur la hauteur de l'ecran */
+/* ca permet de voir la video de fond en haut, puis fond noir en bas */
+main {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, black 100vh, black 100%);
+    /* z-index : pour que le contenu passe au dessus de la video */
+    z-index: 1;
+}
+
+
+#bienvenue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* 90vh : prend presque tout l'ecran en hauteur */
+    height: 90vh;
+    z-index: 1;
+    text-align: center;
+}
+
+/* titre principal avec ombre lumineuse */
+#bienvenue h1 {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* champ de saisie generique */
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: crosshair;
+}
+
+
+.cta-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* bouton jaune arrondi */
+.btn-carte {
+    background-color: #f8e042;
+    color: #000;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid #f8e042;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* au survol le bouton devient transparent avec un halo */
+.btn-carte:hover {
+    background-color: transparent;
+    color: #f8e042;
+    box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
+}
+
+
+#presentation {
+    border-bottom: 2px solid rgba(148, 148, 148, 0.521);
+    margin: 5vh 0 10vh;
+    padding: 20px;
+    text-align: center;
+}
+
+#presentation h1 {
+    color: #f8e042;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* astuce trouvee en ligne pour faire un slider avec des radio boutons */
+
+#plats-container {
+    max-width: 800px;
+    margin: 50px auto;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 20px;
+    /* position relative : necessaire pour positionner les fleches par dessus */
+    position: relative;
+}
+
+/* on cache les boutons radio, ils servent juste de declencheurs */
+#plats-container input[type="radio"] {
+    display: none;
+}
+
+/* le slider contient 4 slides cote a cote */
+#slider {
+    display: flex;
+    /* 4 slides x 100% = 400% */
+    width: 400%;
+    transition: transform 0.6s ease-in-out;
+    /* animation par defaut : defilement automatique */
+    animation: sliding 16s infinite ease-in-out;
+}
+
+/* quand on clique sur un slide, on arrete l'animation automatique */
+#slide1:checked~#slider,
+#slide2:checked~#slider,
+#slide3:checked~#slider,
+#slide4:checked~#slider {
+    animation: none;
+}
+
+/* positionnement du slider selon le radio coche */
+/* translateX deplace le slider horizontalement */
+#slide1:checked~#slider {
+    transform: translateX(0%);
+}
+
+#slide2:checked~#slider {
+    transform: translateX(-25%);
+}
+
+#slide3:checked~#slider {
+    transform: translateX(-50%);
+}
+
+#slide4:checked~#slider {
+    transform: translateX(-75%);
+}
+
+
+/* conteneur des fleches : couvre tout le slider, centre verticalement */
+.slider-controls {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    /* pointer-events none : les clics traversent le conteneur vers le slider */
+    pointer-events: none;
+    z-index: 100;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* style des fleches rondes */
+.arrow {
+    background: rgba(0, 0, 0, 0.6);
+    color: #f8e042;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #f8e042;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    /* pointer-events auto : reactive les clics sur les fleches */
+    pointer-events: auto;
+    user-select: none;
+    box-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
+    /* cachees par defaut, affichees selon le slide actif */
+    display: none;
+}
+
+.arrow:hover {
+    background: #f8e042;
+    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(248, 224, 66, 0.6);
+}
+
+/* affichage des bonnes fleches selon le slide actif */
+/* ~ : selecteur de frere, cible les elements qui suivent le radio */
+#auto:checked~.slider-controls .slide1-control,
+#slide1:checked~.slider-controls .slide1-control {
+    display: block;
+}
+
+#slide2:checked~.slider-controls .slide2-control {
+    display: block;
+}
+
+#slide3:checked~.slider-controls .slide3-control {
+    display: block;
+}
+
+#slide4:checked~.slider-controls .slide4-control {
+    display: block;
+}
+
+
+/* chaque slide fait 1/4 du parent (car slider = 400%) */
+.slide {
+    width: 25%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* object-fit cover : l'image remplit la zone sans se deformer */
+.slide img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+/* leger zoom au survol */
+.slide:hover img {
+    transform: scale(1.02);
+}
+
+/* legende sous l'image */
+.slide-caption {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.slide-caption h2 {
+    font-size: 1.2rem;
+    color: #f8e042;
+    margin: 5px 0;
+}
+
+.slide-caption h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+/* animation du slider : defilement automatique entre 4 slides */
+@keyframes sliding {
+
+    0%,
+    20% {
+        transform: translateX(0%);
+    }
+
+    25%,
+    45% {
+        transform: translateX(-25%);
+    }
+
+    50%,
+    70% {
+        transform: translateX(-50%);
+    }
+
+    75%,
+    95% {
+        transform: translateX(-75%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+
+#plat-du-jour {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+#plat-du-jour h2 {
+    color: #f8e042;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+
+#histoire-galactique {
+    padding: 60px 10%;
+    margin-top: 100px;
+    background: transparent;
+}
+
+/* conteneur avec bordure doree et disposition flex */
+.history-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 3px solid #f8e042;
+    padding: 60px;
+    border-radius: 20px;
+    position: relative;
+    gap: 40px;
+}
+
+/* flex: 2 : la partie texte prend 2 fois plus de place que l'image */
+.history-content {
+    flex: 2;
+    text-align: left;
+}
+
+.history-content h1 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.history-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    max-width: 90%;
+}
+
+/* petit logo du chef jedi */
+#history-logo {
+    width: 120px;
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid #f8e042;
+    background: #000;
+}
+
+/* partie image a droite */
+.history-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.history-visual img {
+    max-width: 100%;
+    border-radius: 10px;
+    border: 2px solid #f8e042;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* petite etoile decorative en bas a droite */
+.star-corner {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    color: #f8e042;
+    font-size: 2rem;
+}
+
+
+#avis-clients {
+    padding: 80px 5%;
+    background: transparent;
+    text-align: center;
+}
+
+.section-title {
+    color: #f8e042;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    letter-spacing: 5px;
+    text-shadow: 0 0 15px rgba(248, 224, 66, 0.5);
+}
+
+/* grille de cartes d'avis en flexbox */
+.reviews-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+/* carte d'avis avec bordure neon en degrade */
+.review-card {
+    position: relative;
+    width: 350px;
+    height: 100%;
+    background: rgba(0, 20, 40, 0.6);
+    border-radius: 15px;
+    padding: 2px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* nth-child : cible les elements pairs ou impairs pour alterner les couleurs */
+.review-card:nth-child(odd) {
+    background: linear-gradient(135deg, #f8e042 0%, #00ffff 100%);
+}
+
+.review-card:nth-child(even) {
+    background: linear-gradient(135deg, #00ffff 0%, #f8e042 100%);
+}
+
+/* la carte monte legerement au survol */
+.review-card:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+/* contenu interieur sombre de la carte */
+.card-content {
+    background: #000b1a;
+    border-radius: 13px;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* info utilisateur avec avatar */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    padding-bottom: 15px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #f8e042;
+    padding: 2px;
+    background: #000;
+}
+
+.user-info h3 {
+    color: #f8e042;
+    font-size: 1.1rem;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+/* texte de l'avis en italique */
+.review-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: white;
+    margin: 0;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/* traduction en cyan */
+.translation {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #00ffff;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+
+#frequents {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+#frequents h2 {
+    color: #f8e042;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+#frequents ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#frequents li {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+}
+
+#frequents strong {
+    color: #f8e042;
+}
