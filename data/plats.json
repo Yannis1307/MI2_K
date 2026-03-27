@@ -1,0 +1,210 @@
+[
+    {
+        "id": 1,
+        "nom": "Lait Bleu",
+        "description": "Le célèbre lait de Bantha, frais et crémeux, tout droit venu de Tatooine.",
+        "prix": 3.50,
+        "categorie": "boissons",
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images/lait-bleu.webp",
+        "allergenes": [
+            "lactose"
+        ]
+    },
+    {
+        "id": 2,
+        "nom": "Lait Vert",
+        "description": "Lait de Thala-Siren récolté sur Ahch-To par Maître Luke en personne.",
+        "prix": 4.00,
+        "categorie": "boissons",
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images/lait-vert.webp",
+        "allergenes": [
+            "lactose"
+        ]
+    },
+    {
+        "id": 3,
+        "nom": "Jus de Jabba",
+        "description": "Un cocktail de fruits exotiques aux couleurs verdâtres, aussi intense que le Hutt lui-même.",
+        "prix": 5.00,
+        "categorie": "boissons",
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images/jus-de-jabba.webp",
+        "allergenes": []
+    },
+    {
+        "id": 4,
+        "nom": "Soda de Spotchka",
+        "description": "Boisson pétillante à base de Spotchka, la spécialité de Sorgan.",
+        "prix": 4.50,
+        "categorie": "boissons",
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images/soda-spotchka.webp",
+        "allergenes": []
+    },
+    {
+        "id": 5,
+        "nom": "Rôti de Nuna",
+        "description": "Rôti juteux de Nuna, une volaille de Naboo rôtie à la perfection aux herbes galactiques.",
+        "prix": 14.90,
+        "categorie": "plats",
+        "regimes": [
+            "gluten-free"
+        ],
+        "image": "images/roti-nuna.webp",
+        "allergenes": []
+    },
+    {
+        "id": 6,
+        "nom": "Ronto Wrap",
+        "description": "Wrap grillé garni de saucisse de Ronto et de sauce piquante, comme sur les marchés de Batuu.",
+        "prix": 9.90,
+        "categorie": "snacks",
+        "regimes": [
+            "piquant"
+        ],
+        "image": "images/ronto-wrap.webp",
+        "allergenes": [
+            "gluten"
+        ]
+    },
+    {
+        "id": 7,
+        "nom": "Macarons de Nevarro",
+        "description": "Assortiment de macarons colorés inspirés des mines de Nevarro, croquants et fondants.",
+        "prix": 7.50,
+        "categorie": "specialites",
+        "regimes": [
+            "vege"
+        ],
+        "image": "images/macarons-nevarro.webp",
+        "allergenes": [
+            "oeufs",
+            "lactose",
+            "fruits à coque"
+        ]
+    },
+    {
+        "id": 8,
+        "nom": "Soupe Wookiee",
+        "description": "Soupe épaisse et réconfortante aux champignons de Kashyyyk, recette traditionnelle Wookiee.",
+        "prix": 8.50,
+        "categorie": "plats",
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images/soupe-wookiee.webp",
+        "allergenes": []
+    },
+    {
+        "id": 9,
+        "nom": "Brochettes de Gorgs",
+        "description": "Petites grenouilles de Tatooine grillées sur brochette, croustillantes à souhait.",
+        "prix": 6.90,
+        "categorie": "snacks",
+        "regimes": [
+            "gluten-free"
+        ],
+        "image": "images/brochettes-gorgs.webp",
+        "allergenes": []
+    },
+    {
+        "id": 10,
+        "nom": "Ragoût de Shaak",
+        "description": "Mijoté tendre de viande de Shaak en sauce épicée, un classique de Naboo.",
+        "prix": 13.50,
+        "categorie": "plats",
+        "regimes": [
+            "piquant",
+            "gluten-free"
+        ],
+        "image": "images/ragout-shaak.webp",
+        "allergenes": []
+    },
+    {
+        "id": 11,
+        "nom": "Flatcake de Canto Bight",
+        "description": "Crêpe dorée fourrée aux fruits de la mer de Cantonica, un dessert de luxe.",
+        "prix": 8.90,
+        "categorie": "specialites",
+        "regimes": [
+            "vege"
+        ],
+        "image": "images/flatcake-canto.webp",
+        "allergenes": [
+            "gluten",
+            "oeufs",
+            "lactose"
+        ]
+    },
+    {
+        "id": 12,
+        "nom": "Salade de Felucian",
+        "description": "Mélange frais de plantes et fleurs comestibles de Felucia, assaisonné d'une vinaigrette acidulée.",
+        "prix": 7.90,
+        "categorie": "plats",
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images/salade-felucian.webp",
+        "allergenes": []
+    },
+    {
+        "id": 13,
+        "nom": "Bantha Burger",
+        "description": "Généreux steak de Bantha dans un bun moelleux, garni de fromage fondu et de sauce secrète.",
+        "prix": 11.90,
+        "categorie": "plats",
+        "regimes": [],
+        "image": "images/bantha-burger.webp",
+        "allergenes": [
+            "gluten",
+            "lactose"
+        ]
+    },
+    {
+        "id": 14,
+        "nom": "Puffer Pig Wings",
+        "description": "Ailes de Puffer Pig marinées et frites, accompagnées d'une sauce Mandalore fumée.",
+        "prix": 8.50,
+        "categorie": "snacks",
+        "regimes": [
+            "piquant"
+        ],
+        "image": "images/puffer-pig-wings.webp",
+        "allergenes": [
+            "gluten"
+        ]
+    },
+    {
+        "id": 15,
+        "nom": "Coruscant Cheesecake",
+        "description": "Cheesecake onctueux aux baies d'Endor sur croûte de biscuit, le dessert favori du Sénat.",
+        "prix": 9.50,
+        "categorie": "specialites",
+        "regimes": [
+            "vege"
+        ],
+        "image": "images/coruscant-cheesecake.webp",
+        "allergenes": [
+            "gluten",
+            "oeufs",
+            "lactose"
+        ]
+    }
+]
