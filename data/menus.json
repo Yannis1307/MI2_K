@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "nom": "Menu Padawan",
+        "description": "Le menu d'initiation pour les jeunes apprentis : un wrap, une boisson et un dessert.",
+        "prix_total": 18.90,
+        "plats_inclus": [
+            6,
+            1,
+            7
+        ]
+    },
+    {
+        "id": 2,
+        "nom": "Menu Maître Jedi",
+        "description": "Un repas complet digne d'un Maître du Conseil : soupe, rôti et cheesecake.",
+        "prix_total": 29.90,
+        "plats_inclus": [
+            8,
+            5,
+            15
+        ]
+    },
+    {
+        "id": 3,
+        "nom": "Menu Côté Obscur",
+        "description": "Pour ceux qui osent le côté sombre : burger, ailes piquantes et soda de Spotchka.",
+        "prix_total": 22.90,
+        "plats_inclus": [
+            13,
+            14,
+            4
+        ]
+    }
+]

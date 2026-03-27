@@ -83,7 +83,7 @@ a.active {
 /* grid-template-columns : divise le header en 3 colonnes (logo, nav, droite) */
 header {
     display: grid;
-    grid-template-columns: 200px 1fr 320px;
+    grid-template-columns: 200px 1fr 420px;
     align-items: center;
     gap: 20px;
     padding: 15px 30px;

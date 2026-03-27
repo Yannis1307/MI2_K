@@ -1,0 +1,86 @@
+[
+    {
+        "id": "JDI-6A95F",
+        "id_client": 1,
+        "login_client": "Lando_C",
+        "date": "27\/03\/2026",
+        "heure": "21:40",
+        "type": "immediate",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur ",
+        "plats": [
+            {
+                "id_plat": 5,
+                "nom": "Thé de Caf",
+                "quantite": 1,
+                "prix_unitaire": 4,
+                "sous_total": 4
+            },
+            {
+                "id_plat": 2,
+                "nom": "Lait Vert",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            },
+            {
+                "id_plat": 9,
+                "nom": "Portion de Survie",
+                "quantite": 1,
+                "prix_unitaire": 3,
+                "sous_total": 3
+            },
+            {
+                "id_plat": 7,
+                "nom": "Ragoût de racine d'Endor",
+                "quantite": 1,
+                "prix_unitaire": 12,
+                "sous_total": 12
+            }
+        ],
+        "total": 27,
+        "statut": "en attente"
+    },
+    {
+        "id": "JDI-E1CD1",
+        "id_client": 1,
+        "login_client": "Lando_C",
+        "date": "27\/03\/2026",
+        "heure": "21:40",
+        "type": "immediate",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur ",
+        "plats": [
+            {
+                "id_plat": 5,
+                "nom": "Thé de Caf",
+                "quantite": 2,
+                "prix_unitaire": 4,
+                "sous_total": 8
+            }
+        ],
+        "total": 8,
+        "statut": "en attente"
+    },
+    {
+        "id": "JDI-75FAF",
+        "id_client": 1,
+        "login_client": "Lando_C",
+        "date": "27\/03\/2026",
+        "heure": "21:48",
+        "type": "immediate",
+        "heure_livraison": null,
+        "adresse": "22",
+        "plats": [
+            {
+                "id_plat": 4,
+                "nom": "Soda de Spotchka",
+                "quantite": 2,
+                "prix_unitaire": 6,
+                "sous_total": 12
+            }
+        ],
+        "total": 12,
+        "statut": "en attente"
+    }
+]
