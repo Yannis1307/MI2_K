@@ -6,8 +6,15 @@
         "role": "client",
         "nom": "Calrissian",
         "prenom": "Lando",
+        "email": "lando.c@citedesNuages.bespin",
+        "telephone": "+33 6 11 22 33 44",
         "adresse": "12 Avenue de la Cité des Nuages, Bespin",
-        "statut": "actif"
+        "date_inscription": "15/01/2026",
+        "derniere_connexion": "03/04/2026",
+        "points_fidelite": 1250,
+        "statut_premium": "vip",
+        "statut": "actif",
+        "avatar": "lando_avatar.png"
     },
     {
         "id": 2,
@@ -16,8 +23,15 @@
         "role": "client",
         "nom": "Organa",
         "prenom": "Leia",
+        "email": "leia.organa@alderaan.rep",
+        "telephone": "+33 6 22 33 44 55",
         "adresse": "1 Palais Royal, Alderaan",
-        "statut": "actif"
+        "date_inscription": "20/01/2026",
+        "derniere_connexion": "02/04/2026",
+        "points_fidelite": 780,
+        "statut_premium": "premium",
+        "statut": "actif",
+        "avatar": "han_avatar.png"
     },
     {
         "id": 3,
@@ -26,8 +40,15 @@
         "role": "client",
         "nom": "Binks",
         "prenom": "Jar Jar",
+        "email": "jarjar@naboo.rep",
+        "telephone": "+33 6 33 44 55 66",
         "adresse": "Cité de Otoh Gunga, Naboo",
-        "statut": "banni"
+        "date_inscription": "22/01/2026",
+        "derniere_connexion": "25/01/2026",
+        "points_fidelite": 50,
+        "statut_premium": "normal",
+        "statut": "banni",
+        "avatar": "r2d2_avatar.png"
     },
     {
         "id": 4,
@@ -36,8 +57,15 @@
         "role": "client",
         "nom": "Solo",
         "prenom": "Han",
+        "email": "han.solo@holonet.gx",
+        "telephone": "+33 6 44 55 66 77",
         "adresse": "Baie d'amarrage 94, Mos Eisley, Tatooine",
-        "statut": "actif"
+        "date_inscription": "18/01/2026",
+        "derniere_connexion": "04/04/2026",
+        "points_fidelite": 320,
+        "statut_premium": "normal",
+        "statut": "actif",
+        "avatar": "han_avatar.png"
     },
     {
         "id": 5,
@@ -46,8 +74,15 @@
         "role": "client",
         "nom": "Amidala",
         "prenom": "Padmé",
+        "email": "padme.amidala@naboo.rep",
+        "telephone": "+33 6 55 66 77 88",
         "adresse": "Palais de Theed, Naboo",
-        "statut": "actif"
+        "date_inscription": "19/01/2026",
+        "derniere_connexion": "03/04/2026",
+        "points_fidelite": 2100,
+        "statut_premium": "vip",
+        "statut": "actif",
+        "avatar": "han_avatar.png"
     },
     {
         "id": 6,
@@ -56,8 +91,15 @@
         "role": "livreur",
         "nom": "Skywalker",
         "prenom": "Luke",
+        "email": "luke.skywalker@jedi.order",
+        "telephone": "+33 6 66 77 88 99",
         "adresse": "Ferme des Lars, Tatooine",
-        "statut": "actif"
+        "date_inscription": "10/01/2026",
+        "derniere_connexion": "04/04/2026",
+        "points_fidelite": 0,
+        "statut_premium": "normal",
+        "statut": "actif",
+        "avatar": "han_avatar.png"
     },
     {
         "id": 7,
@@ -66,8 +108,15 @@
         "role": "restaurateur",
         "nom": "Jettster",
         "prenom": "Dexter",
+        "email": "dexter@dexsdiner.cor",
+        "telephone": "+33 6 77 88 99 00",
         "adresse": "Dex's Diner, CoCo Town, Coruscant",
-        "statut": "actif"
+        "date_inscription": "05/01/2026",
+        "derniere_connexion": "04/04/2026",
+        "points_fidelite": 0,
+        "statut_premium": "normal",
+        "statut": "actif",
+        "avatar": "r2d2_avatar.png"
     },
     {
         "id": 8,
@@ -76,8 +125,15 @@
         "role": "admin",
         "nom": "Palpatine",
         "prenom": "Sheev",
+        "email": "emperor@senat.imp",
+        "telephone": "+33 6 00 00 00 01",
         "adresse": "Bureau du Sénat, Coruscant",
-        "statut": "actif"
+        "date_inscription": "01/01/2026",
+        "derniere_connexion": "04/04/2026",
+        "points_fidelite": 0,
+        "statut_premium": "normal",
+        "statut": "actif",
+        "avatar": "r2d2_avatar.png"
     },
     {
         "id": 9,
@@ -86,8 +142,15 @@
         "role": "admin",
         "nom": "Vader",
         "prenom": "Darth",
+        "email": "darth.vader@etoile.imp",
+        "telephone": "+33 6 00 00 00 02",
         "adresse": "Étoile de la Mort, Espace Impérial",
-        "statut": "actif"
+        "date_inscription": "01/01/2026",
+        "derniere_connexion": "04/04/2026",
+        "points_fidelite": 0,
+        "statut_premium": "normal",
+        "statut": "actif",
+        "avatar": "r2d2_avatar.png"
     },
     {
         "id": 10,
@@ -96,8 +159,15 @@
         "role": "client",
         "nom": "Windu",
         "prenom": "Mace",
+        "email": "mace.windu@jedi.order",
+        "telephone": "+33 6 88 99 00 11",
         "adresse": "Tour du Conseil Jedi, Coruscant",
-        "statut": "actif"
+        "date_inscription": "17/01/2026",
+        "derniere_connexion": "01/04/2026",
+        "points_fidelite": 640,
+        "statut_premium": "premium",
+        "statut": "actif",
+        "avatar": "chewie_avatar.png"
     },
     {
         "id": 69,
@@ -106,7 +176,14 @@
         "role": "client",
         "nom": "test",
         "prenom": "",
+        "email": "test@test.com",
+        "telephone": "",
         "adresse": "Planète Tatooine",
-        "statut": "actif"
+        "date_inscription": "27/03/2026",
+        "derniere_connexion": "27/03/2026",
+        "points_fidelite": 0,
+        "statut_premium": "normal",
+        "statut": "actif",
+        "avatar": "han_avatar.png"
     }
 ]

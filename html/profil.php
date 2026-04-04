@@ -13,15 +13,72 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
+// on charge les données completes de l'utilisateur connecte depuis users.json
+$users_all = read_json('users.json');
+$user_data = null;
+foreach ($users_all as $u) {
+    if ($u['id'] == $_SESSION['user']['id']) {
+        $user_data = $u;
+        break;
+    }
+}
+
+// securite : si l'utilisateur n'est pas retrouve dans le json, on deconnecte
+if (!$user_data) {
+    session_destroy();
+    header('Location: connexion.php');
+    exit;
+}
+
+// calcul du niveau de fidelite selon les points
+$points_fidelite = isset($user_data['points_fidelite']) ? intval($user_data['points_fidelite']) : 0;
+
+if ($points_fidelite < 500) {
+    $niveau_fidelite = 'Padawan';
+    $points_prec     = 0;
+    $points_prochain = 500;
+    $niveau_suivant  = 'Chevalier Jedi';
+} elseif ($points_fidelite < 1000) {
+    $niveau_fidelite = 'Chevalier Jedi';
+    $points_prec     = 500;
+    $points_prochain = 1000;
+    $niveau_suivant  = 'Maître Jedi';
+} elseif ($points_fidelite < 2000) {
+    $niveau_fidelite = 'Maître Jedi';
+    $points_prec     = 1000;
+    $points_prochain = 2000;
+    $niveau_suivant  = 'Grand Maître';
+} else {
+    $niveau_fidelite = 'Grand Maître';
+    $points_prec     = 2000;
+    $points_prochain = 2000;
+    $niveau_suivant  = 'Grand Maître';
+}
+
+// calcul du pourcentage de progression vers le niveau suivant
+$pourcentage_niveau = ($points_prochain > $points_prec)
+    ? min(100, round(($points_fidelite - $points_prec) / ($points_prochain - $points_prec) * 100))
+    : 100;
+
 // on inclut le header commun
 require_once 'includes/header.php';
 ?>
 
 <main>
+    <!-- message flash apres une commande validee -->
+    <?php if (isset($_SESSION['flash_success'])) : ?>
+    <div style="background: rgba(0,255,100,0.15); border: 1px solid rgba(0,255,100,0.4); padding: 15px; border-radius: 10px; text-align: center; color: #7fff7f; max-width: 900px; margin: 20px auto 0;">
+        ✅ <?= htmlspecialchars($_SESSION['flash_success']) ?>
+    </div>
+    <?php unset($_SESSION['flash_success']); ?>
+    <?php endif; ?>
+
     <!-- titre du dashboard -->
     <section class="dashboard-header">
         <h1>🛡️ Tableau de Bord du Jedi</h1>
-        <p class="subtitle">Bienvenue, Chevalier. Votre statut dans la galaxie.</p>
+        <p class="subtitle">
+            Bienvenue, <?= htmlspecialchars($user_data['prenom'] ?: $user_data['login']) ?>. Votre statut dans la galaxie.
+        </p>
     </section>
 
     <div class="dashboard-grid">
@@ -32,40 +89,77 @@ require_once 'includes/header.php';
                 <h2>📋 Carte d'Identité Galactique</h2>
             </div>
             <div class="panel-body">
+
                 <!-- avatar du joueur -->
                 <div class="avatar-section">
                     <div class="avatar-frame">
-                        <img src="../images/han_avatar.png" alt="Avatar du joueur" class="profile-avatar">
+                        <img src="../images/<?= htmlspecialchars($user_data['avatar'] ?? 'han_avatar.png') ?>"
+                             alt="Avatar de <?= htmlspecialchars($user_data['login']) ?>"
+                             class="profile-avatar">
                         <button class="btn-edit-avatar" title="Modifier l'avatar">✏️</button>
                     </div>
-                    <span class="rank-badge">Chevalier Jedi</span>
+                    <span class="rank-badge"><?= htmlspecialchars($niveau_fidelite) ?></span>
                 </div>
 
-                <!-- champs editables -->
+                <!-- champs editables (edition effective en phase 3) -->
                 <div class="identity-fields">
+
                     <div class="field-row">
                         <span class="field-label">Pseudo</span>
-                        <span class="field-value">Han_Solo_77</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['login'] ?? '—') ?></span>
                         <button class="btn-edit" title="Modifier">✏️</button>
                     </div>
+
+                    <div class="field-row">
+                        <span class="field-label">Prénom</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['prenom'] ?: '—') ?></span>
+                        <button class="btn-edit" title="Modifier">✏️</button>
+                    </div>
+
+                    <div class="field-row">
+                        <span class="field-label">Nom</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['nom'] ?? '—') ?></span>
+                        <button class="btn-edit" title="Modifier">✏️</button>
+                    </div>
+
                     <div class="field-row">
                         <span class="field-label">Email</span>
-                        <span class="field-value">han.solo@holonet.gx</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['email'] ?? 'Non renseigné') ?></span>
                         <button class="btn-edit" title="Modifier">✏️</button>
                     </div>
+
                     <div class="field-row">
-                        <span class="field-label">Planète</span>
-                        <span class="field-value">Corellia</span>
+                        <span class="field-label">Téléphone</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['telephone'] ?: 'Non renseigné') ?></span>
                         <button class="btn-edit" title="Modifier">✏️</button>
                     </div>
+
+                    <div class="field-row">
+                        <span class="field-label">Adresse</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['adresse'] ?? '—') ?></span>
+                        <button class="btn-edit" title="Modifier">✏️</button>
+                    </div>
+
                     <div class="field-row">
                         <span class="field-label">Membre depuis</span>
-                        <span class="field-value">Cycle 3024</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['date_inscription'] ?? '—') ?></span>
                     </div>
+
+                    <div class="field-row">
+                        <span class="field-label">Dernière connexion</span>
+                        <span class="field-value"><?= htmlspecialchars($user_data['derniere_connexion'] ?? '—') ?></span>
+                    </div>
+
+                    <div class="field-row">
+                        <span class="field-label">Statut</span>
+                        <span class="field-value"><?= htmlspecialchars(ucfirst($user_data['statut_premium'] ?? 'normal')) ?></span>
+                    </div>
+
                 </div>
 
-                <!-- bouton deconnexion -->
-                <button class="btn-logout">⚠️ Déconnexion</button>
+                <!-- bouton deconnexion lie a deconnexion.php -->
+                <a href="deconnexion.php" class="btn-logout">⚠️ Déconnexion</a>
+
             </div>
         </section>
 
@@ -80,7 +174,7 @@ require_once 'includes/header.php';
                 <div class="points-display">
                     <div class="points-icon">💎</div>
                     <div class="points-info">
-                        <span class="points-number">1 250</span>
+                        <span class="points-number"><?= number_format($points_fidelite, 0, ',', ' ') ?></span>
                         <span class="points-label">Crédits Républicains</span>
                     </div>
                 </div>
@@ -88,25 +182,29 @@ require_once 'includes/header.php';
                 <!-- barre de progression vers le prochain niveau -->
                 <div class="level-progress">
                     <div class="level-header">
-                        <span class="level-name">Niveau : Chevalier Jedi</span>
-                        <span class="level-percent">75%</span>
+                        <span class="level-name">Niveau : <?= htmlspecialchars($niveau_fidelite) ?></span>
+                        <span class="level-percent"><?= $pourcentage_niveau ?>%</span>
                     </div>
                     <div class="progress-bar-track">
-                        <div class="progress-bar-fill" style="width: 75%;"></div>
+                        <div class="progress-bar-fill" style="width: <?= $pourcentage_niveau ?>%;"></div>
                         <div class="progress-bar-glow"></div>
                     </div>
                     <div class="level-footer">
-                        <span>1 250 pts</span>
-                        <span>Prochain : Maître Jedi — 2 000 pts</span>
+                        <span><?= number_format($points_fidelite, 0, ',', ' ') ?> pts</span>
+                        <?php if ($niveau_fidelite !== 'Grand Maître') : ?>
+                        <span>Prochain : <?= htmlspecialchars($niveau_suivant) ?> — <?= number_format($points_prochain, 0, ',', ' ') ?> pts</span>
+                        <?php else : ?>
+                        <span>🏆 Niveau maximum atteint !</span>
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <!-- avantages debloques -->
+                <!-- avantages debloques selon les points -->
                 <div class="rewards-section">
                     <h3 class="rewards-title">🎁 Mes Avantages Débloqués</h3>
                     <div class="rewards-grid">
 
-                        <!-- recompense 1 : active -->
+                        <?php if ($points_fidelite >= 500) : ?>
                         <div class="reward-coupon reward-active">
                             <div class="coupon-scanline"></div>
                             <div class="coupon-icon">🎫</div>
@@ -116,8 +214,18 @@ require_once 'includes/header.php';
                             </div>
                             <span class="coupon-status status-unlocked">✅ Actif</span>
                         </div>
+                        <?php else : ?>
+                        <div class="reward-coupon reward-locked">
+                            <div class="coupon-icon">🔒</div>
+                            <div class="coupon-content">
+                                <span class="coupon-title">Dessert Offert</span>
+                                <span class="coupon-detail">Macarons de Nevarro</span>
+                            </div>
+                            <span class="coupon-status status-locked">Nécessite 500 pts</span>
+                        </div>
+                        <?php endif; ?>
 
-                        <!-- recompense 2 : active -->
+                        <?php if ($points_fidelite >= 1000) : ?>
                         <div class="reward-coupon reward-active">
                             <div class="coupon-scanline"></div>
                             <div class="coupon-icon">🏷️</div>
@@ -127,27 +235,32 @@ require_once 'includes/header.php';
                             </div>
                             <span class="coupon-status status-unlocked">✅ Actif</span>
                         </div>
+                        <?php endif; ?>
 
                     </div>
                 </div>
 
                 <!-- prochain objectif -->
+                <?php if ($niveau_fidelite !== 'Grand Maître') : ?>
                 <div class="rewards-section">
                     <h3 class="rewards-title">🎯 Prochain Objectif</h3>
                     <div class="rewards-grid">
-
-                        <!-- recompense verrouillee -->
                         <div class="reward-coupon reward-locked">
                             <div class="coupon-icon">🔒</div>
                             <div class="coupon-content">
+                                <?php if ($points_prochain <= 1000) : ?>
+                                <span class="coupon-title">-10% sur la commande</span>
+                                <span class="coupon-detail">Applicable sur tout le menu</span>
+                                <?php else : ?>
                                 <span class="coupon-title">Livraison Gratuite</span>
                                 <span class="coupon-detail">Par Faucon Millenium</span>
+                                <?php endif; ?>
                             </div>
-                            <span class="coupon-status status-locked">Nécessite 2 000 pts</span>
+                            <span class="coupon-status status-locked">Nécessite <?= number_format($points_prochain, 0, ',', ' ') ?> pts</span>
                         </div>
-
                     </div>
                 </div>
+                <?php endif; ?>
 
             </div>
         </section>
@@ -167,6 +280,7 @@ require_once 'includes/header.php';
                                 <th>Détail</th>
                                 <th>Prix</th>
                                 <th>Statut</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -185,29 +299,34 @@ require_once 'includes/header.php';
                             ?>
                             <?php if (empty($mes_commandes)) : ?>
                             <tr>
-                                <td colspan="5" style="text-align: center; color: rgba(255,255,255,0.4); padding: 30px;">Aucune commande pour le moment.</td>
+                                <td colspan="6" style="text-align: center; color: rgba(255,255,255,0.4); padding: 30px;">
+                                    Aucune commande pour le moment.
+                                </td>
                             </tr>
                             <?php else : ?>
                             <?php foreach ($mes_commandes as $cmd) : ?>
                             <?php
-                            // on construit le detail des plats commandes
+                            // detail des plats
                             $detail = [];
                             foreach ($cmd['plats'] as $p) {
                                 $detail[] = $p['quantite'] . 'x ' . $p['nom'];
                             }
                             $detail_str = implode(', ', $detail);
 
-                            // on determine la classe css du badge selon le statut
-                            $statut = $cmd['statut'];
-                            if ($statut === 'livre' || $statut === 'livré') {
+                            // badge de statut
+                            $statut_cmd = $cmd['statut'];
+                            if ($statut_cmd === 'livré' || $statut_cmd === 'livre') {
                                 $badge_class = 'status-delivered';
-                                $badge_text = 'Livré';
-                            } elseif ($statut === 'en livraison') {
+                                $badge_text  = 'Livré';
+                                $peut_noter  = true;
+                            } elseif ($statut_cmd === 'en livraison') {
                                 $badge_class = 'status-prep';
-                                $badge_text = 'En livraison';
+                                $badge_text  = 'En livraison';
+                                $peut_noter  = false;
                             } else {
                                 $badge_class = 'status-prep';
-                                $badge_text = 'En attente';
+                                $badge_text  = 'En attente';
+                                $peut_noter  = false;
                             }
                             ?>
                             <tr>
@@ -216,6 +335,15 @@ require_once 'includes/header.php';
                                 <td><?= htmlspecialchars($detail_str) ?></td>
                                 <td class="order-price"><?= number_format($cmd['total'], 2, ',', '') ?> ₹</td>
                                 <td><span class="status-badge <?= $badge_class ?>"><?= $badge_text ?></span></td>
+                                <td>
+                                    <?php if ($peut_noter) : ?>
+                                    <a href="notation.php?id=<?= urlencode($cmd['id']) ?>"
+                                       class="btn-edit" title="Noter cette commande"
+                                       style="text-decoration:none; display:inline-block;">⭐ Noter</a>
+                                    <?php else : ?>
+                                    <span style="color:rgba(255,255,255,0.3);">—</span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                             <?php endif; ?>

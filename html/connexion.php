@@ -32,6 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user_trouve['statut'] === 'banni') {
             $erreur = 'Votre compte a été banni de la galaxie.';
         } else {
+            // on met a jour la date de derniere connexion dans users.json
+            foreach ($users as &$u) {
+                if ($u['id'] === $user_trouve['id']) {
+                    $u['derniere_connexion'] = date('d/m/Y');
+                    break;
+                }
+            }
+            unset($u);
+            write_json('users.json', $users);
+
             // on stocke les infos en session
             $_SESSION['user'] = [
                 'id' => $user_trouve['id'],
