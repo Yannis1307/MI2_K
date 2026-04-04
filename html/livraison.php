@@ -9,6 +9,26 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
     header('Location: connexion.php');
     exit;
 }
+
+// === TRAITEMENT POST : confirmer la livraison ===
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
+    $id_cmd = trim($_POST['id_commande']);
+    $commandes = read_json('commandes.json');
+    $id_livreur = $_SESSION['user']['id'];
+
+    foreach ($commandes as $index => $cmd) {
+        if ($cmd['id'] === $id_cmd && $cmd['statut'] === 'en livraison' && $cmd['id_livreur'] == $id_livreur) {
+            // on passe la commande en livré
+            $commandes[$index]['statut'] = 'livré';
+            write_json('commandes.json', $commandes);
+            break;
+        }
+    }
+
+    // redirect pour eviter le double POST
+    header('Location: livraison.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -47,11 +67,12 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
             <section class="mission-card">
 
                 <?php
-                // on recupere les commandes en livraison
+                // on recupere les commandes en livraison assignees a ce livreur
                 $commandes = read_json('commandes.json');
+                $id_livreur = $_SESSION['user']['id'];
                 $mission = null;
                 foreach ($commandes as $cmd) {
-                    if ($cmd['statut'] === 'en livraison') {
+                    if ($cmd['statut'] === 'en livraison' && isset($cmd['id_livreur']) && $cmd['id_livreur'] == $id_livreur) {
                         $mission = $cmd;
                         break;
                     }
@@ -128,17 +149,15 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
 
             </section>
 
-            <!-- confirmation de livraison (slider css pur) -->
+            <!-- confirmation de livraison -->
+            <?php if ($mission) : ?>
             <div class="confirm-zone">
-                <label class="slider-confirm" for="confirm-check">
-                    <input type="checkbox" id="confirm-check" class="slider-input">
-                    <span class="slider-track">
-                        <span class="slider-thumb">➤</span>
-                        <span class="slider-text">GLISSER POUR CONFIRMER</span>
-                    </span>
-                    <span class="slider-done">✅ LIVRAISON CONFIRMÉE</span>
-                </label>
+                <form method="POST" action="livraison.php">
+                    <input type="hidden" name="id_commande" value="<?= htmlspecialchars($mission['id']) ?>">
+                    <button type="submit" class="btn-confirm-delivery">✅ CONFIRMER LA LIVRAISON</button>
+                </form>
             </div>
+            <?php endif; ?>
 
             <!-- bouton de secours -->
             <div class="help-zone">

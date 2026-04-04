@@ -94,7 +94,8 @@ $montant  = number_format($total, 2, '.', '');
 
 // URL de retour apres paiement (CYBank y ajoutera ses parametres GET)
 $protocole = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
-$retour    = $protocole . '://' . $_SERVER['HTTP_HOST'] . '/MI2_K/html/retour_paiement.php';
+$dossier   = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+$retour    = $protocole . '://' . $_SERVER['HTTP_HOST'] . $dossier . '/retour_paiement.php';
 
 // hash de controle : md5(api_key#transaction#montant#vendeur#retour#)
 $control = md5($api_key . '#' . $transaction_id . '#' . $montant . '#' . $vendeur . '#' . $retour . '#');

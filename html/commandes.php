@@ -9,6 +9,35 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
     header('Location: connexion.php');
     exit;
 }
+
+// === TRAITEMENT POST : passer une commande en livraison ===
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
+    $id_cmd = trim($_POST['id_commande']);
+    $commandes = read_json('commandes.json');
+
+    foreach ($commandes as $index => $cmd) {
+        if ($cmd['id'] === $id_cmd && $cmd['statut'] === 'en attente') {
+            // on passe la commande en livraison
+            $commandes[$index]['statut'] = 'en livraison';
+
+            // on cherche un livreur disponible dans users.json
+            $users = read_json('users.json');
+            foreach ($users as $u) {
+                if ($u['role'] === 'livreur' && $u['statut'] === 'actif') {
+                    $commandes[$index]['id_livreur'] = $u['id'];
+                    break;
+                }
+            }
+
+            write_json('commandes.json', $commandes);
+            break;
+        }
+    }
+
+    // redirect pour eviter le double POST
+    header('Location: commandes.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -61,6 +90,15 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
                     $en_livraison[] = $c;
                 }
             }
+
+            // On prepare la liste des livreurs pour l'attribution (Phase 3)
+            $users_all = read_json('users.json');
+            $liste_livreurs = [];
+            foreach ($users_all as $u) {
+                if ($u['role'] === 'livreur') {
+                    $liste_livreurs[] = $u;
+                }
+            }
             ?>
             <div class="zone-header">
                 <h2>🔥 COMMANDES EN ATTENTE</h2>
@@ -94,7 +132,19 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
                     </div>
                     <div class="ticket-footer">
                         <span class="ticket-client">👤 <?= htmlspecialchars($cmd['login_client']) ?></span>
-                        <button class="btn-ready">✅ PRÊT POUR LIVRAISON</button>
+                        <form method="POST" action="commandes.php" style="display:flex; gap:10px; align-items:center;">
+                            <input type="hidden" name="id_commande" value="<?= htmlspecialchars($cmd['id']) ?>">
+                            
+                            <!-- Séléction du livreur (Phase 3) -->
+                            <select name="id_livreur_manuel" style="padding: 6px; border-radius: 4px; background: rgba(0,0,0,0.4); color: #fff; border: 1px solid rgba(255,255,255,0.2); font-size: 0.9em;">
+                                <option value="">Livreur auto (P3)</option>
+                                <?php foreach ($liste_livreurs as $livreur) : ?>
+                                    <option value="<?= $livreur['id'] ?>">👤 <?= htmlspecialchars($livreur['login']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <button type="submit" class="btn-ready">✅ PRÊT POUR LIVRAISON</button>
+                        </form>
                     </div>
                 </article>
                 <?php endforeach; ?>

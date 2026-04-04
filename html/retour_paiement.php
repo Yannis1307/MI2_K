@@ -12,7 +12,7 @@ require_once 'includes/getapikey.php';
 $transaction    = isset($_GET['transaction']) ? $_GET['transaction'] : '';
 $montant        = isset($_GET['montant'])     ? $_GET['montant']     : '';
 $vendeur        = isset($_GET['vendeur'])     ? $_GET['vendeur']     : '';
-$statut         = isset($_GET['statut'])      ? $_GET['statut']      : '';
+$statut         = isset($_GET['status'])      ? $_GET['status']      : (isset($_GET['statut']) ? $_GET['statut'] : '');
 $control_recu   = isset($_GET['control'])     ? $_GET['control']     : '';
 
 // on verifie que les parametres essentiels sont presents
