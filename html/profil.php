@@ -52,7 +52,6 @@ if ($points_fidelite < 500) {
     $niveau_fidelite = 'Grand Maître';
     $points_prec = 2000;
     $points_prochain = 2000;
-    $niveau_suivant = 'Grand Maître';
 }
 
 // calcul du pourcentage de progression vers le niveau suivant

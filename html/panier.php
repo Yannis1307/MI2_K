@@ -155,8 +155,8 @@ require_once 'includes/header.php';
                                     :</label>
                                 <select name="type_commande"
                                     style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
-                                    <option value="immediate">🚀 Immédiate</option>
-                                    <option value="planifiee">📅 Planifiée</option>
+                                    <option value="immediate" style="background:#1a1a2e; color:white;">🚀 Immédiate</option>
+                                    <option value="planifiee" style="background:#1a1a2e; color:white;">📅 Planifiée</option>
                                 </select>
                             </div>
 
@@ -167,8 +167,8 @@ require_once 'includes/header.php';
                                     :</label>
                                 <select name="mode_retrait"
                                     style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
-                                    <option value="livraison">🛵 Livraison</option>
-                                    <option value="emporter">🥡 À emporter</option>
+                                    <option value="livraison" style="background:#1a1a2e; color:white;">🛵 Livraison</option>
+                                    <option value="emporter" style="background:#1a1a2e; color:white;">🥡 À emporter</option>
                                 </select>
                             </div>
 
