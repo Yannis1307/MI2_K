@@ -9,10 +9,28 @@ $users = read_json('users.json');
 
 // on calcule les stats dynamiquement
 $nb_total = count($users);
-$nb_clients = count(array_filter($users, function($u) { return $u['role'] === 'client'; }));
-$nb_livreurs = count(array_filter($users, function($u) { return $u['role'] === 'livreur'; }));
-$nb_restaurateurs = count(array_filter($users, function($u) { return $u['role'] === 'restaurateur'; }));
-$nb_bannis = count(array_filter($users, function($u) { return ($u['statut'] ?? 'actif') === 'banni'; }));
+$nb_clients = 0;
+$nb_livreurs = 0;
+$nb_restaurateurs = 0;
+$nb_bannis = 0;
+
+foreach ($users as $u) {
+    if ($u['role'] === 'client') {
+        $nb_clients++;
+    }
+    if ($u['role'] === 'livreur') {
+        $nb_livreurs++;
+    }
+    if ($u['role'] === 'restaurateur') {
+        $nb_restaurateurs++;
+    }
+    
+    // on verifie le statut pour compter les bannis
+    $statut_u = isset($u['statut']) ? $u['statut'] : 'actif';
+    if ($statut_u === 'banni') {
+        $nb_bannis++;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -115,7 +133,7 @@ $nb_bannis = count(array_filter($users, function($u) { return ($u['statut'] ?? '
                     // affichage des utilisateurs en bdd
                     foreach ($users as $user) :
                         $role = $user['role'];
-                        $statut = $user['statut'] ?? 'actif';
+                        $statut = isset($user['statut']) ? $user['statut'] : 'actif';
                         $is_banned = ($statut === 'banni');
 
                         // classe du badge de role

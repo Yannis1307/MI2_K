@@ -17,7 +17,7 @@ foreach ($plats as $plat) {
 }
 
 // on recupere le panier de la session
-$panier = $_SESSION['panier'] ?? [];
+$panier = isset($_SESSION['panier']) ? $_SESSION['panier'] : [];
 
 // calcul du total
 $total = 0;

@@ -3,7 +3,7 @@
 require_once 'includes/functions.php';
 
 // on recupere l'id du plat envoye par le formulaire
-$id_plat = $_POST['id_plat'] ?? null;
+$id_plat = isset($_POST['id_plat']) ? $_POST['id_plat'] : null;
 
 if ($id_plat) {
     // creation du panier si vide
