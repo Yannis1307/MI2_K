@@ -74,9 +74,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
                 <div class="mission-section address-section">
                     <h2 class="section-label">📍 Adresse de Livraison</h2>
                     <p class="address-text">
-                        <?= htmlspecialchars($mission['adresse'] ?? 'Adresse non renseignée') ?>
+                        <?= htmlspecialchars(isset($mission['adresse']) ? $mission['adresse'] : 'Adresse non renseignée') ?>
                     </p>
-                    <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($mission['adresse'] ?? '') ?>"
+                    <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode(isset($mission['adresse']) ? $mission['adresse'] : '') ?>"
                         target="_blank" class="btn-gps">
                         🌍 OUVRIR LA CARTE GALACTIQUE
                     </a>

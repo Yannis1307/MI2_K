@@ -12,8 +12,8 @@ $erreur = '';
 
 // traitement du formulaire quand il est soumis en post
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login = $_POST['identifiant'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $login = isset($_POST['identifiant']) ? $_POST['identifiant'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
 
     // on lit la liste des utilisateurs
     $users = read_json('users.json');

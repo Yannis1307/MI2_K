@@ -22,9 +22,9 @@ foreach ($plats as $plat) {
 }
 
 // on recupere les infos du formulaire
-$type_commande = $_POST['type_commande'] ?? 'immediate';
-$heure_livraison = $_POST['heure_livraison'] ?? '';
-$adresse = $_POST['adresse'] ?? '';
+$type_commande = isset($_POST['type_commande']) ? $_POST['type_commande'] : 'immediate';
+$heure_livraison = isset($_POST['heure_livraison']) ? $_POST['heure_livraison'] : '';
+$adresse = isset($_POST['adresse']) ? $_POST['adresse'] : '';
 
 // simulation api cybank (paiement accepte par defaut)
 $paiement_ok = true;
@@ -52,9 +52,10 @@ if ($paiement_ok) {
     }
 
     // lecture du fichier commandes existant (ou tableau vide)
-    $fichier_commandes = __DIR__ . '/../data/commandes.json';
+    $fichier_commandes = '../data/commandes.json';
     if (file_exists($fichier_commandes)) {
-        $commandes = json_decode(file_get_contents($fichier_commandes), true) ?? [];
+        $decoded = json_decode(file_get_contents($fichier_commandes), true);
+        $commandes = isset($decoded) ? $decoded : [];
     } else {
         $commandes = [];
     }

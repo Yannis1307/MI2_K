@@ -173,7 +173,7 @@ require_once 'includes/header.php';
                             <?php
                             // on recupere les commandes du client connecte
                             $commandes = read_json('commandes.json');
-                            $id_client = $_SESSION['user']['id'] ?? null;
+                            $id_client = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : null;
                             $mes_commandes = [];
                             foreach ($commandes as $cmd) {
                                 if ($cmd['id_client'] == $id_client) {

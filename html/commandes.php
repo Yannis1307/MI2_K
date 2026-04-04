@@ -52,8 +52,15 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
             <?php
             // on recupere les commandes en attente
             $commandes = read_json('commandes.json');
-            $en_attente = array_filter($commandes, function($c) { return $c['statut'] === 'en attente'; });
-            $en_livraison = array_filter($commandes, function($c) { return $c['statut'] === 'en livraison'; });
+            $en_attente = [];
+            $en_livraison = [];
+            foreach ($commandes as $c) {
+                if ($c['statut'] === 'en attente') {
+                    $en_attente[] = $c;
+                } elseif ($c['statut'] === 'en livraison') {
+                    $en_livraison[] = $c;
+                }
+            }
             ?>
             <div class="zone-header">
                 <h2>🔥 COMMANDES EN ATTENTE</h2>
@@ -124,7 +131,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
                     </div>
                     <div class="delivery-details">
                         <span class="delivery-driver">👤 <?= htmlspecialchars($cmd['login_client']) ?></span>
-                        <span class="delivery-dest">→ <?= htmlspecialchars($cmd['adresse'] ?? 'Adresse inconnue') ?></span>
+                        <span class="delivery-dest">→ <?= htmlspecialchars(isset($cmd['adresse']) ? $cmd['adresse'] : 'Adresse inconnue') ?></span>
                     </div>
                 </div>
                 <?php endforeach; ?>

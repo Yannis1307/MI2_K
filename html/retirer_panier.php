@@ -9,7 +9,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 // on recupere l'id du plat a retirer
-$id_plat = $_POST['id_plat'] ?? null;
+$id_plat = isset($_POST['id_plat']) ? $_POST['id_plat'] : null;
 
 if ($id_plat && isset($_SESSION['panier'][$id_plat])) {
     // on decremente la quantite

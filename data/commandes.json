@@ -7,11 +7,11 @@
         "heure": "21:40",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "12 allée des senateur ",
+        "adresse": "12 all\u00e9e des senateur ",
         "plats": [
             {
                 "id_plat": 5,
-                "nom": "Thé de Caf",
+                "nom": "Th\u00e9 de Caf",
                 "quantite": 1,
                 "prix_unitaire": 4,
                 "sous_total": 4
@@ -32,7 +32,7 @@
             },
             {
                 "id_plat": 7,
-                "nom": "Ragoût de racine d'Endor",
+                "nom": "Rago\u00fbt de racine d'Endor",
                 "quantite": 1,
                 "prix_unitaire": 12,
                 "sous_total": 12
@@ -49,11 +49,11 @@
         "heure": "21:40",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "12 allée des senateur ",
+        "adresse": "12 all\u00e9e des senateur ",
         "plats": [
             {
                 "id_plat": 5,
-                "nom": "Thé de Caf",
+                "nom": "Th\u00e9 de Caf",
                 "quantite": 2,
                 "prix_unitaire": 4,
                 "sous_total": 8
@@ -82,5 +82,33 @@
         ],
         "total": 12,
         "statut": "en attente"
+    },
+    {
+        "id": "JDI-8AE30",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "13:56",
+        "type": "immediate",
+        "heure_livraison": null,
+        "adresse": "All\u00e9e des R\u00eaves",
+        "plats": [
+            {
+                "id_plat": 2,
+                "nom": "Lait Vert",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            },
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "total": 13,
+        "statut": "en livraison"
     }
 ]

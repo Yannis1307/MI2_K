@@ -56,10 +56,16 @@ require_once 'includes/header.php';
             // boucle pour afficher chaque plat dynamiquement
             foreach ($plats as $plat):
                 // on prepare les regimes pour les attributs data-diet et data-flavor
-                $regimes = $plat['regimes'] ?? [];
-                $diet = implode(' ', array_filter($regimes, function ($r) {
-                    return $r !== 'piquant';
-                }));
+                $regimes = isset($plat['regimes']) ? $plat['regimes'] : [];
+                
+                // on filtre les regimes sans utiliser array_filter
+                $regimes_filtres = [];
+                foreach ($regimes as $r) {
+                    if ($r !== 'piquant') {
+                        $regimes_filtres[] = $r;
+                    }
+                }
+                $diet = implode(' ', $regimes_filtres);
                 $is_piquant = in_array('piquant', $regimes);
                 $is_vege = in_array('vege', $regimes);
             ?>

@@ -9,11 +9,11 @@ require_once 'includes/functions.php';
 
 // traitement du formulaire quand il est soumis en post
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login = $_POST['nomcode'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $planete = $_POST['planete'] ?? '';
-    $camp = $_POST['camp'] ?? 'jedi';
+    $login = isset($_POST['nomcode']) ? $_POST['nomcode'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $planete = isset($_POST['planete']) ? $_POST['planete'] : '';
+    $camp = isset($_POST['camp']) ? $_POST['camp'] : 'jedi';
 
     // on lit les utilisateurs existants
     $users = read_json('users.json');
