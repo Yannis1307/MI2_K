@@ -233,5 +233,42 @@
         "commentaire": "",
         "code_interphone": "",
         "etage": ""
+    },
+    {
+        "id": "JDI-014C8",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "17:34",
+        "type": "planifiee",
+        "heure_livraison": "21:50",
+        "adresse": "22",
+        "plats": [
+            {
+                "id_plat": 8,
+                "nom": "C\u00f4telettes de Dewback",
+                "quantite": 1,
+                "prix_unitaire": 20,
+                "sous_total": 20
+            },
+            {
+                "id_plat": 9,
+                "nom": "Portion de Survie",
+                "quantite": 1,
+                "prix_unitaire": 3,
+                "sous_total": 3
+            }
+        ],
+        "total": 23,
+        "statut": "en attente",
+        "statut_paiement": "accepte",
+        "transaction_id": "697CE99243",
+        "montant_paye": 23,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
     }
 ]
