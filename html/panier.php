@@ -49,12 +49,19 @@ require_once 'includes/header.php';
 
         <div style="display: flex; flex-direction: column; gap: 20px; max-width: 900px; margin: 0 auto;">
 
-            <?php // message flash si la commande vient d'etre validee ?>
+            <?php // messages flash (succes ou erreur de paiement) ?>
             <?php if (isset($_SESSION['flash_success'])) : ?>
             <div style="background: rgba(0, 255, 100, 0.15); border: 1px solid rgba(0, 255, 100, 0.4); padding: 15px; border-radius: 10px; text-align: center; color: #7fff7f;">
                 ✅ <?= htmlspecialchars($_SESSION['flash_success']) ?>
             </div>
             <?php unset($_SESSION['flash_success']); ?>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['flash_error'])) : ?>
+            <div style="background: rgba(255, 50, 50, 0.15); border: 1px solid rgba(255, 50, 50, 0.4); padding: 15px; border-radius: 10px; text-align: center; color: #ff8080;">
+                ❌ <?= htmlspecialchars($_SESSION['flash_error']) ?>
+            </div>
+            <?php unset($_SESSION['flash_error']); ?>
             <?php endif; ?>
 
             <?php if (empty($panier)) : ?>
@@ -128,7 +135,8 @@ require_once 'includes/header.php';
                     <h2>💳 Valider la Commande</h2>
                 </div>
                 <div class="panel-body">
-                    <form method="POST" action="traitement_commande.php">
+                    <!-- formulaire vers initier_paiement.php qui redirige vers CYBank -->
+                    <form method="POST" action="initier_paiement.php">
 
                         <!-- ligne horizontale avec les 3 champs cote a cote -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 15px; margin-bottom: 20px;">
