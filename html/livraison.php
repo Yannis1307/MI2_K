@@ -3,6 +3,12 @@
 session_start();
 // on charge les fonctions json
 require_once 'includes/functions.php';
+
+// === CONTROLE D'ACCES : livreur uniquement ===
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
+    header('Location: connexion.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">

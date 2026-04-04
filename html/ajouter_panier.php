@@ -2,6 +2,12 @@
 // on charge les fonctions pour avoir acces a la session
 require_once 'includes/functions.php';
 
+// === CONTROLE D'ACCES : connexion obligatoire pour ajouter au panier ===
+if (!isset($_SESSION['user'])) {
+    header('Location: connexion.php');
+    exit;
+}
+
 // on recupere l'id du plat envoye par le formulaire
 $id_plat = $_POST['id_plat'] ?? null;
 

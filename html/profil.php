@@ -7,6 +7,12 @@ $page_id = 'profil';
 // on charge les fonctions utilitaires json
 require_once 'includes/functions.php';
 
+// === CONTROLE D'ACCES : connexion obligatoire ===
+if (!isset($_SESSION['user'])) {
+    header('Location: connexion.php');
+    exit;
+}
+
 // on inclut le header commun
 require_once 'includes/header.php';
 ?>

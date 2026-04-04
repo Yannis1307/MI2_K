@@ -3,6 +3,12 @@
 session_start();
 // on charge les fonctions json
 require_once 'includes/functions.php';
+
+// === CONTROLE D'ACCES : restaurateur uniquement ===
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
+    header('Location: connexion.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">

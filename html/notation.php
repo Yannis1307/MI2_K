@@ -7,6 +7,12 @@ $page_id = 'notation';
 // on charge les fonctions utilitaires json
 require_once 'includes/functions.php';
 
+// === CONTROLE D'ACCES : connexion obligatoire (client uniquement) ===
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'client') {
+    header('Location: connexion.php');
+    exit;
+}
+
 // on inclut le header commun
 require_once 'includes/header.php';
 ?>

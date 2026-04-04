@@ -4,6 +4,12 @@ session_start();
 // on charge les fonctions json
 require_once 'includes/functions.php';
 
+// === CONTROLE D'ACCES : admin uniquement ===
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+    header('Location: connexion.php');
+    exit;
+}
+
 // on recupere tous les utilisateurs
 $users = read_json('users.json');
 

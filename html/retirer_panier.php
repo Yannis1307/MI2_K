@@ -2,6 +2,12 @@
 // on charge les fonctions pour la session
 require_once 'includes/functions.php';
 
+// === CONTROLE D'ACCES : connexion obligatoire pour modifier le panier ===
+if (!isset($_SESSION['user'])) {
+    header('Location: connexion.php');
+    exit;
+}
+
 // on recupere l'id du plat a retirer
 $id_plat = $_POST['id_plat'] ?? null;
 

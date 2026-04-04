@@ -7,6 +7,12 @@ $page_id = 'panier';
 // on charge les fonctions utilitaires json
 require_once 'includes/functions.php';
 
+// === CONTROLE D'ACCES : connexion obligatoire ===
+if (!isset($_SESSION['user'])) {
+    header('Location: connexion.php');
+    exit;
+}
+
 // on recupere les plats pour croiser avec le panier
 $plats = read_json('plats.json');
 
