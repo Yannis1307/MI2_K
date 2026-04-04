@@ -7,39 +7,22 @@
         "heure": "21:40",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "12 all\u00e9e des senateur ",
+        "adresse": "12 all\u00e9e des senateur",
         "plats": [
-            {
-                "id_plat": 5,
-                "nom": "Th\u00e9 de Caf",
-                "quantite": 1,
-                "prix_unitaire": 4,
-                "sous_total": 4
-            },
-            {
-                "id_plat": 2,
-                "nom": "Lait Vert",
-                "quantite": 1,
-                "prix_unitaire": 8,
-                "sous_total": 8
-            },
-            {
-                "id_plat": 9,
-                "nom": "Portion de Survie",
-                "quantite": 1,
-                "prix_unitaire": 3,
-                "sous_total": 3
-            },
-            {
-                "id_plat": 7,
-                "nom": "Rago\u00fbt de racine d'Endor",
-                "quantite": 1,
-                "prix_unitaire": 12,
-                "sous_total": 12
-            }
+            { "id_plat": 5, "nom": "Th\u00e9 de Caf", "quantite": 1, "prix_unitaire": 4, "sous_total": 4 },
+            { "id_plat": 2, "nom": "Lait Vert", "quantite": 1, "prix_unitaire": 8, "sous_total": 8 },
+            { "id_plat": 9, "nom": "Portion de Survie", "quantite": 1, "prix_unitaire": 3, "sous_total": 3 },
+            { "id_plat": 7, "nom": "Rago\u00fbt de racine d'Endor", "quantite": 1, "prix_unitaire": 12, "sous_total": 12 }
         ],
         "total": 27,
-        "statut": "en attente"
+        "statut": "en attente",
+        "statut_paiement": "accepte",
+        "transaction_id": null,
+        "id_livreur": null,
+        "note_qualite": null,
+        "note_livraison": null,
+        "commentaire": "",
+        "date_notation": null
     },
     {
         "id": "JDI-E1CD1",
@@ -49,18 +32,19 @@
         "heure": "21:40",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "12 all\u00e9e des senateur ",
+        "adresse": "12 all\u00e9e des senateur",
         "plats": [
-            {
-                "id_plat": 5,
-                "nom": "Th\u00e9 de Caf",
-                "quantite": 2,
-                "prix_unitaire": 4,
-                "sous_total": 8
-            }
+            { "id_plat": 5, "nom": "Th\u00e9 de Caf", "quantite": 2, "prix_unitaire": 4, "sous_total": 8 }
         ],
         "total": 8,
-        "statut": "en attente"
+        "statut": "en attente",
+        "statut_paiement": "accepte",
+        "transaction_id": null,
+        "id_livreur": null,
+        "note_qualite": null,
+        "note_livraison": null,
+        "commentaire": "",
+        "date_notation": null
     },
     {
         "id": "JDI-75FAF",
@@ -70,18 +54,19 @@
         "heure": "21:48",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "22",
+        "adresse": "Cit\u00e9 des Nuages, Bespin",
         "plats": [
-            {
-                "id_plat": 4,
-                "nom": "Soda de Spotchka",
-                "quantite": 2,
-                "prix_unitaire": 6,
-                "sous_total": 12
-            }
+            { "id_plat": 4, "nom": "Soda de Spotchka", "quantite": 2, "prix_unitaire": 6, "sous_total": 12 }
         ],
         "total": 12,
-        "statut": "en attente"
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "A1B2C3D4E5",
+        "id_livreur": 6,
+        "note_qualite": null,
+        "note_livraison": null,
+        "commentaire": "",
+        "date_notation": null
     },
     {
         "id": "JDI-8AE30",
@@ -93,22 +78,40 @@
         "heure_livraison": null,
         "adresse": "All\u00e9e des R\u00eaves",
         "plats": [
-            {
-                "id_plat": 2,
-                "nom": "Lait Vert",
-                "quantite": 1,
-                "prix_unitaire": 8,
-                "sous_total": 8
-            },
-            {
-                "id_plat": 3,
-                "nom": "Jus de Jabba",
-                "quantite": 1,
-                "prix_unitaire": 5,
-                "sous_total": 5
-            }
+            { "id_plat": 2, "nom": "Lait Vert", "quantite": 1, "prix_unitaire": 8, "sous_total": 8 },
+            { "id_plat": 3, "nom": "Jus de Jabba", "quantite": 1, "prix_unitaire": 5, "sous_total": 5 }
         ],
         "total": 13,
-        "statut": "en livraison"
+        "statut": "en livraison",
+        "statut_paiement": "accepte",
+        "transaction_id": null,
+        "id_livreur": 6,
+        "note_qualite": null,
+        "note_livraison": null,
+        "commentaire": "",
+        "date_notation": null
+    },
+    {
+        "id": "JDI-TEST1",
+        "id_client": 4,
+        "login_client": "Han_Solo",
+        "date": "02\/04\/2026",
+        "heure": "19:30",
+        "type": "livraison",
+        "heure_livraison": "20:00",
+        "adresse": "Baie d'amarrage 94, Mos Eisley, Tatooine",
+        "plats": [
+            { "id_plat": 14, "nom": "Ronto Wrap", "quantite": 2, "prix_unitaire": 14, "sous_total": 28 },
+            { "id_plat": 4, "nom": "Soda de Spotchka", "quantite": 2, "prix_unitaire": 6, "sous_total": 12 }
+        ],
+        "total": 40,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "F1A2B3C4D5",
+        "id_livreur": 6,
+        "note_qualite": null,
+        "note_livraison": null,
+        "commentaire": "",
+        "date_notation": null
     }
 ]
