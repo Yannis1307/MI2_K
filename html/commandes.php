@@ -10,23 +10,30 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
     exit;
 }
 
-// === TRAITEMENT POST : passer une commande en livraison ===
+// === TRAITEMENT POST : passer une commande en livraison ou modifier son statut ===
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     $id_cmd = trim($_POST['id_commande']);
+    $action_statut = isset($_POST['action_statut']) ? $_POST['action_statut'] : 'livraison';
     $commandes = read_json('commandes.json');
 
     foreach ($commandes as $index => $cmd) {
-        if ($cmd['id'] === $id_cmd && $cmd['statut'] === 'en attente') {
-            // on passe la commande en livraison
-            $commandes[$index]['statut'] = 'en livraison';
+        if ($cmd['id'] === $id_cmd) {
+            if ($action_statut === 'livraison' && $cmd['statut'] === 'en attente') {
+                // on passe la commande en livraison
+                $commandes[$index]['statut'] = 'en livraison';
 
-            // on cherche un livreur disponible dans users.json
-            $users = read_json('users.json');
-            foreach ($users as $u) {
-                if ($u['role'] === 'livreur' && $u['statut'] === 'actif') {
-                    $commandes[$index]['id_livreur'] = $u['id'];
-                    break;
+                // on cherche un livreur disponible dans users.json
+                $users = read_json('users.json');
+                foreach ($users as $u) {
+                    if ($u['role'] === 'livreur' && $u['statut'] === 'actif') {
+                        $commandes[$index]['id_livreur'] = $u['id'];
+                        break;
+                    }
                 }
+            } elseif ($action_statut === 'livrer' && in_array($cmd['statut'], ['en livraison', 'en attente'])) {
+                $commandes[$index]['statut'] = 'livré';
+            } elseif ($action_statut === 'abandonner' && in_array($cmd['statut'], ['en livraison', 'en attente'])) {
+                $commandes[$index]['statut'] = 'abandonné';
             }
 
             write_json('commandes.json', $commandes);
@@ -64,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             <span class="kds-live"><span class="live-dot"></span> EN SERVICE</span>
         </div>
         <div class="header-right">
-            <a href="accueil.php" class="btn-kds btn-back">↩ Accueil</a>
+            <a href="deconnexion.php" class="btn-kds btn-back">🚪 Déconnexion</a>
             <button class="btn-kds btn-close-service">🔴 Fermer le service</button>
         </div>
     </header>
@@ -82,14 +89,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             // on recupere les commandes en attente
             $commandes = read_json('commandes.json');
             $en_attente = [];
-            $en_livraison = [];
+            $en_livraison_all = [];
+            $terminees_all = [];
             foreach ($commandes as $c) {
                 if ($c['statut'] === 'en attente') {
                     $en_attente[] = $c;
                 } elseif ($c['statut'] === 'en livraison') {
-                    $en_livraison[] = $c;
+                    $en_livraison_all[] = $c;
+                } elseif (in_array($c['statut'], ['livré', 'livre', 'abandonné'])) {
+                    $terminees_all[] = $c;
                 }
             }
+            
+            // on limite les commandes terminées (livrées et abandonnées) aux 5 dernières
+            $terminees_5 = array_slice($terminees_all, -5);
+            
+            // on fusionne les tableaux pour l'affichage à droite
+            $en_livraison = array_merge($en_livraison_all, $terminees_5);
 
             // On prepare la liste des livreurs pour l'attribution (Phase 3)
             $users_all = read_json('users.json');
@@ -114,12 +130,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                 </div>
                 <?php else : ?>
                 <?php foreach ($en_attente as $cmd) : ?>
+                <?php 
+                    $is_planifiee = (isset($cmd['type']) && $cmd['type'] === 'planifiee');
+                    $ticket_class = $is_planifiee ? 'ticket-planned' : 'ticket-normal';
+                ?>
                 <!-- ticket dynamique -->
-                <article class="ticket ticket-normal">
+                <article class="ticket <?= $ticket_class ?>">
                     <div class="ticket-header">
                         <div class="ticket-id-group">
                             <span class="ticket-number">#<?= htmlspecialchars($cmd['id']) ?></span>
-                            <span class="ticket-time"><?= htmlspecialchars($cmd['heure']) ?></span>
+                            <span class="ticket-time">Créée: <?= htmlspecialchars($cmd['heure']) ?></span>
+                            <?php if ($is_planifiee && !empty($cmd['heure_livraison'])) : ?>
+                                <?php 
+                                    $hl = $cmd['heure_livraison'];
+                                    if (strpos($hl, 'T') !== false) {
+                                        $hl = date('d/m/Y H:i', strtotime($hl));
+                                    }
+                                ?>
+                                <span class="ticket-timer" style="color: #00bfff; border-color: #00bfff; background: rgba(0, 191, 255, 0.08);">
+                                    📅 Prévue: <?= htmlspecialchars($hl) ?>
+                                </span>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="ticket-body">
@@ -132,18 +163,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                     </div>
                     <div class="ticket-footer">
                         <span class="ticket-client">👤 <?= htmlspecialchars($cmd['login_client']) ?></span>
-                        <form method="POST" action="commandes.php" style="display:flex; gap:10px; align-items:center;">
+                        <?php $est_emporter = (isset($cmd['mode_retrait']) && $cmd['mode_retrait'] === 'emporter'); ?>
+                        <form method="POST" action="commandes.php" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top: 10px;">
                             <input type="hidden" name="id_commande" value="<?= htmlspecialchars($cmd['id']) ?>">
                             
-                            <!-- Séléction du livreur (Phase 3) -->
-                            <select name="id_livreur_manuel" style="padding: 6px; border-radius: 4px; background: rgba(0,0,0,0.4); color: #fff; border: 1px solid rgba(255,255,255,0.2); font-size: 0.9em;">
-                                <option value="">Livreur auto (P3)</option>
-                                <?php foreach ($liste_livreurs as $livreur) : ?>
-                                    <option value="<?= $livreur['id'] ?>">👤 <?= htmlspecialchars($livreur['login']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <?php if (!$est_emporter) : ?>
+                                <!-- Séléction du livreur (Phase 3) -->
+                                <select name="id_livreur_manuel" style="padding: 6px; border-radius: 4px; background: rgba(0,0,0,0.4); color: #fff; border: 1px solid rgba(255,255,255,0.2); font-size: 0.9em; width: 100px;">
+                                    <option value="">Livreur auto</option>
+                                    <?php foreach ($liste_livreurs as $livreur) : ?>
+                                        <option value="<?= $livreur['id'] ?>">👤 <?= htmlspecialchars($livreur['login']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
 
-                            <button type="submit" class="btn-ready">✅ PRÊT POUR LIVRAISON</button>
+                                <button type="submit" name="action_statut" value="livraison" class="btn-ready">🚀 EN LIVRAISON</button>
+                            <?php else : ?>
+                                <span style="padding: 6px 12px; border-radius: 4px; background: rgba(255, 140, 0, 0.2); color: #ff8c00; border: 1px solid rgba(255, 140, 0, 0.5); font-size: 0.85em; font-weight: bold; letter-spacing: 1px;">🥡 À EMPORTER</span>
+                            <?php endif; ?>
+
+                            <button type="submit" name="action_statut" value="livrer" class="btn-ready" style="padding: 6px 12px; font-size: 0.8em; background: rgba(0,255,136,0.1); border-color: #00ff88; color: #00ff88;" title="Marquer directement comme Livrée">✅ LIVRÉE</button>
+                            <button type="submit" name="action_statut" value="abandonner" class="btn-ready" style="padding: 6px 12px; font-size: 0.8em; background: rgba(255,50,50,0.1); border-color: #ff4444; color: #ff4444;" title="Marquer comme Abandonnée">❌ ABANDONNÉE</button>
                         </form>
                     </div>
                 </article>
@@ -158,8 +197,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
 
         <section class="zone zone-delivery">
             <div class="zone-header">
-                <h2>🚀 EN COURS DE LIVRAISON</h2>
-                <span class="zone-count"><?= count($en_livraison) ?> en transit</span>
+                <h2>🚀 STATUT DE LIVRAISON</h2>
+                <span class="zone-count"><?= count($en_livraison) ?> commandes</span>
             </div>
 
             <div class="delivery-list">
@@ -171,18 +210,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                 </div>
                 <?php else : ?>
                 <?php foreach ($en_livraison as $cmd) : ?>
+                <?php $is_planifiee = (isset($cmd['type']) && $cmd['type'] === 'planifiee'); ?>
                 <!-- livraison dynamique -->
-                <div class="delivery-card">
+                <div class="delivery-card" <?= $cmd['statut'] === 'abandonné' ? 'style="border-left: 4px solid #ff4444;"' : ($cmd['statut'] === 'livré' || $cmd['statut'] === 'livre' ? 'style="border-left: 4px solid #00ff88;"' : ($is_planifiee ? 'style="border-left: 4px solid #00bfff;"' : '')) ?>>
                     <div class="delivery-info">
                         <span class="delivery-id">#<?= htmlspecialchars($cmd['id']) ?></span>
-                        <span class="delivery-status">
-                            <span class="pulse-dot"></span> En transit
+                        <span class="delivery-status" <?= $cmd['statut'] === 'abandonné' ? 'style="color: #ff4444;"' : ($cmd['statut'] === 'livré' || $cmd['statut'] === 'livre' ? 'style="color: #00ff88;"' : '') ?>>
+                            <?php if ($cmd['statut'] === 'abandonné') : ?>
+                                ❌ Abandonnée
+                            <?php elseif ($cmd['statut'] === 'livré' || $cmd['statut'] === 'livre') : ?>
+                                ✅ Livrée
+                            <?php else : ?>
+                                <span class="pulse-dot"></span> En transit
+                            <?php endif; ?>
                         </span>
                     </div>
                     <div class="delivery-details">
-                        <span class="delivery-driver">👤 <?= htmlspecialchars($cmd['login_client']) ?></span>
-                        <span class="delivery-dest">→ <?= htmlspecialchars(isset($cmd['adresse']) ? $cmd['adresse'] : 'Adresse inconnue') ?></span>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <span class="delivery-driver">👤 <?= htmlspecialchars($cmd['login_client']) ?></span>
+                            <?php if ($is_planifiee && !empty($cmd['heure_livraison'])) : ?>
+                                <?php 
+                                    $hl = $cmd['heure_livraison'];
+                                    if (strpos($hl, 'T') !== false) {
+                                        $hl = date('d/m/Y H:i', strtotime($hl));
+                                    }
+                                ?>
+                                <span style="font-size: 0.75rem; color: #00bfff; font-weight: bold;">📅 <?= htmlspecialchars($hl) ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <span class="delivery-dest" style="text-align: right; max-width: 60%; word-break: break-word;">→ <?= htmlspecialchars(isset($cmd['adresse']) ? $cmd['adresse'] : 'Adresse inconnue') ?></span>
                     </div>
+                    <?php if ($cmd['statut'] === 'en livraison') : ?>
+                    <form method="POST" action="commandes.php" style="display:flex; gap:10px; margin-top: 15px;">
+                        <input type="hidden" name="id_commande" value="<?= htmlspecialchars($cmd['id']) ?>">
+                        <button type="submit" name="action_statut" value="livrer" class="btn-ready" style="padding: 6px 12px; font-size: 0.85em; background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; color: #00ff88;">✅ Livrée</button>
+                        <button type="submit" name="action_statut" value="abandonner" class="btn-ready" style="padding: 6px 12px; font-size: 0.85em; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; color: #ff4444;">❌ Abandonnée</button>
+                    </form>
+                    <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
                 <?php endif; ?>

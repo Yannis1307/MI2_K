@@ -51,7 +51,7 @@
 
                 <?php if (isset($_SESSION['user'])) : ?>
                 <!-- si connecte : on affiche le nom et le bouton deconnexion -->
-                <span class="btn-member btn-login" style="cursor: default;">👤 <?php echo htmlspecialchars($_SESSION['user']['login']); ?></span>
+                <a href="profil.php" class="btn-member btn-login">👤 <?php echo htmlspecialchars($_SESSION['user']['login']); ?></a>
                 <a href="deconnexion.php" class="btn-member btn-signup">Déconnexion</a>
                 <?php else : ?>
                 <!-- si pas connecte : boutons connexion et inscription -->

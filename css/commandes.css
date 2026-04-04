@@ -275,6 +275,12 @@ a {
     border-left: 5px solid #ffcc00;
 }
 
+/* bordure gauche cyan = commande planifiee */
+.ticket-planned {
+    border-left: 5px solid #00bfff;
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.08);
+}
+
 /* en-tete du ticket */
 .ticket-header {
     display: flex;

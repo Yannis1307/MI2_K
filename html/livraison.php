@@ -13,13 +13,18 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
 // === TRAITEMENT POST : confirmer la livraison ===
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     $id_cmd = trim($_POST['id_commande']);
+    $action = isset($_POST['action']) ? $_POST['action'] : 'livrer';
     $commandes = read_json('commandes.json');
     $id_livreur = $_SESSION['user']['id'];
 
     foreach ($commandes as $index => $cmd) {
         if ($cmd['id'] === $id_cmd && $cmd['statut'] === 'en livraison' && $cmd['id_livreur'] == $id_livreur) {
-            // on passe la commande en livré
-            $commandes[$index]['statut'] = 'livré';
+            if ($action === 'abandonner') {
+                $commandes[$index]['statut'] = 'abandonné';
+            } else {
+                // on passe la commande en livré
+                $commandes[$index]['statut'] = 'livré';
+            }
             write_json('commandes.json', $commandes);
             break;
         }
@@ -50,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
         <div class="header-status">
             <span class="status-online"><span class="online-dot"></span> EN LIGNE</span>
         </div>
-        <a href="accueil.php" class="btn-header-action">↩</a>
+        <a href="deconnexion.php" class="btn-header-action" style="width: auto; padding: 0 14px; color: #ff4444; border-color: rgba(255, 68, 68, 0.3); background: rgba(255, 68, 68, 0.08); font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">🚪 Déconnexion</a>
     </header>
 
     <!-- contenu principal mobile -->
@@ -149,19 +154,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
 
             </section>
 
-            <!-- confirmation de livraison -->
+            <!-- confirmation de livraison et abandon -->
             <?php if ($mission) : ?>
-            <div class="confirm-zone">
-                <form method="POST" action="livraison.php">
+            <div class="confirm-zone" style="display: flex; flex-direction: column; gap: 10px;">
+                <form method="POST" action="livraison.php" style="width: 100%;">
                     <input type="hidden" name="id_commande" value="<?= htmlspecialchars($mission['id']) ?>">
-                    <button type="submit" class="btn-confirm-delivery">✅ CONFIRMER LA LIVRAISON</button>
+                    <button type="submit" name="action" value="livrer" class="btn-confirm-delivery" style="width: 100%; margin-bottom: 10px;">✅ CONFIRMER LA LIVRAISON</button>
+                    <button type="submit" name="action" value="abandonner" class="btn-help" style="width: 100%; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; color: #ff4444;">❌ SIGNALER COMME ABANDONNÉE</button>
                 </form>
             </div>
             <?php endif; ?>
 
             <!-- bouton de secours -->
             <div class="help-zone">
-                <button class="btn-help">⚠️ SIGNALER UN PROBLÈME</button>
+                <button class="btn-help" onclick="alert('Fonction de signalement en cours de développement')">⚠️ SIGNALER UN PROBLÈME</button>
             </div>
 
         </div>

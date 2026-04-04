@@ -39,7 +39,7 @@
             }
         ],
         "total": 27,
-        "statut": "livr\u00e9",
+        "statut": "abandonn\u00e9",
         "statut_paiement": "accepte",
         "transaction_id": null,
         "id_livreur": 6,
@@ -193,7 +193,7 @@
             }
         ],
         "total": 5,
-        "statut": "en livraison",
+        "statut": "abandonn\u00e9",
         "statut_paiement": "accepte",
         "transaction_id": "C5490DB69D",
         "montant_paye": 5,
@@ -223,7 +223,7 @@
             }
         ],
         "total": 40,
-        "statut": "en livraison",
+        "statut": "livr\u00e9",
         "statut_paiement": "accepte",
         "transaction_id": "9F5E1F8B34",
         "montant_paye": 40,
@@ -260,10 +260,194 @@
             }
         ],
         "total": 23,
-        "statut": "en attente",
+        "statut": "livr\u00e9",
         "statut_paiement": "accepte",
         "transaction_id": "697CE99243",
         "montant_paye": 23,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-F0D6A",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "17:52",
+        "type": "immediate",
+        "heure_livraison": null,
+        "adresse": "6 rue des petits champs",
+        "plats": [
+            {
+                "id_plat": 4,
+                "nom": "Soda de Spotchka",
+                "quantite": 1,
+                "prix_unitaire": 6,
+                "sous_total": 6
+            }
+        ],
+        "total": 6,
+        "statut": "livr\u00e9",
+        "statut_paiement": "accepte",
+        "transaction_id": "2D03A21CA5",
+        "montant_paye": 6,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-229CE",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "18:10",
+        "type": "immediate",
+        "heure_livraison": null,
+        "adresse": "6 rue des petits champs",
+        "plats": [
+            {
+                "id_plat": 1,
+                "nom": "Lait Bleu",
+                "quantite": 1,
+                "prix_unitaire": 7,
+                "sous_total": 7
+            }
+        ],
+        "total": 7,
+        "statut": "livr\u00e9",
+        "statut_paiement": "accepte",
+        "transaction_id": "ACEA068E9B",
+        "montant_paye": 7,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-14ED9",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "18:42",
+        "type": "immediate",
+        "mode_retrait": "emporter",
+        "heure_livraison": null,
+        "adresse": "",
+        "plats": [
+            {
+                "id_plat": 11,
+                "nom": "Macarons de Nevarro",
+                "quantite": 1,
+                "prix_unitaire": 10,
+                "sous_total": 10
+            }
+        ],
+        "total": 10,
+        "statut": "abandonn\u00e9",
+        "statut_paiement": "accepte",
+        "transaction_id": "3E082DB2A0",
+        "montant_paye": 10,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-63343",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "18:47",
+        "type": "planifiee",
+        "mode_retrait": "livraison",
+        "heure_livraison": "14:30",
+        "adresse": "6 rue des petits champs",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "total": 5,
+        "statut": "livr\u00e9",
+        "statut_paiement": "accepte",
+        "transaction_id": "3FBC975A01",
+        "montant_paye": 5,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-5F172",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "18:49",
+        "type": "planifiee",
+        "mode_retrait": "emporter",
+        "heure_livraison": "18:00",
+        "adresse": "",
+        "plats": [
+            {
+                "id_plat": 2,
+                "nom": "Lait Vert",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            }
+        ],
+        "total": 8,
+        "statut": "livr\u00e9",
+        "statut_paiement": "accepte",
+        "transaction_id": "D6EF6AC964",
+        "montant_paye": 8,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-BB997",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "04\/04\/2026",
+        "heure": "18:55",
+        "type": "planifiee",
+        "mode_retrait": "emporter",
+        "heure_livraison": "2026-04-05T19:55",
+        "adresse": "",
+        "plats": [
+            {
+                "id_plat": 2,
+                "nom": "Lait Vert",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            }
+        ],
+        "total": 8,
+        "statut": "en attente",
+        "statut_paiement": "accepte",
+        "transaction_id": "22EA033C66",
+        "montant_paye": 8,
         "id_livreur": null,
         "note_livraison": null,
         "note_qualite": null,

@@ -48,6 +48,7 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
         'date'            => date('d/m/Y'),
         'heure'           => date('H:i'),
         'type'            => $commande_data['type'],
+        'mode_retrait'    => isset($commande_data['mode_retrait']) ? $commande_data['mode_retrait'] : 'livraison',
         'heure_livraison' => $commande_data['heure_livraison'],
         'adresse'         => $commande_data['adresse'],
         'plats'           => $commande_data['plats'],

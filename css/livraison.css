@@ -499,6 +499,29 @@ a {
     box-shadow: 0 0 15px rgba(255, 68, 68, 0.15);
 }
 
+.btn-confirm-delivery {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #00dd77;
+    background: rgba(0, 221, 119, 0.06);
+    border: 1px solid rgba(0, 221, 119, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-confirm-delivery:hover {
+    background: rgba(0, 221, 119, 0.12);
+    border-color: rgba(0, 221, 119, 0.4);
+    box-shadow: 0 0 15px rgba(0, 221, 119, 0.15);
+}
+
 
 .mobile-footer {
     text-align: center;
