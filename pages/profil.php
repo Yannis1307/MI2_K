@@ -324,18 +324,22 @@ require_once 'includes/header.php';
                                     if ($statut_cmd === 'livré' || $statut_cmd === 'livre') {
                                         $badge_class = 'status-delivered';
                                         $badge_text = 'Livré';
+                                        $badge_style = '';
                                         $peut_noter = true;
                                     } elseif ($statut_cmd === 'en livraison') {
                                         $badge_class = 'status-prep';
                                         $badge_text = 'En livraison';
+                                        $badge_style = '';
                                         $peut_noter = false;
                                     } elseif ($statut_cmd === 'abandonné') {
-                                        $badge_class = 'status-prep" style="background: rgba(255, 50, 50, 0.2); color: #ff5555; border-color: rgba(255, 50, 50, 0.5);';
+                                        $badge_class = 'status-prep';
+                                        $badge_style = 'background:rgba(255,50,50,0.2);color:#ff5555;border-color:rgba(255,50,50,0.5);';
                                         $badge_text = 'Abandonnée';
                                         $peut_noter = false;
                                     } else {
                                         $badge_class = 'status-prep';
                                         $badge_text = 'En attente';
+                                        $badge_style = '';
                                         $peut_noter = false;
                                     }
                                     ?>
@@ -344,7 +348,7 @@ require_once 'includes/header.php';
                                         <td class="order-id">#<?= htmlspecialchars($cmd['id']) ?></td>
                                         <td><?= htmlspecialchars($detail_str) ?></td>
                                         <td class="order-price"><?= number_format($cmd['total'], 2, ',', '') ?> ₹</td>
-                                        <td><span class="status-badge <?= $badge_class ?>"><?= $badge_text ?></span></td>
+                                        <td><span class="status-badge <?= $badge_class ?>" style="<?= $badge_style ?>"><?= $badge_text ?></span></td>
                                         <td>
                                             <?php if ($peut_noter): ?>
                                                 <a href="notation.php?id=<?= urlencode($cmd['id']) ?>" class="btn-edit"

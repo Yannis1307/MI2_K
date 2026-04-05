@@ -61,7 +61,7 @@ $erreur_form = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $note_qualite   = intval(isset($_POST['food-rating'])     ? $_POST['food-rating']     : 0);
     $note_livraison = intval(isset($_POST['delivery-rating']) ? $_POST['delivery-rating'] : 0);
-    $commentaire    = isset($_POST['comment']) ? trim(htmlspecialchars($_POST['comment'])) : '';
+    $commentaire    = isset($_POST['comment']) ? trim($_POST['comment']) : '';
 
     // validation des notes
     if ($note_qualite < 1 || $note_qualite > 5 || $note_livraison < 1 || $note_livraison > 5) {

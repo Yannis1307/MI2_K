@@ -88,8 +88,6 @@ $_SESSION['commande_en_cours'] = [
 // =============================================
 require_once 'includes/getapikey.php';
 
-// Le fichier getapikey.php n'accepte que les codes de MI-2_A à MI-2_J donc on ne peut pas mettre notre code vendeur MI-2_K
-// Alors on utilise TEST pour tester
 $vendeur = 'TEST';
 $api_key = getAPIKey($vendeur);
 $montant = number_format($total, 2, '.', '');

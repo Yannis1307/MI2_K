@@ -18,6 +18,6 @@ function read_json($filename)
 function write_json($filename, $data)
 {
     $path = '../data/' . $filename;
-    $json = json_encode($data, JSON_PRETTY_PRINT);
+    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     file_put_contents($path, $json);
 }

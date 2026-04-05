@@ -40,29 +40,40 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
 
     $commande_data = $_SESSION['commande_en_cours'];
 
+    // on recupere le telephone du client depuis users.json
+    $users_all = read_json('users.json');
+    $telephone_client = '';
+    foreach ($users_all as $u) {
+        if ($u['id'] == $commande_data['id_client']) {
+            $telephone_client = isset($u['telephone']) ? $u['telephone'] : '';
+            break;
+        }
+    }
+
     // construction de la nouvelle commande
     $nouvelle_commande = [
-        'id'              => 'JDI-' . strtoupper(substr(uniqid(), -5)),
-        'id_client'       => $commande_data['id_client'],
-        'login_client'    => $commande_data['login_client'],
-        'date'            => date('d/m/Y'),
-        'heure'           => date('H:i'),
-        'type'            => $commande_data['type'],
-        'mode_retrait'    => isset($commande_data['mode_retrait']) ? $commande_data['mode_retrait'] : 'livraison',
-        'heure_livraison' => $commande_data['heure_livraison'],
-        'adresse'         => $commande_data['adresse'],
-        'plats'           => $commande_data['plats'],
-        'total'           => $commande_data['total'],
-        'statut'          => 'en attente',
-        'statut_paiement' => 'accepte',
-        'transaction_id'  => $transaction,
-        'montant_paye'    => floatval($montant),
-        'id_livreur'      => null,
-        'note_livraison'  => null,
-        'note_qualite'    => null,
-        'commentaire'     => '',
-        'code_interphone' => '',
-        'etage'           => ''
+        'id'               => 'JDI-' . strtoupper(substr(uniqid(), -5)),
+        'id_client'        => $commande_data['id_client'],
+        'login_client'     => $commande_data['login_client'],
+        'date'             => date('d/m/Y'),
+        'heure'            => date('H:i'),
+        'type'             => $commande_data['type'],
+        'mode_retrait'     => isset($commande_data['mode_retrait']) ? $commande_data['mode_retrait'] : 'livraison',
+        'heure_livraison'  => $commande_data['heure_livraison'],
+        'adresse'          => $commande_data['adresse'],
+        'telephone_client' => $telephone_client,
+        'plats'            => $commande_data['plats'],
+        'total'            => $commande_data['total'],
+        'statut'           => 'en attente',
+        'statut_paiement'  => 'accepte',
+        'transaction_id'   => $transaction,
+        'montant_paye'     => floatval($montant),
+        'id_livreur'       => null,
+        'note_livraison'   => null,
+        'note_qualite'     => null,
+        'commentaire'      => '',
+        'code_interphone'  => '',
+        'etage'            => ''
     ];
 
     // lecture + ajout dans commandes.json

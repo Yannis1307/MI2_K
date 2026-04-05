@@ -150,9 +150,9 @@ foreach ($users as $u) {
                     <tr <?php if ($is_banned) echo 'class="row-banned"'; ?>>
                         <td class="cell-id">#U-<?= $user['id'] ?></td>
                         <td class="cell-pseudo"><?= htmlspecialchars($user['login']) ?></td>
-                        <td class="cell-email"><?= htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></td>
+                        <td class="cell-email"><?= htmlspecialchars(isset($user['email']) ? $user['email'] : '—') ?></td>
                         <td><span class="role-badge <?= $role_class ?>"><?= ucfirst(htmlspecialchars($role)) ?></span></td>
-                        <td class="cell-date">—</td>
+                        <td class="cell-date"><?= htmlspecialchars(isset($user['date_inscription']) ? $user['date_inscription'] : '—') ?></td>
                         <td><span class="status-badge <?= $is_banned ? 'status-banned' : 'status-active' ?>"><?= $is_banned ? 'Banni' : 'Actif' ?></span></td>
                         <td class="cell-actions">
                             <button class="action-btn action-view" title="Voir">👁️</button>
@@ -175,7 +175,7 @@ foreach ($users as $u) {
 
     <!-- footer admin -->
     <footer class="admin-footer">
-        <p>&copy; 2026 La Table des Jedi — Console Impériale · Accès Restreint · Projet Creative-Yumland (Phase #1)</p>
+        <p>&copy; 2026 La Table des Jedi — Console Impériale · Accès Restreint · Projet Creative-Yumland (Phase #2)</p>
     </footer>
 
 </body>

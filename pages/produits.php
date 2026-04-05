@@ -10,6 +10,15 @@ require_once 'includes/functions.php';
 // on recupere tous les plats du json
 $plats = read_json('plats.json');
 
+// on indexe les plats par id pour retrouver facilement un plat depuis un menu
+$plats_by_id = [];
+foreach ($plats as $p) {
+    $plats_by_id[$p['id']] = $p;
+}
+
+// on recupere les menus
+$menus = read_json('menus.json');
+
 // on inclut le header commun
 require_once 'includes/header.php';
 ?>
@@ -123,6 +132,42 @@ require_once 'includes/header.php';
 
             <?php endforeach; ?>
 
+        </div>
+
+        <!-- section menus -->
+        <div class="menus-section">
+            <div class="menus-section-header">
+                <h2 class="menus-section-title">🍽️ Nos Menus Galactiques</h2>
+                <p class="menus-section-subtitle">Des formules complètes pour tous les guerriers de la galaxie.</p>
+            </div>
+            <div class="menus-grid">
+                <?php foreach ($menus as $menu): ?>
+                <div class="menu-card">
+                    <div class="menu-card-header">
+                        <span class="menu-icon">⚔️</span>
+                        <h3 class="menu-nom"><?= htmlspecialchars($menu['nom']) ?></h3>
+                    </div>
+                    <p class="menu-description"><?= htmlspecialchars($menu['description']) ?></p>
+
+                    <ul class="menu-plats-list">
+                        <?php foreach ($menu['plats_inclus'] as $id_plat): ?>
+                            <?php if (isset($plats_by_id[$id_plat])): ?>
+                            <li class="menu-plat-item">
+                                <span class="menu-plat-bullet">✦</span>
+                                <?= htmlspecialchars($plats_by_id[$id_plat]['nom']) ?>
+                                <span class="menu-plat-prix"><?= number_format($plats_by_id[$id_plat]['prix'], 2, ',', '') ?> ₹</span>
+                            </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+
+                    <div class="menu-footer">
+                        <span class="menu-prix-total"><?= number_format($menu['prix_total'], 2, ',', '') ?> ₹</span>
+                        <span class="menu-economie">Le menu complet</span>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </main>
 

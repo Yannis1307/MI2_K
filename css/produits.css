@@ -652,3 +652,183 @@ input[type="radio"][name="filter"] {
         padding: 0 10px;
     }
 }
+
+
+/* ==========================================
+   section nos menus galactiques
+   ========================================== */
+
+.menus-section {
+    margin-top: 100px;
+    padding-top: 60px;
+    border-top: 2px solid rgba(255, 215, 0, 0.2);
+    position: relative;
+}
+
+.menus-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+.menus-section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.menus-section-title {
+    font-size: 2.8rem;
+    color: #ffd700;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    margin-bottom: 12px;
+    text-shadow: 0 0 25px rgba(255, 215, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.3);
+}
+
+.menus-section-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/* grille de menus : 3 colonnes sur grand ecran */
+.menus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 35px;
+    padding: 0 20px;
+}
+
+/* carte menu */
+.menu-card {
+    background: linear-gradient(135deg, rgba(10, 10, 50, 0.9), rgba(0, 20, 60, 0.95));
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    backdrop-filter: blur(15px);
+}
+
+/* ligne dore en haut de la carte */
+.menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+
+.menu-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 215, 0, 0.7);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.25);
+}
+
+.menu-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.menu-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.menu-nom {
+    font-size: 1.4rem;
+    color: #ffd700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    margin: 0;
+}
+
+.menu-description {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+    line-height: 1.55;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* liste des plats inclus */
+.menu-plats-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-plat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.menu-plat-bullet {
+    color: #ffd700;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+
+.menu-plat-prix {
+    margin-left: auto;
+    color: rgba(0, 255, 255, 0.7);
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
+/* pied de carte : prix total + libelle */
+.menu-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.menu-prix-total {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    letter-spacing: 1px;
+}
+
+.menu-economie {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-style: italic;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .menus-section-title {
+        font-size: 2rem;
+        letter-spacing: 3px;
+    }
+
+    .menus-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+}
