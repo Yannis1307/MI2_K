@@ -10,4 +10,4 @@ Le design est adapté à l'univers de Star Wars et répond aux contraintes ergon
 
 ## 🚀 Comment lancer le projet ?
 Aucune installation de serveur n'est requise pour cette Phase 1. 
-Il suffit de télécharger le projet et d'ouvrir le fichier `html/accueil.html` ou un autre fichier `html` spécifique avec n'importe quel navigateur web classique.
+Il suffit de télécharger le projet et d'ouvrir le fichier `pages/accueil.php` ou un autre fichier `pages` spécifique avec n'importe quel navigateur web classique.

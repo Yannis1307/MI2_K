@@ -454,5 +454,36 @@
         "commentaire": "",
         "code_interphone": "",
         "etage": ""
+    },
+    {
+        "id": "JDI-25B35",
+        "id_client": 1,
+        "login_client": "Lando_C",
+        "date": "04\/04\/2026",
+        "heure": "19:48",
+        "type": "immediate",
+        "mode_retrait": "emporter",
+        "heure_livraison": null,
+        "adresse": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "total": 5,
+        "statut": "en attente",
+        "statut_paiement": "accepte",
+        "transaction_id": "95861479D1",
+        "montant_paye": 5,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
     }
 ]

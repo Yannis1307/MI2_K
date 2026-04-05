@@ -20,14 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // on cree le nouvel utilisateur avec un id unique
     $nouvel_utilisateur = [
-        'id' => intval(uniqid()),
-        'login' => $login,
-        'password' => $password,
-        'role' => 'client',
-        'nom' => $login,
-        'prenom' => '',
-        'adresse' => 'Planète ' . ucfirst($planete),
-        'statut' => 'actif'
+        'id'                 => intval(uniqid()),
+        'login'              => $login,
+        'password'           => $password,
+        'role'               => 'client',
+        'nom'                => $login,
+        'prenom'             => '',
+        'email'              => $email,
+        'telephone'          => '',
+        'adresse'            => 'Planète ' . ucfirst($planete),
+        'date_inscription'   => date('d/m/Y'),
+        'derniere_connexion' => date('d/m/Y'),
+        'points_fidelite'    => 0,
+        'statut_premium'     => 'normal',
+        'statut'             => 'actif',
+        'allégeance'         => $camp,
+        'avatar'             => 'han_avatar.png'
     ];
 
     // on ajoute le nouvel utilisateur a la liste
