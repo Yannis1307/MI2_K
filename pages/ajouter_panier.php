@@ -1,32 +1,41 @@
 <?php
-// on charge les fonctions pour avoir acces a la session
+// chargement des fonctions pour la session
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : connexion obligatoire pour ajouter au panier ===
+// controle d'accès : connexion requise
 if (!isset($_SESSION['user'])) {
     header('Location: connexion.php');
     exit;
 }
 
-// on recupere l'id du plat envoye par le formulaire
+// on recupere l'id envoye par le formulaire
 $id_plat = isset($_POST['id_plat']) ? $_POST['id_plat'] : null;
+$id_menu = isset($_POST['id_menu']) ? $_POST['id_menu'] : null;
 
+// gestion des plats dans le panier
 if ($id_plat) {
-    // creation du panier si vide
     if (!isset($_SESSION['panier'])) {
         $_SESSION['panier'] = [];
     }
-
-    // on verifie si le plat est deja dans le panier
     if (isset($_SESSION['panier'][$id_plat])) {
-        // on incremente la quantite
         $_SESSION['panier'][$id_plat]++;
     } else {
-        // on ajoute le plat avec une quantite de 1
         $_SESSION['panier'][$id_plat] = 1;
     }
 }
 
-// on redirige vers la carte
+// gestion des menus dans le panier
+if ($id_menu) {
+    if (!isset($_SESSION['panier_menus'])) {
+        $_SESSION['panier_menus'] = [];
+    }
+    if (isset($_SESSION['panier_menus'][$id_menu])) {
+        $_SESSION['panier_menus'][$id_menu]++;
+    } else {
+        $_SESSION['panier_menus'][$id_menu] = 1;
+    }
+}
+
+// redirection vers la carte
 header('Location: produits.php');
 exit;

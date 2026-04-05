@@ -1,46 +1,42 @@
 <?php
-// =============================================
-// retour_paiement.php
-// Reçoit le retour de CYBank (en GET), vérifie
-// le hash de contrôle, crée la commande si accepté
-// =============================================
+// retour de cybank apres paiement
+// verifie le statut et enregistre la commande
 
 require_once 'includes/functions.php';
 require_once 'includes/getapikey.php';
 
-// on recupere les parametres retournes par CYBank en GET
+// recuperation des parametres get
 $transaction    = isset($_GET['transaction']) ? $_GET['transaction'] : '';
 $montant        = isset($_GET['montant'])     ? $_GET['montant']     : '';
 $vendeur        = isset($_GET['vendeur'])     ? $_GET['vendeur']     : '';
 $statut         = isset($_GET['status'])      ? $_GET['status']      : (isset($_GET['statut']) ? $_GET['statut'] : '');
 $control_recu   = isset($_GET['control'])     ? $_GET['control']     : '';
 
-// on verifie que les parametres essentiels sont presents
+// verification des parametres de base
 if (empty($transaction) || empty($statut) || empty($vendeur)) {
     header('Location: accueil.php');
     exit;
 }
 
-// on recupere la cle API pour recalculer le hash de controle
+// recuperation de la cle api
 $api_key = getAPIKey($vendeur);
 
-// hash attendu selon la regle de CYBank : md5(api_key#transaction#montant#vendeur#statut#)
+// calcul du controle attendu
 $control_attendu = md5($api_key . '#' . $transaction . '#' . $montant . '#' . $vendeur . '#' . $statut . '#');
 
-// on verifie que la commande en cours existe en session et correspond a cette transaction
+// verification de la session
 if (!isset($_SESSION['commande_en_cours']) || $_SESSION['commande_en_cours']['transaction'] !== $transaction) {
-    // session perdue ou transaction inconnue
     $_SESSION['flash_error'] = 'Session expirée ou transaction invalide. Veuillez recommencer votre commande.';
     header('Location: panier.php');
     exit;
 }
 
-// === PAIEMENT ACCEPTE ===
+// traitement si paiement valide
 if ($control_recu === $control_attendu && $statut === 'accepted') {
 
     $commande_data = $_SESSION['commande_en_cours'];
 
-    // on recupere le telephone du client depuis users.json
+    // recuperation du telephone client
     $users_all = read_json('users.json');
     $telephone_client = '';
     foreach ($users_all as $u) {
@@ -50,7 +46,7 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
         }
     }
 
-    // construction de la nouvelle commande
+    // creation de la nouvelle commande
     $nouvelle_commande = [
         'id'               => 'JDI-' . strtoupper(substr(uniqid(), -5)),
         'id_client'        => $commande_data['id_client'],
@@ -63,6 +59,7 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
         'adresse'          => $commande_data['adresse'],
         'telephone_client' => $telephone_client,
         'plats'            => $commande_data['plats'],
+        'menus'            => isset($commande_data['menus']) ? $commande_data['menus'] : [],
         'total'            => $commande_data['total'],
         'statut'           => 'en attente',
         'statut_paiement'  => 'accepte',
@@ -72,37 +69,38 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
         'note_livraison'   => null,
         'note_qualite'     => null,
         'commentaire'      => '',
-        'code_interphone'  => '',
-        'etage'            => ''
+        'code_interphone'  => isset($commande_data['code_interphone']) ? $commande_data['code_interphone'] : '',
+        'etage'            => isset($commande_data['etage']) ? $commande_data['etage'] : ''
     ];
 
-    // lecture + ajout dans commandes.json
+    // enregistrement dans commandes.json
     $commandes   = read_json('commandes.json');
     $commandes[] = $nouvelle_commande;
     write_json('commandes.json', $commandes);
 
-    // on vide le panier et la commande en cours de la session
+    // nettoyage sessions panier
     unset($_SESSION['panier']);
+    unset($_SESSION['panier_menus']);
     unset($_SESSION['commande_en_cours']);
 
-    // message de succes pour la page profil
+    // notification de succes
     $_SESSION['flash_success'] = 'Commande #' . $nouvelle_commande['id'] . ' validée avec succès ! Paiement CYBank accepté.';
 
-    // redirection vers le profil pour voir l'historique
+    // redirection vers profil
     header('Location: profil.php');
     exit;
 
-// === PAIEMENT REFUSE ou HASH INVALIDE ===
+// traitement si echec ou fraude
 } else {
 
-    // on annule la commande en cours
+    // annulation
     unset($_SESSION['commande_en_cours']);
 
     if ($control_recu !== $control_attendu) {
-        // hash incorrect : possible tentative de fraude
+        // erreur securite
         $_SESSION['flash_error'] = 'Erreur de sécurité : réponse CYBank invalide. Contactez le support.';
     } else {
-        // paiement refusé par la banque
+        // refus bancaire
         $_SESSION['flash_error'] = 'Paiement refusé par CYBank. Vérifiez vos informations bancaires et réessayez.';
     }
 

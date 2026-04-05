@@ -1,26 +1,33 @@
 <?php
-// on charge les fonctions pour la session
+// chargement des fonctions pour la session
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : connexion obligatoire pour modifier le panier ===
+// controle d'accès : connexion requise
 if (!isset($_SESSION['user'])) {
     header('Location: connexion.php');
     exit;
 }
 
-// on recupere l'id du plat a retirer
+// recupere l'id voulu
 $id_plat = isset($_POST['id_plat']) ? $_POST['id_plat'] : null;
+$id_menu = isset($_POST['id_menu']) ? $_POST['id_menu'] : null;
 
+// gestion des plats
 if ($id_plat && isset($_SESSION['panier'][$id_plat])) {
-    // on decremente la quantite
     $_SESSION['panier'][$id_plat]--;
-
-    // si la quantite tombe a 0, on supprime l'entree
     if ($_SESSION['panier'][$id_plat] <= 0) {
         unset($_SESSION['panier'][$id_plat]);
     }
 }
 
-// on redirige vers le panier
+// gestion des menus
+if ($id_menu && isset($_SESSION['panier_menus'][$id_menu])) {
+    $_SESSION['panier_menus'][$id_menu]--;
+    if ($_SESSION['panier_menus'][$id_menu] <= 0) {
+        unset($_SESSION['panier_menus'][$id_menu]);
+    }
+}
+
+// redirection vers le panier
 header('Location: panier.php');
 exit;

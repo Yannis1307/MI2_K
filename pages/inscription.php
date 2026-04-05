@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // on lit les utilisateurs existants
     $users = read_json('users.json');
 
-    // on cree le nouvel utilisateur avec un id unique
+    // creation du nouvel utilisateur
     $nouvel_utilisateur = [
         'id'                 => intval(uniqid()),
         'login'              => $login,
@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'email'              => $email,
         'telephone'          => '',
         'adresse'            => 'Planète ' . ucfirst($planete),
-        'date_inscription'   => date('d/m/Y'),
+        'date_inscription'   => date('d/m/Y'), // ajout de la date du jour
         'derniere_connexion' => date('d/m/Y'),
         'points_fidelite'    => 0,
         'statut_premium'     => 'normal',
         'statut'             => 'actif',
-        'allégeance'         => $camp,
+        'camp'               => $camp,
         'avatar'             => 'han_avatar.png'
     ];
 

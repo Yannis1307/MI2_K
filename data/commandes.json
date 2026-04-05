@@ -3,15 +3,15 @@
         "id": "JDI-6A95F",
         "id_client": 1,
         "login_client": "Lando_C",
-        "date": "27\/03\/2026",
+        "date": "27/03/2026",
         "heure": "21:40",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "12 all\u00e9e des senateur",
+        "adresse": "12 allée des senateur",
         "plats": [
             {
                 "id_plat": 5,
-                "nom": "Th\u00e9 de Caf",
+                "nom": "Thé de Caf",
                 "quantite": 1,
                 "prix_unitaire": 4,
                 "sous_total": 4
@@ -32,14 +32,14 @@
             },
             {
                 "id_plat": 7,
-                "nom": "Rago\u00fbt de racine d'Endor",
+                "nom": "Ragoût de racine d'Endor",
                 "quantite": 1,
                 "prix_unitaire": 12,
                 "sous_total": 12
             }
         ],
         "total": 27,
-        "statut": "abandonn\u00e9",
+        "statut": "abandonné",
         "statut_paiement": "accepte",
         "transaction_id": null,
         "id_livreur": 6,
@@ -52,22 +52,22 @@
         "id": "JDI-E1CD1",
         "id_client": 1,
         "login_client": "Lando_C",
-        "date": "27\/03\/2026",
+        "date": "27/03/2026",
         "heure": "21:40",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "12 all\u00e9e des senateur",
+        "adresse": "12 allée des senateur",
         "plats": [
             {
                 "id_plat": 5,
-                "nom": "Th\u00e9 de Caf",
+                "nom": "Thé de Caf",
                 "quantite": 2,
                 "prix_unitaire": 4,
                 "sous_total": 8
             }
         ],
         "total": 8,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": null,
         "id_livreur": 6,
@@ -80,11 +80,11 @@
         "id": "JDI-75FAF",
         "id_client": 1,
         "login_client": "Lando_C",
-        "date": "27\/03\/2026",
+        "date": "27/03/2026",
         "heure": "21:48",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "Cit\u00e9 des Nuages, Bespin",
+        "adresse": "Cité des Nuages, Bespin",
         "plats": [
             {
                 "id_plat": 4,
@@ -95,7 +95,7 @@
             }
         ],
         "total": 12,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "A1B2C3D4E5",
         "id_livreur": 6,
@@ -108,11 +108,11 @@
         "id": "JDI-8AE30",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "13:56",
         "type": "immediate",
         "heure_livraison": null,
-        "adresse": "All\u00e9e des R\u00eaves",
+        "adresse": "Allée des Rêves",
         "plats": [
             {
                 "id_plat": 2,
@@ -130,20 +130,20 @@
             }
         ],
         "total": 13,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": null,
         "id_livreur": 6,
         "note_qualite": 5,
         "note_livraison": 5,
         "commentaire": "",
-        "date_notation": "04\/04\/2026"
+        "date_notation": "04/04/2026"
     },
     {
         "id": "JDI-TEST1",
         "id_client": 4,
         "login_client": "Han_Solo",
-        "date": "02\/04\/2026",
+        "date": "02/04/2026",
         "heure": "19:30",
         "type": "livraison",
         "heure_livraison": "20:00",
@@ -165,7 +165,7 @@
             }
         ],
         "total": 40,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "F1A2B3C4D5",
         "id_livreur": 6,
@@ -178,7 +178,7 @@
         "id": "JDI-7115F",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "17:19",
         "type": "immediate",
         "heure_livraison": null,
@@ -193,7 +193,7 @@
             }
         ],
         "total": 5,
-        "statut": "abandonn\u00e9",
+        "statut": "abandonné",
         "statut_paiement": "accepte",
         "transaction_id": "C5490DB69D",
         "montant_paye": 5,
@@ -208,7 +208,7 @@
         "id": "JDI-EF827",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "17:26",
         "type": "immediate",
         "heure_livraison": null,
@@ -216,14 +216,14 @@
         "plats": [
             {
                 "id_plat": 8,
-                "nom": "C\u00f4telettes de Dewback",
+                "nom": "Côtelettes de Dewback",
                 "quantite": 2,
                 "prix_unitaire": 20,
                 "sous_total": 40
             }
         ],
         "total": 40,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "9F5E1F8B34",
         "montant_paye": 40,
@@ -238,7 +238,7 @@
         "id": "JDI-014C8",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "17:34",
         "type": "planifiee",
         "heure_livraison": "21:50",
@@ -246,7 +246,7 @@
         "plats": [
             {
                 "id_plat": 8,
-                "nom": "C\u00f4telettes de Dewback",
+                "nom": "Côtelettes de Dewback",
                 "quantite": 1,
                 "prix_unitaire": 20,
                 "sous_total": 20
@@ -260,7 +260,7 @@
             }
         ],
         "total": 23,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "697CE99243",
         "montant_paye": 23,
@@ -275,7 +275,7 @@
         "id": "JDI-F0D6A",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "17:52",
         "type": "immediate",
         "heure_livraison": null,
@@ -290,7 +290,7 @@
             }
         ],
         "total": 6,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "2D03A21CA5",
         "montant_paye": 6,
@@ -305,7 +305,7 @@
         "id": "JDI-229CE",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "18:10",
         "type": "immediate",
         "heure_livraison": null,
@@ -320,7 +320,7 @@
             }
         ],
         "total": 7,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "ACEA068E9B",
         "montant_paye": 7,
@@ -335,7 +335,7 @@
         "id": "JDI-14ED9",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "18:42",
         "type": "immediate",
         "mode_retrait": "emporter",
@@ -351,7 +351,7 @@
             }
         ],
         "total": 10,
-        "statut": "abandonn\u00e9",
+        "statut": "abandonné",
         "statut_paiement": "accepte",
         "transaction_id": "3E082DB2A0",
         "montant_paye": 10,
@@ -366,7 +366,7 @@
         "id": "JDI-63343",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "18:47",
         "type": "planifiee",
         "mode_retrait": "livraison",
@@ -382,7 +382,7 @@
             }
         ],
         "total": 5,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "3FBC975A01",
         "montant_paye": 5,
@@ -397,7 +397,7 @@
         "id": "JDI-5F172",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "18:49",
         "type": "planifiee",
         "mode_retrait": "emporter",
@@ -413,7 +413,7 @@
             }
         ],
         "total": 8,
-        "statut": "livr\u00e9",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "D6EF6AC964",
         "montant_paye": 8,
@@ -428,7 +428,7 @@
         "id": "JDI-BB997",
         "id_client": 69,
         "login_client": "test",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "18:55",
         "type": "planifiee",
         "mode_retrait": "emporter",
@@ -459,7 +459,7 @@
         "id": "JDI-25B35",
         "id_client": 1,
         "login_client": "Lando_C",
-        "date": "04\/04\/2026",
+        "date": "04/04/2026",
         "heure": "19:48",
         "type": "immediate",
         "mode_retrait": "emporter",
@@ -485,5 +485,188 @@
         "commentaire": "",
         "code_interphone": "",
         "etage": ""
+    },
+    {
+        "id": "JDI-471DE",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "05/04/2026",
+        "heure": "19:48",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "Allée des Rêves",
+        "telephone_client": "",
+        "plats": [],
+        "menus": [
+            {
+                "id_menu": 2,
+                "nom": "Menu Maître Jedi",
+                "quantite": 1,
+                "prix_unitaire": 29.9,
+                "sous_total": 29.9,
+                "plats_details": [
+                    "Côtelettes de Dewback",
+                    "Thé de Caf",
+                    "Tartare de Tip-Yip"
+                ]
+            }
+        ],
+        "total": 29.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "D15C8C46FA",
+        "montant_paye": 29.9,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-18DA1",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "05/04/2026",
+        "heure": "19:50",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "Allée des Rêves",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 27.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "1673ECD557",
+        "montant_paye": 27.9,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-1C159",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "05/04/2026",
+        "heure": "20:12",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 1,
+                "nom": "Menu Padawan",
+                "quantite": 1,
+                "prix_unitaire": 18.9,
+                "sous_total": 18.9,
+                "plats_details": [
+                    "Rôti de Nuna",
+                    "Lait Bleu",
+                    "Ragoût de racine d'Endor"
+                ]
+            }
+        ],
+        "total": 23.9,
+        "statut": "en attente",
+        "statut_paiement": "accepte",
+        "transaction_id": "E145DC32DE",
+        "montant_paye": 23.9,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-EE71E",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "05/04/2026",
+        "heure": "20:14",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            },
+            {
+                "id_plat": 10,
+                "nom": "Meiloorun",
+                "quantite": 1,
+                "prix_unitaire": 9,
+                "sous_total": 9
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 36.9,
+        "statut": "en livraison",
+        "statut_paiement": "accepte",
+        "transaction_id": "37FE7AE9C3",
+        "montant_paye": 36.9,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
     }
 ]

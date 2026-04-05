@@ -5,31 +5,31 @@
     <link rel="icon" href="../images/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- titre dynamique defini par chaque page via $page_title -->
+    <!-- titre dynamique -->
     <title>La Table des Jedi - <?php echo isset($page_title) ? $page_title : 'Accueil'; ?></title>
-    <!-- common.css : styles globaux (header, footer, reset) -->
+    <!-- styles globaux -->
     <link rel="stylesheet" href="../css/common.css">
-    <!-- css specifique a la page, defini via $page_css -->
+    <!-- css specifique -->
     <?php if (!empty($page_css)) : ?>
     <link rel="stylesheet" href="../css/<?php echo $page_css; ?>">
     <?php endif; ?>
 </head>
 
 <body>
-    <!-- video de fond qui tourne en boucle -->
+    <!-- video de fond -->
     <video autoplay muted loop playsinline id="video-bg">
         <source src="../video/etoile.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
 
-    <!-- filtre sombre par dessus la video -->
+    <!-- filtre sombre -->
     <div class="overlay"></div>
 
-    <!-- header commun a toutes les pages du site principal -->
+    <!-- en-tete commun -->
     <header>
         <a href="accueil.php"> <img src="../images/logo.png" alt="Logo"></a>
 
-        <!-- navigation principale -->
+        <!-- navigation -->
         <nav>
             <ul>
                 <li><a href="accueil.php" <?php if ((isset($page_id) ? $page_id : '') === 'accueil') echo 'class="active"'; ?>>Accueil</a></li>
@@ -39,27 +39,30 @@
             </ul>
         </nav>
 
-        <!-- partie droite : espace membre + barre de recherche -->
+        <!-- espace membre et recherche -->
         <div class="header-right">
             <div class="member-space">
                 <?php
                 // calcul du nombre d'articles dans le panier
-                $nb_panier = isset($_SESSION['panier']) ? array_sum($_SESSION['panier']) : 0;
+                $nb_plats = isset($_SESSION['panier']) ? array_sum($_SESSION['panier']) : 0;
+                $nb_menus = isset($_SESSION['panier_menus']) ? array_sum($_SESSION['panier_menus']) : 0;
+                $nb_panier = $nb_plats + $nb_menus;
                 ?>
-                <!-- lien panier a droite -->
+                <!-- bouton panier -->
                 <a href="panier.php" class="btn-member btn-login <?php if ((isset($page_id) ? $page_id : '') === 'panier') echo 'active'; ?>">🛒<?php if ($nb_panier > 0) : ?> (<?= $nb_panier ?>)<?php endif; ?></a>
 
                 <?php if (isset($_SESSION['user'])) : ?>
-                <!-- si connecte : on affiche le nom et le bouton deconnexion -->
+                <!-- etat connecte -->
                 <a href="profil.php" class="btn-member btn-login">👤 <?php echo htmlspecialchars($_SESSION['user']['login']); ?></a>
                 <a href="deconnexion.php" class="btn-member btn-signup">Déconnexion</a>
                 <?php else : ?>
-                <!-- si pas connecte : boutons connexion et inscription -->
+                <!-- etat deconnecte -->
                 <a href="connexion.php" class="btn-member btn-login <?php if ((isset($page_id) ? $page_id : '') === 'connexion') echo 'active'; ?>">Connexion</a>
                 <a href="inscription.php" class="btn-member btn-signup <?php if ((isset($page_id) ? $page_id : '') === 'inscription') echo 'active'; ?>">Inscription</a>
                 <?php endif; ?>
             </div>
 
+            <!-- barre de recherche -->
             <div class="search-box">
                 <input type="text" class="search-input" placeholder="RECHERCHER...">
                 <button class="search-btn">🔍</button>

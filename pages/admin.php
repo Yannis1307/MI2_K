@@ -1,10 +1,10 @@
 <?php
-// demarrage de la session
+// session
 session_start();
-// on charge les fonctions json
+// fonctions json
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : admin uniquement ===
+// controle d'acces
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header('Location: connexion.php');
     exit;
@@ -67,7 +67,7 @@ foreach ($users as $u) {
 
     <!-- contenu principal -->
     <main>
-        <!-- titre de la console -->
+        <!-- console admin -->
         <section class="console-header">
             <h1>CONSOLE D'ADMINISTRATION — SECTEUR 7</h1>
             <p class="console-subtitle">
@@ -75,7 +75,7 @@ foreach ($users as $u) {
             </p>
         </section>
 
-        <!-- statistiques rapides -->
+        <!-- statistiques -->
         <div class="stats-bar">
             <div class="stat-card">
                 <span class="stat-value"><?= $nb_total ?></span>

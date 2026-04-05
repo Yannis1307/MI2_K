@@ -1,25 +1,25 @@
 <?php
-// variables de configuration pour le header
+// configuration de la page
 $page_title = 'La Carte';
 $page_css = 'produits.css';
 $page_id = 'produits';
 
-// on charge les fonctions utilitaires json
+// chargement des fonctions json
 require_once 'includes/functions.php';
 
-// on recupere tous les plats du json
+// recuperation des plats
 $plats = read_json('plats.json');
 
-// on indexe les plats par id pour retrouver facilement un plat depuis un menu
+// indexation des plats par id
 $plats_by_id = [];
 foreach ($plats as $p) {
     $plats_by_id[$p['id']] = $p;
 }
 
-// on recupere les menus
+// recuperation des menus
 $menus = read_json('menus.json');
 
-// on inclut le header commun
+// inclusion du header
 require_once 'includes/header.php';
 ?>
 
@@ -62,12 +62,12 @@ require_once 'includes/header.php';
         <div class="products-grid">
 
             <?php
-            // boucle pour afficher chaque plat dynamiquement
+            // boucle sur chaque plat
             foreach ($plats as $plat):
-                // on prepare les regimes pour les attributs data-diet et data-flavor
+                // recuperation des regimes
                 $regimes = isset($plat['regimes']) ? $plat['regimes'] : [];
                 
-                // on filtre les regimes sans utiliser array_filter
+                // filtrage des regimes
                 $regimes_filtres = [];
                 foreach ($regimes as $r) {
                     if ($r !== 'piquant') {
@@ -83,12 +83,12 @@ require_once 'includes/header.php';
                 <div class="card-glow"></div>
                 <div class="card-inner">
 
-                    <?php // affichage conditionnel du badge piquant ?>
+                    <?php // badge piquant ?>
                     <?php if ($is_piquant) : ?>
                     <span class="holo-badge badge-hot">PIQUANT</span>
                     <?php endif; ?>
 
-                    <?php // affichage conditionnel du badge vegetarien ?>
+                    <?php // badge vegetarien ?>
                     <?php if ($is_vege && !$is_piquant) : ?>
                     <span class="holo-badge badge-nouveau">VÉGÉ</span>
                     <?php endif; ?>
@@ -100,17 +100,17 @@ require_once 'includes/header.php';
                         <details class="product-details">
                             <summary class="details-btn">En savoir plus [+]</summary>
                             <div class="details-content">
-                                <?php // affichage du lore (histoire galactique) si disponible ?>
+                                <?php // lore du plat ?>
                                 <?php if (!empty($plat['lore'])) : ?>
                                 <p class="lore"><strong>Histoire Galactique :</strong> <?= htmlspecialchars($plat['lore']) ?></p>
                                 <?php endif; ?>
 
-                                <?php // affichage des ingredients si disponibles ?>
+                                <?php // ingredients ?>
                                 <?php if (!empty($plat['ingredients'])) : ?>
                                 <p class="ingredients"><strong>Ingrédients :</strong> <?= htmlspecialchars($plat['ingredients']) ?></p>
                                 <?php endif; ?>
 
-                                <?php // affichage des allergenes seulement si le plat en a ?>
+                                <?php // allergenes ?>
                                 <?php if (!empty($plat['allergenes'])) : ?>
                                 <p class="allergens"><strong>Allergènes :</strong> <?= htmlspecialchars(implode(', ', $plat['allergenes'])) ?></p>
                                 <?php else : ?>
@@ -120,7 +120,7 @@ require_once 'includes/header.php';
                         </details>
                         <div class="price-section">
                             <span class="price"><?= number_format($plat['prix'], 2, ',', '') ?> ₹</span>
-                            <!-- formulaire d'ajout au panier -->
+                            <!-- ajout panier plat -->
                             <form method="POST" action="ajouter_panier.php" style="display:inline;">
                                 <input type="hidden" name="id_plat" value="<?= $plat['id'] ?>">
                                 <button type="submit" class="add-btn">+</button>
@@ -163,7 +163,14 @@ require_once 'includes/header.php';
 
                     <div class="menu-footer">
                         <span class="menu-prix-total"><?= number_format($menu['prix_total'], 2, ',', '') ?> ₹</span>
-                        <span class="menu-economie">Le menu complet</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="menu-economie">Le menu complet</span>
+                            <!-- ajout panier menu -->
+                            <form method="POST" action="ajouter_panier.php" style="display:inline;">
+                                <input type="hidden" name="id_menu" value="<?= $menu['id'] ?>">
+                                <button type="submit" class="add-btn" style="padding: 5px 10px; font-size: 1.2em;">+</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <?php endforeach; ?>

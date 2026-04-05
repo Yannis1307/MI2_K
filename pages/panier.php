@@ -1,29 +1,39 @@
 <?php
-// variables de configuration pour le header
+// configuration de la page
 $page_title = 'Mon Panier';
 $page_css = 'profil.css';
 $page_id = 'panier';
 
-// on charge les fonctions utilitaires json
+// chargement des fonctions json
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : connexion obligatoire ===
+// controle d'acces
 if (!isset($_SESSION['user'])) {
     header('Location: connexion.php');
     exit;
 }
 
-// on recupere les plats pour croiser avec le panier
+// recuperation des plats
 $plats = read_json('plats.json');
 
-// on cree un index des plats par id pour recherche rapide
+// indexation des plats
 $plats_index = [];
 foreach ($plats as $plat) {
     $plats_index[$plat['id']] = $plat;
 }
 
-// on recupere le panier de la session
+// recuperation des menus
+$menus = read_json('menus.json');
+
+// indexation des menus
+$menus_index = [];
+foreach ($menus as $menu) {
+    $menus_index[$menu['id']] = $menu;
+}
+
+// lecture des paniers en session
 $panier = isset($_SESSION['panier']) ? $_SESSION['panier'] : [];
+$panier_menus = isset($_SESSION['panier_menus']) ? $_SESSION['panier_menus'] : [];
 
 // calcul du total
 $total = 0;
@@ -32,16 +42,21 @@ foreach ($panier as $id_plat => $quantite) {
         $total += $plats_index[$id_plat]['prix'] * $quantite;
     }
 }
+foreach ($panier_menus as $id_menu => $quantite) {
+    if (isset($menus_index[$id_menu])) {
+        $total += $menus_index[$id_menu]['prix_total'] * $quantite;
+    }
+}
 
 // compteur d'articles
-$nb_articles = array_sum($panier);
+$nb_articles = array_sum($panier) + array_sum($panier_menus);
 
-// on inclut le header commun
+// inclusion du header
 require_once 'includes/header.php';
 ?>
 
 <main>
-    <!-- titre du panier -->
+    <!-- titre de la page -->
     <section class="dashboard-header">
         <h1>🛒 Mon Panier</h1>
         <p class="subtitle">Vérifiez votre commande avant de passer au paiement.</p>
@@ -49,7 +64,7 @@ require_once 'includes/header.php';
 
     <div style="display: flex; flex-direction: column; gap: 20px; max-width: 900px; margin: 0 auto;">
 
-        <?php // messages flash (succes ou erreur de paiement) ?>
+        <?php // gestion des messages flash ?>
         <?php if (isset($_SESSION['flash_success'])): ?>
             <div
                 style="background: rgba(0, 255, 100, 0.15); border: 1px solid rgba(0, 255, 100, 0.4); padding: 15px; border-radius: 10px; text-align: center; color: #7fff7f;">
@@ -66,14 +81,14 @@ require_once 'includes/header.php';
             <?php unset($_SESSION['flash_error']); ?>
         <?php endif; ?>
 
-        <?php if (empty($panier)): ?>
+        <?php if (empty($panier) && empty($panier_menus)): ?>
             <!-- panier vide -->
             <section class="panel">
                 <div class="panel-header">
                     <h2>🍽️ Votre panier est vide</h2>
                 </div>
                 <div class="panel-body" style="text-align: center; padding: 40px;">
-                    <p style="font-size: 1.2em; margin-bottom: 20px; color: rgba(255,255,255,0.7);">Aucun plat sélectionné
+                    <p style="font-size: 1.2em; margin-bottom: 20px; color: rgba(255,255,255,0.7);">Aucun article sélectionné
                         pour le moment.</p>
                     <a href="produits.php" class="btn-logout"
                         style="background: linear-gradient(135deg, #00b4d8, #0077b6); border: none; text-decoration: none; display: inline-block;">🍕
@@ -82,7 +97,7 @@ require_once 'includes/header.php';
             </section>
 
         <?php else: ?>
-            <!-- liste des articles du panier -->
+            <!-- articles dans le panier -->
             <section class="panel">
                 <div class="panel-header">
                     <h2>📦 Articles (<?= $nb_articles ?>)</h2>
@@ -92,7 +107,7 @@ require_once 'includes/header.php';
                         <table class="orders-table">
                             <thead>
                                 <tr>
-                                    <th>Plat</th>
+                                    <th>Article</th>
                                     <th>Prix unitaire</th>
                                     <th>Quantité</th>
                                     <th>Sous-total</th>
@@ -100,7 +115,7 @@ require_once 'includes/header.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php // boucle sur chaque article du panier ?>
+                                <?php // affichage des plats ?>
                                 <?php foreach ($panier as $id_plat => $quantite): ?>
                                     <?php if (isset($plats_index[$id_plat])):
                                         $p = $plats_index[$id_plat];
@@ -112,9 +127,32 @@ require_once 'includes/header.php';
                                             <td><?= $quantite ?></td>
                                             <td class="order-price"><?= number_format($sous_total, 2, ',', '') ?> ₹</td>
                                             <td>
-                                                <!-- bouton pour retirer un article -->
+                                                <!-- retirer plat -->
                                                 <form method="POST" action="retirer_panier.php" style="display:inline;">
                                                     <input type="hidden" name="id_plat" value="<?= $id_plat ?>">
+                                                    <button type="submit" class="btn-edit" title="Retirer"
+                                                        style="cursor:pointer;">🗑️</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+
+                                <?php // affichage des menus ?>
+                                <?php foreach ($panier_menus as $id_menu => $quantite): ?>
+                                    <?php if (isset($menus_index[$id_menu])):
+                                        $m = $menus_index[$id_menu];
+                                        $sous_total = $m['prix_total'] * $quantite;
+                                        ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($m['nom']) ?> <span style="font-size: 0.8em; color: rgba(255,255,255,0.5);">(Menu)</span></td>
+                                            <td class="order-price"><?= number_format($m['prix_total'], 2, ',', '') ?> ₹</td>
+                                            <td><?= $quantite ?></td>
+                                            <td class="order-price"><?= number_format($sous_total, 2, ',', '') ?> ₹</td>
+                                            <td>
+                                                <!-- retirer menu -->
+                                                <form method="POST" action="retirer_panier.php" style="display:inline;">
+                                                    <input type="hidden" name="id_menu" value="<?= $id_menu ?>">
                                                     <button type="submit" class="btn-edit" title="Retirer"
                                                         style="cursor:pointer;">🗑️</button>
                                                 </form>
@@ -136,19 +174,19 @@ require_once 'includes/header.php';
                 </div>
             </section>
 
-            <!-- formulaire de validation de la commande -->
+            <!-- bloc de paiement -->
             <section class="panel">
                 <div class="panel-header">
                     <h2>💳 Valider la Commande</h2>
                 </div>
                 <div class="panel-body">
-                    <!-- formulaire vers initier_paiement.php qui redirige vers CYBank -->
+                    <!-- redirection vers le paiement bancaire -->
                     <form method="POST" action="initier_paiement.php">
 
-                        <!-- ligne horizontale avec les 4 champs -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 2fr; gap: 10px; margin-bottom: 20px;">
+                        <!-- parametres de la commande -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px;">
 
-                            <!-- type de commande -->
+                            <!-- type -->
                             <div>
                                 <label
                                     style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Type
@@ -160,7 +198,7 @@ require_once 'includes/header.php';
                                 </select>
                             </div>
 
-                            <!-- mode de retrait -->
+                            <!-- mode -->
                             <div>
                                 <label
                                     style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Mode
@@ -172,7 +210,7 @@ require_once 'includes/header.php';
                                 </select>
                             </div>
 
-                            <!-- heure de livraison/retrait -->
+                            <!-- date -->
                             <div>
                                 <label
                                     style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Date & Heure
@@ -180,8 +218,11 @@ require_once 'includes/header.php';
                                 <input type="datetime-local" name="heure_livraison" value="<?= date('Y-m-d\TH:i') ?>"
                                     style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
                             </div>
+                        </div>
 
-                            <!-- adresse de livraison -->
+                        <!-- details de livraison -->
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                            <!-- adresse -->
                             <div>
                                 <label
                                     style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Adresse
@@ -189,9 +230,27 @@ require_once 'includes/header.php';
                                 <input type="text" name="adresse" placeholder="Ex: 12 Allée des Sénateurs, Coruscant"
                                     style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
                             </div>
+
+                            <!-- etage -->
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Étage
+                                    :</label>
+                                <input type="text" name="etage" placeholder="Ex: 3ème"
+                                    style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
+                            </div>
+
+                            <!-- interphone -->
+                            <div>
+                                <label
+                                    style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Digicode
+                                    :</label>
+                                <input type="text" name="code_interphone" placeholder="Ex: B42"
+                                    style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
+                            </div>
                         </div>
 
-                        <!-- bouton de paiement pleine largeur -->
+                        <!-- bouton go -->
                         <button type="submit" class="btn-logout"
                             style="width: 100%; background: linear-gradient(135deg, #ffd700, #ff8c00); border: none; color: #1a1a2e; font-weight: bold; font-size: 1.1em; cursor: pointer; padding: 15px; border-radius: 10px; text-transform: uppercase; letter-spacing: 1px;">
                             💳 Payer avec CYBank — <?= number_format($total, 2, ',', '') ?> ₹

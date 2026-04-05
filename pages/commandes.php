@@ -1,16 +1,17 @@
 <?php
-// demarrage de la session
+// session
 session_start();
-// on charge les fonctions json
+
+// fonctions json
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : restaurateur uniquement ===
+// controle d'acces
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
     header('Location: connexion.php');
     exit;
 }
 
-// === TRAITEMENT POST : passer une commande en livraison ou modifier son statut ===
+// traitements des actions (livrer, abandonner, etc.)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     $id_cmd = trim($_POST['id_commande']);
     $action_statut = isset($_POST['action_statut']) ? $_POST['action_statut'] : 'livraison';
@@ -19,10 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     foreach ($commandes as $index => $cmd) {
         if ($cmd['id'] === $id_cmd) {
             if ($action_statut === 'livraison' && $cmd['statut'] === 'en attente') {
-                // on passe la commande en livraison
                 $commandes[$index]['statut'] = 'en livraison';
 
-                // on cherche un livreur disponible dans users.json
                 $users = read_json('users.json');
                 foreach ($users as $u) {
                     if ($u['role'] === 'livreur' && $u['statut'] === 'actif') {
@@ -41,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
         }
     }
 
-    // redirect pour eviter le double POST
+    // evite la resoumission
     header('Location: commandes.php');
     exit;
 }
@@ -54,14 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Table des Jedi - Poste de Préparation</title>
-    <!-- interface autonome : pas de common.css, tout est dans commandes.css -->
+    <!-- styles specifiques -->
     <link rel="stylesheet" href="../css/commandes.css">
 </head>
 
 <body>
 
 
-    <!-- header simplifie de la cuisine -->
+    <!-- en-tete du dashboard -->
     <header class="kds-header">
         <div class="header-left">
             <img src="../images/logo.png" alt="Logo" class="kds-logo">
@@ -77,16 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     </header>
 
 
-    <!-- contenu principal -->
-
     <main class="kds-main">
 
 
-        <!-- colonne gauche : commandes en attente -->
+        <!-- commandes a preparer -->
 
         <section class="zone zone-pending">
             <?php
-            // on recupere les commandes en attente
+            // tri des commandes selon leur statut
             $commandes = read_json('commandes.json');
             $en_attente = [];
             $en_livraison_all = [];
@@ -101,13 +98,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                 }
             }
             
-            // on limite les commandes terminées (livrées et abandonnées) aux 5 dernières
+            // on garde les 5 dernieres
             $terminees_5 = array_slice($terminees_all, -5);
             
-            // on fusionne les tableaux pour l'affichage à droite
+            // listes consolidees
             $en_livraison = array_merge($en_livraison_all, $terminees_5);
 
-            // On prepare la liste des livreurs pour l'attribution (Phase 3)
+            // liste des livreurs
             $users_all = read_json('users.json');
             $liste_livreurs = [];
             foreach ($users_all as $u) {
@@ -124,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             <div class="tickets-list">
 
                 <?php if (empty($en_attente)) : ?>
-                <!-- aucune commande en attente -->
+                <!-- liste vide -->
                 <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.4);">
                     <p>Aucune commande en attente.</p>
                 </div>
@@ -134,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                     $is_planifiee = (isset($cmd['type']) && $cmd['type'] === 'planifiee');
                     $ticket_class = $is_planifiee ? 'ticket-planned' : 'ticket-normal';
                 ?>
-                <!-- ticket dynamique -->
+                <!-- carte d'une commande -->
                 <article class="ticket <?= $ticket_class ?>">
                     <div class="ticket-header">
                         <div class="ticket-id-group">
@@ -155,10 +152,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                     </div>
                     <div class="ticket-body">
                         <ul class="ticket-items">
-                            <?php // affichage de chaque plat commande ?>
-                            <?php foreach ($cmd['plats'] as $p) : ?>
-                            <li><span class="item-qty"><?= $p['quantite'] ?>x</span> <?= htmlspecialchars($p['nom']) ?></li>
-                            <?php endforeach; ?>
+                            <?php // liste des plats ?>
+                            <?php if (isset($cmd['plats'])) : ?>
+                                <?php foreach ($cmd['plats'] as $p) : ?>
+                                <li><span class="item-qty"><?= $p['quantite'] ?>x</span> <?= htmlspecialchars($p['nom']) ?></li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            
+                            <?php // liste des menus avec le detail ?>
+                            <?php if (isset($cmd['menus'])) : ?>
+                                <?php foreach ($cmd['menus'] as $m) : ?>
+                                <li>
+                                    <span class="item-qty"><?= $m['quantite'] ?>x</span> <?= htmlspecialchars($m['nom']) ?> <span style="font-size: 0.7em; color:#aaa;">(Menu)</span>
+                                    <?php if (isset($m['plats_details']) && !empty($m['plats_details'])) : ?>
+                                        <ul style="list-style: none; padding-left: 20px; font-size: 0.9em; opacity: 0.8; margin-top: 4px;">
+                                            <?php foreach ($m['plats_details'] as $nom_plat) : ?>
+                                                <li>- <?= htmlspecialchars($nom_plat) ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                </li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     <div class="ticket-footer">
@@ -168,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                             <input type="hidden" name="id_commande" value="<?= htmlspecialchars($cmd['id']) ?>">
                             
                             <?php if (!$est_emporter) : ?>
-                                <!-- Séléction du livreur (Phase 3) -->
+                                <!-- gestion livreur -->
                                 <select name="id_livreur_manuel" style="padding: 6px; border-radius: 4px; background: rgba(0,0,0,0.4); color: #fff; border: 1px solid rgba(255,255,255,0.2); font-size: 0.9em; width: 100px;">
                                     <option value="">Livreur auto</option>
                                     <?php foreach ($liste_livreurs as $livreur) : ?>
@@ -193,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
         </section>
 
 
-        <!-- colonne droite : en cours de livraison -->
+        <!-- expéditions en cours ou terminées -->
 
         <section class="zone zone-delivery">
             <div class="zone-header">
@@ -204,14 +219,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             <div class="delivery-list">
 
                 <?php if (empty($en_livraison)) : ?>
-                <!-- aucune livraison en cours -->
+                <!-- liste vide -->
                 <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.4);">
                     <p>Aucune livraison en cours.</p>
                 </div>
                 <?php else : ?>
                 <?php foreach ($en_livraison as $cmd) : ?>
                 <?php $is_planifiee = (isset($cmd['type']) && $cmd['type'] === 'planifiee'); ?>
-                <!-- livraison dynamique -->
+                <!-- affichage d'une livraison -->
                 <div class="delivery-card" <?= $cmd['statut'] === 'abandonné' ? 'style="border-left: 4px solid #ff4444;"' : ($cmd['statut'] === 'livré' || $cmd['statut'] === 'livre' ? 'style="border-left: 4px solid #00ff88;"' : ($is_planifiee ? 'style="border-left: 4px solid #00bfff;"' : '')) ?>>
                     <div class="delivery-info">
                         <span class="delivery-id">#<?= htmlspecialchars($cmd['id']) ?></span>
@@ -256,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
 
     </main>
 
-    <!-- footer cuisine -->
+    <!-- bas de page -->
     <footer class="kds-footer">
         <p>&copy; 2026 La Table des Jedi — Poste de Préparation · Interface Cantina · Projet Creative-Yumland (Phase #1)
         </p>

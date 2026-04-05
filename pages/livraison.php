@@ -1,16 +1,17 @@
 <?php
-// demarrage de la session
+// session
 session_start();
-// on charge les fonctions json
+
+// fonctions json
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : livreur uniquement ===
+// controle d'acces
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
     header('Location: connexion.php');
     exit;
 }
 
-// === TRAITEMENT POST : confirmer la livraison ===
+// traitements des actions (confirmer livraison, abandon)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     $id_cmd = trim($_POST['id_commande']);
     $action = isset($_POST['action']) ? $_POST['action'] : 'livrer';
@@ -22,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             if ($action === 'abandonner') {
                 $commandes[$index]['statut'] = 'abandonné';
             } else {
-                // on passe la commande en livré
                 $commandes[$index]['statut'] = 'livré';
             }
             write_json('commandes.json', $commandes);
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
         }
     }
 
-    // redirect pour eviter le double POST
+    // evite resoumission
     header('Location: livraison.php');
     exit;
 }
@@ -43,13 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Table des Jedi - Livraison</title>
-    <!-- interface autonome mobile : pas de common.css -->
+    <!-- styles specifiques -->
     <link rel="stylesheet" href="../css/livraison.css">
 </head>
 
 <body>
 
-    <!-- header mobile -->
+    <!-- entete -->
     <header class="mobile-header">
         <img src="../images/logo.png" alt="Logo" class="mobile-logo">
         <div class="header-status">
@@ -58,21 +58,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
         <a href="deconnexion.php" class="btn-header-action" style="width: auto; padding: 0 14px; color: #ff4444; border-color: rgba(255, 68, 68, 0.3); background: rgba(255, 68, 68, 0.08); font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">🚪 Déconnexion</a>
     </header>
 
-    <!-- contenu principal mobile -->
+    <!-- corps de page -->
     <main class="mobile-main">
         <div class="mobile-container">
 
-            <!-- titre mission -->
+            <!-- titre -->
             <div class="mission-banner">
                 <span class="mission-icon">📡</span>
                 <h1>MISSION EN COURS</h1>
             </div>
 
-            <!-- carte de la mission -->
+            <!-- infos de mission -->
             <section class="mission-card">
 
                 <?php
-                // on recupere les commandes en livraison assignees a ce livreur
+                // recherche de la mission en cours
                 $commandes = read_json('commandes.json');
                 $id_livreur = $_SESSION['user']['id'];
                 $mission = null;
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                 ?>
 
                 <?php if ($mission) : ?>
-                <!-- client -->
+                <!-- informations du client -->
                 <div class="mission-section client-section">
                     <div class="client-info">
                         <img src="../images/lando_avatar.png" alt="Avatar Client" class="client-avatar">
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                     </div>
                 </div>
 
-                <!-- adresse + bouton gps -->
+                <!-- adresse de depot -->
                 <div class="mission-section address-section">
                     <h2 class="section-label">📍 Adresse de Livraison</h2>
                     <p class="address-text">
@@ -108,19 +108,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                     </a>
                 </div>
 
-                <!-- details d'acces -->
+                <!-- donnees d'acces -->
                 <div class="mission-section access-section">
                     <h2 class="section-label">🔑 Détails d'Accès</h2>
                     <div class="access-grid">
                         <div class="access-bubble">
                             <span class="access-icon">🔢</span>
                             <span class="access-label">Digicode</span>
-                            <span class="access-value"><?= htmlspecialchars(!empty($mission['code_interphone']) ? $mission['code_interphone'] : '—') ?></span>
+                            <span class="access-value"><?php echo isset($mission['code_interphone']) && $mission['code_interphone'] !== '' ? htmlspecialchars($mission['code_interphone']) : 'Non renseigné'; ?></span>
                         </div>
                         <div class="access-bubble">
                             <span class="access-icon">🏢</span>
                             <span class="access-label">Étage</span>
-                            <span class="access-value"><?= htmlspecialchars(!empty($mission['etage']) ? $mission['etage'] : '—') ?></span>
+                            <span class="access-value"><?php echo isset($mission['etage']) && $mission['etage'] !== '' ? htmlspecialchars($mission['etage']) : 'Non renseigné'; ?></span>
                         </div>
                         <div class="access-bubble access-phone">
                             <span class="access-icon">📞</span>
@@ -130,13 +130,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                     </div>
                 </div>
 
-                <!-- detail de la commande -->
+                <!-- detail du colis -->
                 <div class="mission-section order-section">
                     <h2 class="section-label">📦 Commande #<?= htmlspecialchars($mission['id']) ?></h2>
                     <ul class="order-list">
-                        <?php foreach ($mission['plats'] as $p) : ?>
-                        <li><span class="qty"><?= $p['quantite'] ?>x</span> <?= htmlspecialchars($p['nom']) ?></li>
-                        <?php endforeach; ?>
+                        <?php // plats simples ?>
+                        <?php if(isset($mission['plats'])) : ?>
+                            <?php foreach ($mission['plats'] as $p) : ?>
+                            <li><span class="qty"><?= $p['quantite'] ?>x</span> <?= htmlspecialchars($p['nom']) ?></li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        
+                        <?php // menus ?>
+                        <?php if(isset($mission['menus'])) : ?>
+                            <?php foreach ($mission['menus'] as $m) : ?>
+                            <li>
+                                <span class="qty"><?= $m['quantite'] ?>x</span> <?= htmlspecialchars($m['nom']) ?>
+                                <?php if (isset($m['plats_details']) && !empty($m['plats_details'])) : ?>
+                                    <ul style="list-style: none; padding-left: 20px; font-size: 0.85em; opacity: 0.8; margin-top: 4px;">
+                                        <?php foreach ($m['plats_details'] as $nom_plat) : ?>
+                                            <li>- <?= htmlspecialchars($nom_plat) ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
                     <div class="order-total">
                         <span>Total</span>
@@ -145,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                 </div>
 
                 <?php else : ?>
-                <!-- aucune mission en cours -->
+                <!-- attente -->
                 <div class="mission-section" style="text-align: center; padding: 60px 20px;">
                     <p style="font-size: 1.3em; color: rgba(255,255,255,0.5); margin-bottom: 10px;">📡 Aucune mission en cours</p>
                     <p style="color: rgba(255,255,255,0.3); font-size: 0.9em;">En attente d'une nouvelle livraison...</p>
@@ -154,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
 
             </section>
 
-            <!-- confirmation de livraison et abandon -->
+            <!-- actions -->
             <?php if ($mission) : ?>
             <div class="confirm-zone" style="display: flex; flex-direction: column; gap: 10px;">
                 <form method="POST" action="livraison.php" style="width: 100%;">
@@ -165,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             </div>
             <?php endif; ?>
 
-            <!-- bouton de secours -->
+            <!-- support -->
             <div class="help-zone">
                 <button class="btn-help" onclick="alert('Fonction de signalement en cours de développement')">⚠️ SIGNALER UN PROBLÈME</button>
             </div>
@@ -173,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
         </div>
     </main>
 
-    <!-- footer mobile -->
+    <!-- bas de page -->
     <footer class="mobile-footer">
         <p>&copy; 2026 La Table des Jedi — Interface Livreur · Projet Creative-Yumland (Phase #1)</p>
     </footer>

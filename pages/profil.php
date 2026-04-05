@@ -4,10 +4,10 @@ $page_title = 'Mon Profil';
 $page_css = 'profil.css';
 $page_id = 'profil';
 
-// on charge les fonctions utilitaires json
+// on charge les fonctions json
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : connexion obligatoire ===
+// controle d'acces
 if (!isset($_SESSION['user'])) {
     header('Location: connexion.php');
     exit;
@@ -84,7 +84,7 @@ require_once 'includes/header.php';
 
     <div class="dashboard-grid">
 
-        <!-- panneau 1 : carte d'identite -->
+        <!-- carte d'identite -->
         <section class="panel panel-identity" id="identity-card">
             <div class="panel-header">
                 <h2>📋 Carte d'Identité Galactique</h2>
@@ -166,7 +166,7 @@ require_once 'includes/header.php';
             </div>
         </section>
 
-        <!-- panneau 2 : fidelite et recompenses -->
+        <!-- fidelite et recompenses -->
         <section class="panel panel-loyalty" id="loyalty-program">
             <div class="panel-header">
                 <h2>⭐ Programme Fidélité</h2>
@@ -270,7 +270,7 @@ require_once 'includes/header.php';
             </div>
         </section>
 
-        <!-- panneau 3 : historique des commandes -->
+        <!-- historique des commandes -->
         <section class="panel panel-orders" id="order-history">
             <div class="panel-header">
                 <h2>📦 Historique des Commandes</h2>
@@ -312,10 +312,17 @@ require_once 'includes/header.php';
                             <?php else: ?>
                                 <?php foreach ($mes_commandes as $cmd): ?>
                                     <?php
-                                    // detail des plats
+                                    // detail de la commande
                                     $detail = [];
-                                    foreach ($cmd['plats'] as $p) {
-                                        $detail[] = $p['quantite'] . 'x ' . $p['nom'];
+                                    if (isset($cmd['plats'])) {
+                                        foreach ($cmd['plats'] as $p) {
+                                            $detail[] = $p['quantite'] . 'x ' . $p['nom'];
+                                        }
+                                    }
+                                    if (isset($cmd['menus'])) {
+                                        foreach ($cmd['menus'] as $m) {
+                                            $detail[] = $m['quantite'] . 'x ' . $m['nom'] . ' (Menu)';
+                                        }
                                     }
                                     $detail_str = implode(', ', $detail);
 

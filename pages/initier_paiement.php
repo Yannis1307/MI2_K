@@ -1,35 +1,36 @@
 <?php
-// =============================================
-// initier_paiement.php
-// Reçoit le formulaire du panier, sauvegarde la
-// commande en session, puis redirige vers CYBank
-// =============================================
+// initialisation du paiement
+// recoit le formulaire, sauvegarde en session puis redirige vers la banque
 
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES ===
+// controle d'acces
 if (!isset($_SESSION['user'])) {
     header('Location: connexion.php');
     exit;
 }
 
-// doit venir d'un POST depuis panier.php
+// verification de la methode
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: panier.php');
     exit;
 }
 
-// panier ne doit pas etre vide
-if (empty($_SESSION['panier'])) {
+// verification du panier
+if (empty($_SESSION['panier']) && empty($_SESSION['panier_menus'])) {
     header('Location: panier.php');
     exit;
 }
 
-// on recupere les donnees du formulaire panier
+// recuperation des donnees du formulaire
 $type_commande = isset($_POST['type_commande']) ? $_POST['type_commande'] : 'immediate';
 $heure_livraison = isset($_POST['heure_livraison']) ? $_POST['heure_livraison'] : '';
 $mode_retrait = isset($_POST['mode_retrait']) ? $_POST['mode_retrait'] : 'livraison';
 $adresse = isset($_POST['adresse']) ? trim($_POST['adresse']) : '';
+
+// on recupere l'etage et l'interphone
+$code_interphone = isset($_POST['code_interphone']) ? trim($_POST['code_interphone']) : '';
+$etage = isset($_POST['etage']) ? trim($_POST['etage']) : '';
 
 if ($mode_retrait === 'livraison' && empty($adresse)) {
     $_SESSION['flash_error'] = 'Veuillez renseigner une adresse de livraison.';
@@ -37,16 +38,27 @@ if ($mode_retrait === 'livraison' && empty($adresse)) {
     exit;
 }
 
-// on calcule le total depuis les plats JSON
+// recuperation des plats
 $plats = read_json('plats.json');
 $plats_index = [];
 foreach ($plats as $p) {
     $plats_index[$p['id']] = $p;
 }
 
+// recuperation des menus
+$menus = read_json('menus.json');
+$menus_index = [];
+foreach ($menus as $m) {
+    $menus_index[$m['id']] = $m;
+}
+
 $plats_commandes = [];
+$menus_commandes = [];
 $total = 0;
-foreach ($_SESSION['panier'] as $id_plat => $quantite) {
+
+// traitement des plats
+$panier = isset($_SESSION['panier']) ? $_SESSION['panier'] : [];
+foreach ($panier as $id_plat => $quantite) {
     if (isset($plats_index[$id_plat])) {
         $p = $plats_index[$id_plat];
         $sous_total = $p['prix'] * $quantite;
@@ -61,16 +73,43 @@ foreach ($_SESSION['panier'] as $id_plat => $quantite) {
     }
 }
 
+// traitement des menus
+$panier_menus = isset($_SESSION['panier_menus']) ? $_SESSION['panier_menus'] : [];
+foreach ($panier_menus as $id_menu => $quantite) {
+    if (isset($menus_index[$id_menu])) {
+        $m = $menus_index[$id_menu];
+        $sous_total = $m['prix_total'] * $quantite;
+        $total += $sous_total;
+        
+        // recuperation des noms des plats inclus
+        $plats_inclus_noms = [];
+        foreach ($m['plats_inclus'] as $id_plat_inclus) {
+            if (isset($plats_index[$id_plat_inclus])) {
+                $plats_inclus_noms[] = $plats_index[$id_plat_inclus]['nom'];
+            }
+        }
+        
+        $menus_commandes[] = [
+            'id_menu' => $id_menu,
+            'nom' => $m['nom'],
+            'quantite' => $quantite,
+            'prix_unitaire' => $m['prix_total'],
+            'sous_total' => $sous_total,
+            'plats_details' => $plats_inclus_noms
+        ];
+    }
+}
+
+// securite sur le total
 if ($total <= 0) {
     header('Location: panier.php');
     exit;
 }
 
-// generation d'un identifiant de transaction unique (10 chars alphanumeriques)
+// generation d'un identifiant de transaction unique
 $transaction_id = strtoupper(bin2hex(random_bytes(5)));
 
-// on sauvegarde toutes les donnees de la commande EN SESSION
-// (elles doivent survivre au voyage aller-retour sur CYBank)
+// sauvegarde en session de la commande
 $_SESSION['commande_en_cours'] = [
     'transaction' => $transaction_id,
     'id_client' => $_SESSION['user']['id'],
@@ -79,25 +118,26 @@ $_SESSION['commande_en_cours'] = [
     'mode_retrait' => $mode_retrait,
     'heure_livraison' => ($type_commande === 'planifiee') ? $heure_livraison : null,
     'adresse' => $adresse,
+    'code_interphone' => $code_interphone,
+    'etage' => $etage,
     'plats' => $plats_commandes,
+    'menus' => $menus_commandes,
     'total' => $total,
 ];
 
-// =============================================
-// Paramètres de l'API CYBank
-// =============================================
+// parametres api bancaire
 require_once 'includes/getapikey.php';
 
 $vendeur = 'TEST';
 $api_key = getAPIKey($vendeur);
 $montant = number_format($total, 2, '.', '');
 
-// URL de retour apres paiement (CYBank y ajoutera ses parametres GET)
+// url de retour apres paiement
 $protocole = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
 $dossier = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 $retour = $protocole . '://' . $_SERVER['HTTP_HOST'] . $dossier . '/retour_paiement.php';
 
-// hash de controle : md5(api_key#transaction#montant#vendeur#retour#)
+// hash de controle
 $control = md5($api_key . '#' . $transaction_id . '#' . $montant . '#' . $vendeur . '#' . $retour . '#');
 ?>
 <!DOCTYPE html>
@@ -195,7 +235,7 @@ $control = md5($api_key . '#' . $transaction_id . '#' . $montant . '#' . $vendeu
         <p>Vous allez être redirigé vers la plateforme de paiement sécurisée. Ne fermez pas cette page.</p>
         <div class="loader"></div>
 
-        <!-- formulaire caché qui s'auto-soumet vers CYBank -->
+        <!-- formulaire cache vers cybank -->
         <form id="cybank-form" action="https://www.plateforme-smc.fr/cybank/index.php" method="POST">
             <input type="hidden" name="transaction" value="<?= htmlspecialchars($transaction_id) ?>">
             <input type="hidden" name="montant" value="<?= htmlspecialchars($montant) ?>">
@@ -207,7 +247,7 @@ $control = md5($api_key . '#' . $transaction_id . '#' . $montant . '#' . $vendeu
     </div>
 
     <script>
-        // auto-soumission du formulaire apres 500ms
+        // auto-soumission
         setTimeout(function () {
             document.getElementById('cybank-form').submit();
         }, 500);

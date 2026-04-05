@@ -7,13 +7,13 @@ $page_id = 'notation';
 // on charge les fonctions utilitaires json
 require_once 'includes/functions.php';
 
-// === CONTROLE D'ACCES : connexion obligatoire (client uniquement) ===
+// controle d'acces
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'client') {
     header('Location: connexion.php');
     exit;
 }
 
-// on recupere l'id de la commande passé en GET
+// on recupere l'id de la commande passe en get
 $id_commande = isset($_GET['id']) ? trim($_GET['id']) : '';
 
 if (empty($id_commande)) {
@@ -22,7 +22,7 @@ if (empty($id_commande)) {
     exit;
 }
 
-// on charge les commandes JSON et on cherche la commande concernée
+// on charge les commandes json et on cherche la commande concernee
 $commandes  = read_json('commandes.json');
 $commande   = null;
 $index_cmd  = null;
@@ -53,9 +53,7 @@ if (!empty($commande['note_qualite']) || !empty($commande['note_livraison'])) {
     exit;
 }
 
-// =============================================
-// TRAITEMENT DU FORMULAIRE (POST)
-// =============================================
+// traitement du formulaire
 $erreur_form = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -87,7 +85,7 @@ foreach ($commande['plats'] as $p) {
     $detail_plats[] = $p['quantite'] . 'x ' . $p['nom'];
 }
 
-// on inclut le header commun (apres tout le PHP)
+// on inclut le header commun (apres tout le php)
 require_once 'includes/header.php';
 ?>
 
