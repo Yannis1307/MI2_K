@@ -13,7 +13,7 @@ L'interface s'adapte à 4 profils distincts : **Client, Restaurateur, Livreur et
 * **Tunnel d'achat dynamique** avec ajout de plats et menus au panier, saisie d'adresse et choix du retrait.
 * **Interaction API Bancaire** (redirection de paiement MD5 vers *CYBank*).
 * **Tableaux de bord dédiés** : Suivi des commandes, missions de livraison et profil client.
-* **Code au style "étudiant"** : Norme pédagogique restrictive et simplification globale (ni opérateurs complexes, ni syntaxe de commentaires décoratifs).
+
 
 ## 🚀 Comment lancer le projet ?
 Cette Phase requiert un environnement serveur local supportant PHP (ex: **XAMPP**, **WAMP**).
