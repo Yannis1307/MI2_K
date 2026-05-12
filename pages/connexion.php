@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // on cherche un utilisateur qui correspond
     foreach ($users as $user) {
-        if ($user['login'] === $login && $user['password'] === $password) {
+        if ($user['login'] === $login && password_verify($password, $user['password'])) {
             $user_trouve = $user;
             break;
         }
@@ -86,6 +86,13 @@ require_once 'includes/header.php';
                 <?php if (!empty($erreur)) : ?>
                 <p style="color: #ff4444; text-align: center; margin-bottom: 15px;"><?php echo $erreur; ?></p>
                 <?php endif; ?>
+
+                <?php
+                if (isset($_SESSION['success_message'])) {
+                    echo '<p style="color: #00ff88; text-align: center; margin-bottom: 15px;">' . htmlspecialchars($_SESSION['success_message']) . '</p>';
+                    unset($_SESSION['success_message']);
+                }
+                ?>
 
                 <form class="auth-form" method="POST" action="">
                     <div class="form-group">

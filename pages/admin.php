@@ -1,6 +1,5 @@
 <?php
-// session
-session_start();
+// session (géré par functions.php)
 // fonctions json
 require_once 'includes/functions.php';
 
@@ -61,7 +60,8 @@ foreach ($users as $u) {
             </div>
         </div>
         <div class="header-actions">
-            <a href="deconnexion.php" class="btn-admin" style="background: rgba(255, 68, 68, 0.08); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3); padding: 8px 16px; font-family: 'Consolas', monospace; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 4px; text-decoration: none; cursor: crosshair;">⚠️ Déconnexion</a>
+            <a href="accueil.php" class="btn-admin btn-back">🏠 Vue Client</a>
+            <a href="deconnexion.php" class="btn-admin btn-logout-admin">⚠️ Déconnexion</a>
         </div>
     </header>
 

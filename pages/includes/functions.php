@@ -1,8 +1,6 @@
 <?php
-// demarrage de la session (si pas deja fait par une page metier)
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// demarrage automatique de la session
+session_start();
 
 // fonctions utilitaires pour le projet
 
@@ -10,6 +8,9 @@ if (session_status() === PHP_SESSION_NONE) {
 function read_json($filename)
 {
     $path = '../data/' . $filename;
+    if (!file_exists($path)) {
+        return [];
+    }
     $json = file_get_contents($path);
     return json_decode($json, true);
 }

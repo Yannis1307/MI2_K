@@ -8,6 +8,7 @@ $page_id = 'inscription';
 require_once 'includes/functions.php';
 
 // traitement du formulaire quand il est soumis en post
+$erreur = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = isset($_POST['nomcode']) ? $_POST['nomcode'] : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -18,11 +19,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // on lit les utilisateurs existants
     $users = read_json('users.json');
 
-    // creation du nouvel utilisateur
-    $nouvel_utilisateur = [
-        'id'                 => intval(uniqid()),
+    // on verifie si l'email existe deja
+    $email_existe = false;
+    foreach ($users as $u) {
+        if (isset($u['email']) && $u['email'] === $email) {
+            $email_existe = true;
+            break;
+        }
+    }
+
+    if ($email_existe) {
+        $erreur = 'Cette adresse email est déjà enregistrée dans nos systèmes.';
+    } else {
+        // generation d'un ID unique numerique (max id + 1)
+        $max_id = 0;
+        foreach ($users as $u) {
+            if (isset($u['id']) && (int)$u['id'] > $max_id) {
+                $max_id = (int)$u['id'];
+            }
+        }
+        $new_id = $max_id + 1;
+
+        // creation du nouvel utilisateur
+        $nouvel_utilisateur = [
+            'id'                 => $new_id,
         'login'              => $login,
-        'password'           => $password,
+        'password'           => password_hash($password, PASSWORD_DEFAULT),
         'role'               => 'client',
         'nom'                => $login,
         'prenom'             => '',
@@ -41,12 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // on ajoute le nouvel utilisateur a la liste
     $users[] = $nouvel_utilisateur;
 
-    // on sauvegarde dans le fichier json
-    write_json('users.json', $users);
+        // on sauvegarde dans le fichier json
+        write_json('users.json', $users);
 
-    // on redirige vers la page de connexion
-    header('Location: connexion.php');
-    exit;
+        // on definit le message de succes en session
+        $_SESSION['success_message'] = "Votre recrutement est confirmé. Vous pouvez maintenant vous identifier.";
+
+        // on redirige vers la page de connexion
+        header('Location: connexion.php');
+        exit;
+    }
 }
 
 // on inclut le header commun
@@ -59,6 +85,11 @@ require_once 'includes/header.php';
             <div class="form-panel">
                 <h1 class="form-title">RECRUTEMENT</h1>
                 <p class="form-subtitle">Rejoignez l'Alliance des Gourmets</p>
+
+                <!-- message d'erreur si inscription echoue -->
+                <?php if (!empty($erreur)) : ?>
+                <p style="color: #ff4444; text-align: center; margin-bottom: 15px;"><?php echo $erreur; ?></p>
+                <?php endif; ?>
 
                 <form class="auth-form" method="POST" action="">
                     <div class="form-group">

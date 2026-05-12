@@ -52,6 +52,14 @@
                 <a href="panier.php" class="btn-member btn-login <?php if ((isset($page_id) ? $page_id : '') === 'panier') echo 'active'; ?>">🛒<?php if ($nb_panier > 0) : ?> (<?= $nb_panier ?>)<?php endif; ?></a>
 
                 <?php if (isset($_SESSION['user'])) : ?>
+                <!-- boutons contextuels de navigation par rôle -->
+                <?php if ($_SESSION['user']['role'] === 'admin') : ?>
+                    <a href="admin.php" class="btn-member" style="background: rgba(100, 160, 255, 0.2); color: #6498ff; border: 1px solid rgba(100, 160, 255, 0.4); margin-right: 10px;">🛡️ Panneau Admin</a>
+                <?php elseif ($_SESSION['user']['role'] === 'restaurateur') : ?>
+                    <a href="commandes.php" class="btn-member" style="background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.4); margin-right: 10px;">👨‍🍳 Poste Cuisine</a>
+                <?php elseif ($_SESSION['user']['role'] === 'livreur') : ?>
+                    <a href="livraison.php" class="btn-member" style="background: rgba(0, 255, 136, 0.2); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.4); margin-right: 10px;">🚀 Interface Livraison</a>
+                <?php endif; ?>
                 <!-- etat connecte -->
                 <a href="profil.php" class="btn-member btn-login">👤 <?php echo htmlspecialchars($_SESSION['user']['login']); ?></a>
                 <a href="deconnexion.php" class="btn-member btn-signup">Déconnexion</a>

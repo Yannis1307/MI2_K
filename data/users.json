@@ -2,7 +2,7 @@
     {
         "id": 1,
         "login": "Lando_C",
-        "password": "1234",
+        "password": "$2y$10$K2ezWZeCHQhcQhpYz6.FBu1winl1pU44joVth.rFFKtz9OIiYWK0.",
         "role": "client",
         "nom": "Calrissian",
         "prenom": "Lando",
@@ -19,7 +19,7 @@
     {
         "id": 2,
         "login": "Princesse_Leia",
-        "password": "1234",
+        "password": "$2y$10$QGdlVhXfi.5NT59yzs8H7OdSRz3nkoOzOVQMGtRhRd6NmmjrZpXVO",
         "role": "client",
         "nom": "Organa",
         "prenom": "Leia",
@@ -27,7 +27,7 @@
         "telephone": "+33 6 22 33 44 55",
         "adresse": "1 Palais Royal, Alderaan",
         "date_inscription": "20/01/2026",
-        "derniere_connexion": "02/04/2026",
+        "derniere_connexion": "12/05/2026",
         "points_fidelite": 780,
         "statut_premium": "premium",
         "statut": "actif",
@@ -36,7 +36,7 @@
     {
         "id": 3,
         "login": "Jar_Jar_B",
-        "password": "1234",
+        "password": "$2y$10$e6MyY4/P6S2v6sJLyCH4HOb50nH9a8cQSX/pfxquNF8FkCii0AUmO",
         "role": "client",
         "nom": "Binks",
         "prenom": "Jar Jar",
@@ -53,7 +53,7 @@
     {
         "id": 4,
         "login": "Han_Solo",
-        "password": "1234",
+        "password": "$2y$10$F3qkzjRpx7Q9cjzgXJeV7.a1qQ.ATyuq64b5LPPVq/SLeHDHhvsZa",
         "role": "client",
         "nom": "Solo",
         "prenom": "Han",
@@ -70,7 +70,7 @@
     {
         "id": 5,
         "login": "Padme_A",
-        "password": "1234",
+        "password": "$2y$10$mg2TYOTa3jFsxpYYWk16O.k5OJXHIndLKirl6V/YDOTFA8ilrm7R2",
         "role": "client",
         "nom": "Amidala",
         "prenom": "Padmé",
@@ -87,7 +87,7 @@
     {
         "id": 6,
         "login": "L.Skywalker",
-        "password": "1234",
+        "password": "$2y$10$Re.BhfypeGSpjN3yZPbnbePVZ4/25sAEp6xmvBmGD9uIMJOtACjL6",
         "role": "livreur",
         "nom": "Skywalker",
         "prenom": "Luke",
@@ -95,7 +95,7 @@
         "telephone": "+33 6 66 77 88 99",
         "adresse": "Ferme des Lars, Tatooine",
         "date_inscription": "10/01/2026",
-        "derniere_connexion": "05/04/2026",
+        "derniere_connexion": "12/05/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
@@ -104,7 +104,7 @@
     {
         "id": 7,
         "login": "Dex_Diner",
-        "password": "1234",
+        "password": "$2y$10$Spq5AiPZ0NdNFzAtnkAh.eV5HSHiIludKUvUO0O5ToqmKgwq/qV3y",
         "role": "restaurateur",
         "nom": "Jettster",
         "prenom": "Dexter",
@@ -112,7 +112,7 @@
         "telephone": "+33 6 77 88 99 00",
         "adresse": "Dex's Diner, CoCo Town, Coruscant",
         "date_inscription": "05/01/2026",
-        "derniere_connexion": "05/04/2026",
+        "derniere_connexion": "12/05/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
@@ -121,7 +121,7 @@
     {
         "id": 8,
         "login": "Emp.Palpatine",
-        "password": "1234",
+        "password": "$2y$10$7x4s8.4bCJ4pA0GQilk0N.DLOtf6Q0d7IqRyHuYqvVOrjSQ3f4Tc2",
         "role": "admin",
         "nom": "Palpatine",
         "prenom": "Sheev",
@@ -129,7 +129,7 @@
         "telephone": "+33 6 00 00 00 01",
         "adresse": "Bureau du Sénat, Coruscant",
         "date_inscription": "01/01/2026",
-        "derniere_connexion": "04/04/2026",
+        "derniere_connexion": "12/05/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
@@ -138,7 +138,7 @@
     {
         "id": 9,
         "login": "DarkVador",
-        "password": "1234",
+        "password": "$2y$10$vuB/jTCMaJqMAXPxm1gK5e59FHpvlswsX/YOQXaSUmlY9WuX0Tnna",
         "role": "admin",
         "nom": "Vader",
         "prenom": "Darth",
@@ -155,7 +155,7 @@
     {
         "id": 10,
         "login": "Mace_W",
-        "password": "1234",
+        "password": "$2y$10$79I17pq9YlwfiY5CPSWNC.L.1vh2XBTxk8.WTq8oEvCzFOZp3kRfa",
         "role": "client",
         "nom": "Windu",
         "prenom": "Mace",
@@ -172,7 +172,7 @@
     {
         "id": 69,
         "login": "test",
-        "password": "1234",
+        "password": "$2y$10$Y0YkSJ0GWe9fXWnODpD7yOXmh/v7BPPGqQHK8CAIB6m.a7P74rl5e",
         "role": "client",
         "nom": "test",
         "prenom": "",
@@ -184,6 +184,24 @@
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
+        "avatar": "han_avatar.png"
+    },
+    {
+        "id": 70,
+        "login": "4512",
+        "password": "$2y$10$Qg5l.ZVpJyQltkeI5NM5GufiUR52LeikEnrLlXOPtSv.eFkmVuq92",
+        "role": "client",
+        "nom": "4512",
+        "prenom": "",
+        "email": "leia@gmail.com",
+        "telephone": "",
+        "adresse": "Planète Tatooine",
+        "date_inscription": "12/05/2026",
+        "derniere_connexion": "12/05/2026",
+        "points_fidelite": 0,
+        "statut_premium": "normal",
+        "statut": "actif",
+        "camp": "jedi",
         "avatar": "han_avatar.png"
     }
 ]

@@ -1,7 +1,6 @@
 <?php
 // session
-session_start();
-
+// (géré par functions.php)
 // fonctions json
 require_once 'includes/functions.php';
 
@@ -55,7 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
         <div class="header-status">
             <span class="status-online"><span class="online-dot"></span> EN LIGNE</span>
         </div>
-        <a href="deconnexion.php" class="btn-header-action" style="width: auto; padding: 0 14px; color: #ff4444; border-color: rgba(255, 68, 68, 0.3); background: rgba(255, 68, 68, 0.08); font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">🚪 Déconnexion</a>
+        <div style="display: flex; gap: 10px;">
+            <a href="accueil.php" class="btn-header-action" style="width: auto; padding: 0 14px; color: #6498ff; border-color: rgba(100, 160, 255, 0.3); background: rgba(100, 160, 255, 0.08); font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">🏠 Vue Client</a>
+            <a href="deconnexion.php" class="btn-header-action" style="width: auto; padding: 0 14px; color: #ff4444; border-color: rgba(255, 68, 68, 0.3); background: rgba(255, 68, 68, 0.08); font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">🚪 Déconnexion</a>
+        </div>
     </header>
 
     <!-- corps de page -->

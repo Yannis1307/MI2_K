@@ -1,7 +1,6 @@
 <?php
 // session
-session_start();
-
+// (géré par functions.php)
 // fonctions json
 require_once 'includes/functions.php';
 
@@ -70,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             <span class="kds-live"><span class="live-dot"></span> EN SERVICE</span>
         </div>
         <div class="header-right">
+            <a href="accueil.php" class="btn-kds btn-back" style="margin-right: 10px;">🏠 Vue Client</a>
             <a href="deconnexion.php" class="btn-kds btn-back">🚪 Déconnexion</a>
             <button class="btn-kds btn-close-service">🔴 Fermer le service</button>
         </div>
