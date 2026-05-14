@@ -1,0 +1,168 @@
+/* css/light-theme.css - Thème "Jedi" Clair */
+
+/* Modification des variables globales ou surcharge directe */
+body {
+    background: #f0f4f8 !important; /* Bleu-gris très clair */
+    color: #1a202c !important; /* Texte foncé pour lisibilité */
+}
+
+/* Header et Navigation */
+header {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+header nav ul li a {
+    color: #334155 !important;
+}
+
+header nav ul li a:hover, header nav ul li a.active {
+    color: #0ea5e9 !important; /* Bleu Jedi */
+    border-bottom-color: #0ea5e9 !important;
+}
+
+/* Boutons dans le header */
+.btn-login, .btn-signup, .btn-member {
+    border-color: #94a3b8 !important;
+    color: #334155 !important;
+}
+
+.btn-login:hover {
+    background: #e2e8f0 !important;
+    color: #0ea5e9 !important;
+}
+
+.btn-signup {
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-signup:hover {
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.5) !important;
+}
+
+/* Bouton Theme */
+#theme-toggle {
+    background: #e2e8f0 !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #1a202c !important;
+}
+
+#theme-toggle:hover {
+    background: #cbd5e1 !important;
+}
+
+/* Sections et Panneaux */
+.panel, .card, .stat-card, .review-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+.panel-header, .zone-header {
+    border-bottom: 1px solid #e2e8f0 !important;
+    background: #f8fafc !important;
+}
+
+.panel-header h2, .zone-header h2 {
+    color: #0f172a !important;
+}
+
+/* Textes et Titres */
+h1, h2, h3, h4, h5, h6 {
+    color: #0f172a !important;
+}
+
+.subtitle, p {
+    color: #475569 !important;
+}
+
+/* Tableaux */
+table, th, td {
+    border-color: #e2e8f0 !important;
+    color: #1a202c !important;
+}
+
+th {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+}
+
+/* Formulaires et Inputs */
+input, select, textarea {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #1a202c !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #0ea5e9 !important;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2) !important;
+}
+
+label {
+    color: #334155 !important;
+}
+
+/* Overlay assombri supprimé ou allégé */
+.overlay {
+    background: rgba(240, 244, 248, 0.8) !important;
+}
+
+/* Spécifique aux produits */
+.product-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.product-info h3 {
+    color: #0f172a !important;
+}
+
+.product-price {
+    color: #0ea5e9 !important; /* Bleu au lieu de doré */
+}
+
+/* Boutons Ajouter Panier */
+.btn-add {
+    background: #0ea5e9 !important;
+    color: white !important;
+}
+
+.btn-add:hover {
+    background: #0284c7 !important;
+}
+
+/* Boutons de Dashboard (Modifier, etc.) */
+.btn-edit {
+    background: rgba(14, 165, 233, 0.1) !important;
+    border-color: #0ea5e9 !important;
+    color: #0ea5e9 !important;
+}
+
+.btn-edit:hover {
+    background: rgba(14, 165, 233, 0.2) !important;
+}
+
+/* Alertes Flash */
+.flash-success {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+    color: #059669 !important;
+}
+
+.flash-error {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+    color: #dc2626 !important;
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid #cbd5e1 !important;
+    background: #f8fafc !important;
+    color: #475569 !important;
+}

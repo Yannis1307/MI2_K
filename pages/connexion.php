@@ -95,15 +95,18 @@ require_once 'includes/header.php';
                 ?>
 
                 <form class="auth-form" method="POST" action="">
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
                         <label for="identifiant">Identifiant</label>
-                        <input type="text" id="identifiant" name="identifiant" placeholder="Entrez votre nom de code"
-                            required>
+                        <input type="text" id="identifiant" name="identifiant" placeholder="Entrez votre nom de code" maxlength="30" required>
+                        <small id="identifiant-counter" style="position: absolute; right: 0; bottom: -20px; color: rgba(255,255,255,0.5); font-size: 0.8em;">0/30</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
                         <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="password" placeholder="Code d'accès sécurisé" required>
+                        <div style="position: relative; display: flex; align-items: center;">
+                            <input type="password" id="password" name="password" placeholder="Code d'accès sécurisé" style="width: 100%; padding-right: 40px;" required>
+                            <span id="toggle-password" style="position: absolute; right: 10px; cursor: pointer; color: rgba(255,255,255,0.7); font-size: 1.2em;" title="Afficher/Masquer">👁️</span>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn-submit btn-yellow">OUVRIR LE SAS</button>
@@ -115,6 +118,57 @@ require_once 'includes/header.php';
                 </div>
             </div>
         </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle Password Visibility
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordField = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '👁️' : '🙈';
+            });
+
+            // Character Counter
+            const identifiantField = document.getElementById('identifiant');
+            const identifiantCounter = document.getElementById('identifiant-counter');
+            
+            identifiantField.addEventListener('input', function() {
+                identifiantCounter.textContent = this.value.length + '/30';
+            });
+
+            // Client-side Validation
+            const form = document.querySelector('.auth-form');
+            form.addEventListener('submit', function(e) {
+                // remove existing js errors
+                const existingError = document.getElementById('js-error');
+                if (existingError) existingError.remove();
+
+                const identifiant = identifiantField.value.trim();
+                const password = passwordField.value;
+                let errorMsg = '';
+
+                if (identifiant.length < 3) {
+                    errorMsg = 'L\'identifiant doit faire au moins 3 caractères.';
+                } else if (password.length === 0) {
+                    errorMsg = 'Veuillez saisir votre mot de passe.';
+                }
+
+                if (errorMsg) {
+                    e.preventDefault(); // Stop HTTP request
+                    const p = document.createElement('p');
+                    p.id = 'js-error';
+                    p.style.color = '#ff4444';
+                    p.style.textAlign = 'center';
+                    p.style.marginBottom = '15px';
+                    p.textContent = errorMsg;
+                    form.parentNode.insertBefore(p, form);
+                }
+            });
+        });
+        </script>
     </main>
 
 <?php require_once 'includes/footer.php'; ?>

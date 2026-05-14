@@ -35,31 +35,36 @@ require_once 'includes/header.php';
             <input type="text" id="product-search" class="product-search-input" placeholder="🔍 Rechercher un plat...">
         </div>
 
-        <!-- boutons radio caches pour le filtrage css pur (sans javascript) -->
-        <input type="radio" name="filter" id="filter-tous" checked hidden>
-        <input type="radio" name="filter" id="filter-boissons" hidden>
-        <input type="radio" name="filter" id="filter-plats" hidden>
-        <input type="radio" name="filter" id="filter-snacks" hidden>
-        <input type="radio" name="filter" id="filter-specialites" hidden>
-        <!-- filtres de regime -->
-        <input type="radio" name="filter" id="filter-vege" hidden>
-        <input type="radio" name="filter" id="filter-gluten-free" hidden>
-        <input type="radio" name="filter" id="filter-piquant" hidden>
+        <div class="filters-container" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px;">
+            <select id="filter-category" class="filter-select" style="padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.1); color: inherit; border: 1px solid rgba(255,255,255,0.2);">
+                <option value="tous" style="color: #000;">Toutes Catégories</option>
+                <option value="boissons" style="color: #000;">Boissons</option>
+                <option value="plats" style="color: #000;">Plats</option>
+                <option value="snacks" style="color: #000;">Snacks</option>
+                <option value="specialites" style="color: #000;">Spécialités</option>
+            </select>
 
-        <!-- boutons de filtre visibles (labels relies aux radios) -->
-        <div class="filters-container">
-            <label for="filter-tous" class="filter-btn">Tous</label>
-            <label for="filter-boissons" class="filter-btn">Boissons</label>
-            <label for="filter-plats" class="filter-btn">Plats</label>
-            <label for="filter-snacks" class="filter-btn">Snacks</label>
-            <label for="filter-specialites" class="filter-btn">Spécialités</label>
-            <label for="filter-vege" class="filter-btn filter-vege">🌱 Végétarien</label>
-            <label for="filter-gluten-free" class="filter-btn filter-gluten">🌾 Sans Gluten</label>
-            <label for="filter-piquant" class="filter-btn filter-spicy">🌶️ Piquant</label>
+            <select id="filter-diet" class="filter-select" style="padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.1); color: inherit; border: 1px solid rgba(255,255,255,0.2);">
+                <option value="" style="color: #000;">Tous Régimes/Goûts</option>
+                <option value="vege" style="color: #000;">🌱 Végétarien</option>
+                <option value="gluten-free" style="color: #000;">🌾 Sans Gluten</option>
+                <option value="piquant" style="color: #000;">🌶️ Piquant</option>
+            </select>
+
+            <select id="filter-sort" class="filter-select" style="padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.1); color: inherit; border: 1px solid rgba(255,255,255,0.2);">
+                <option value="" style="color: #000;">Tri par défaut</option>
+                <option value="price_asc" style="color: #000;">Prix croissant</option>
+                <option value="price_desc" style="color: #000;">Prix décroissant</option>
+            </select>
+        </div>
+
+        <!-- loader -->
+        <div id="products-loader" style="display: none; text-align: center; margin: 20px 0;">
+            <span style="font-size: 2em; animation: spin 1s linear infinite; display: inline-block;">⚙️</span>
         </div>
 
         <!-- grille de produits -->
-        <div class="products-grid">
+        <div class="products-grid" id="products-grid">
 
             <?php
             // boucle sur chaque plat
@@ -177,5 +182,108 @@ require_once 'includes/header.php';
             </div>
         </div>
     </main>
+
+    <!-- Script de filtrage asynchrone -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const catSelect = document.getElementById('filter-category');
+        const dietSelect = document.getElementById('filter-diet');
+        const sortSelect = document.getElementById('filter-sort');
+        const searchInput = document.getElementById('product-search');
+        const grid = document.getElementById('products-grid');
+        const loader = document.getElementById('products-loader');
+        
+        // Fonction pour generer le html d'un plat
+        function createProductCard(plat) {
+            let html = `
+            <div class="product-card">
+                <div class="card-glow"></div>
+                <div class="card-inner">`;
+            
+            if (plat.is_piquant) {
+                html += `<span class="holo-badge badge-hot">PIQUANT</span>`;
+            }
+            if (plat.is_vege && !plat.is_piquant) {
+                html += `<span class="holo-badge badge-nouveau">VÉGÉ</span>`;
+            }
+            
+            let allergenesText = (plat.allergenes && plat.allergenes.length > 0) ? plat.allergenes.join(', ') : 'Aucun connu';
+            let ingredientsText = plat.ingredients ? `<p class="ingredients"><strong>Ingrédients :</strong> ${plat.ingredients}</p>` : '';
+            let loreText = plat.lore ? `<p class="lore"><strong>Histoire Galactique :</strong> ${plat.lore}</p>` : '';
+            
+            let prixFormat = parseFloat(plat.prix).toFixed(2).replace('.', ',');
+
+            html += `
+                    <img src="../${plat.image}" alt="${plat.nom}">
+                    <div class="card-content">
+                        <h3 class="product-name">${plat.nom}</h3>
+                        <p class="product-desc">${plat.description}</p>
+                        <details class="product-details">
+                            <summary class="details-btn">En savoir plus [+]</summary>
+                            <div class="details-content">
+                                ${loreText}
+                                ${ingredientsText}
+                                <p class="allergens"><strong>Allergènes :</strong> ${allergenesText}</p>
+                            </div>
+                        </details>
+                        <div class="price-section">
+                            <span class="price">${prixFormat} ₹</span>
+                            <form method="POST" action="ajouter_panier.php" style="display:inline;">
+                                <input type="hidden" name="id_plat" value="${plat.id}">
+                                <button type="submit" class="add-btn">+</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            return html;
+        }
+
+        // Fonction pour fetch
+        function fetchProducts() {
+            grid.style.opacity = '0.5';
+            loader.style.display = 'block';
+
+            const cat = catSelect.value;
+            const diet = dietSelect.value;
+            const sort = sortSelect.value;
+            const search = searchInput.value;
+
+            // Construit l'URL avec les parametres GET
+            const url = `../api/get_products.php?category=${encodeURIComponent(cat)}&diet=${encodeURIComponent(diet)}&sort=${encodeURIComponent(sort)}&search=${encodeURIComponent(search)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    grid.innerHTML = ''; // vider
+                    if (data.success && data.plats.length > 0) {
+                        data.plats.forEach(plat => {
+                            grid.innerHTML += createProductCard(plat);
+                        });
+                    } else {
+                        grid.innerHTML = '<div style="width: 100%; text-align: center; color: rgba(255,255,255,0.5); padding: 40px; grid-column: 1 / -1;"><p>Aucun produit ne correspond à votre recherche.</p></div>';
+                    }
+                    grid.style.opacity = '1';
+                    loader.style.display = 'none';
+                })
+                .catch(err => {
+                    console.error('Erreur API Fetch:', err);
+                    grid.style.opacity = '1';
+                    loader.style.display = 'none';
+                });
+        }
+
+        // Ajout des events
+        catSelect.addEventListener('change', fetchProducts);
+        dietSelect.addEventListener('change', fetchProducts);
+        sortSelect.addEventListener('change', fetchProducts);
+        
+        let timeout = null;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(fetchProducts, 300); // debounce 300ms
+        });
+    });
+    </script>
 
 <?php require_once 'includes/footer.php'; ?>

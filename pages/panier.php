@@ -250,10 +250,23 @@ require_once 'includes/header.php';
                             </div>
                         </div>
 
+                        <!-- utilisation des crédits -->
+                        <?php 
+                        $solde = isset($_SESSION['user']['solde_credits']) ? $_SESSION['user']['solde_credits'] : 0;
+                        if ($solde > 0): 
+                        ?>
+                        <div style="background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.4); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="utiliser_credits" name="utiliser_credits" value="1" style="width: 20px; height: 20px; cursor: pointer;">
+                            <label for="utiliser_credits" style="cursor: pointer; font-size: 1.1em; color: #00ff88; font-weight: bold;">
+                                Utiliser mes crédits disponibles (<?= number_format($solde, 2, ',', ' ') ?> ₹)
+                            </label>
+                        </div>
+                        <?php endif; ?>
+
                         <!-- bouton go -->
                         <button type="submit" class="btn-logout"
                             style="width: 100%; background: linear-gradient(135deg, #ffd700, #ff8c00); border: none; color: #1a1a2e; font-weight: bold; font-size: 1.1em; cursor: pointer; padding: 15px; border-radius: 10px; text-transform: uppercase; letter-spacing: 1px;">
-                            💳 Payer avec CYBank — <?= number_format($total, 2, ',', '') ?> ₹
+                            💳 Procéder au paiement — <?= number_format($total, 2, ',', '') ?> ₹
                         </button>
                     </form>
                 </div>

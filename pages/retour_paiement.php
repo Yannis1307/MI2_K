@@ -65,6 +65,7 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
         'statut_paiement'  => 'accepte',
         'transaction_id'   => $transaction,
         'montant_paye'     => floatval($montant),
+        'credits_utilises' => isset($commande_data['credits_utilises']) ? $commande_data['credits_utilises'] : 0,
         'id_livreur'       => null,
         'note_livraison'   => null,
         'note_qualite'     => null,
@@ -77,6 +78,19 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
     $commandes   = read_json('commandes.json');
     $commandes[] = $nouvelle_commande;
     write_json('commandes.json', $commandes);
+
+    // deduction des credits si utilises
+    if (isset($commande_data['credits_utilises']) && $commande_data['credits_utilises'] > 0) {
+        $users_update = read_json('users.json');
+        foreach ($users_update as &$u) {
+            if ($u['id'] == $commande_data['id_client']) {
+                $u['solde_credits'] -= $commande_data['credits_utilises'];
+                $_SESSION['user']['solde_credits'] = $u['solde_credits'];
+                break;
+            }
+        }
+        write_json('users.json', $users_update);
+    }
 
     // nettoyage sessions panier
     unset($_SESSION['panier']);

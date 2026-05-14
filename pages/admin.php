@@ -157,7 +157,7 @@ foreach ($users as $u) {
                         <td class="cell-actions">
                             <button class="action-btn action-view" title="Voir">👁️</button>
                             <button class="action-btn action-edit" title="Éditer">✏️</button>
-                            <button class="action-btn action-ban" title="<?= $is_banned ? 'Réhabiliter' : 'Bannir' ?>"><?= $is_banned ? '♻️' : '🗑️' ?></button>
+                            <button class="action-btn action-ban js-ban-btn" data-id="<?= $user['id'] ?>" title="<?= $is_banned ? 'Réhabiliter' : 'Bannir' ?>"><?= $is_banned ? '♻️' : '🗑️' ?></button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -175,9 +175,53 @@ foreach ($users as $u) {
 
     <!-- footer admin -->
     <footer class="admin-footer">
-        <p>&copy; 2026 La Table des Jedi — Console Impériale · Accès Restreint · Projet Creative-Yumland (Phase #2)</p>
+        <p>&copy; 2026 La Table des Jedi — Console Impériale · Accès Restreint · Projet Creative-Yumland (Phase #3)</p>
     </footer>
 
+    <!-- Script Ban Asynchrone -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const banBtns = document.querySelectorAll('.js-ban-btn');
+        
+        banBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const idUser = this.getAttribute('data-id');
+                const row = this.closest('tr');
+                const statusBadge = row.querySelector('.status-badge');
+                
+                fetch('../api/toggle_ban.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_user: idUser })
+                })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.new_status === 'banni') {
+                            this.title = 'Réhabiliter';
+                            this.innerHTML = '♻️';
+                            row.classList.add('row-banned');
+                            statusBadge.className = 'status-badge status-banned';
+                            statusBadge.textContent = 'Banni';
+                        } else {
+                            this.title = 'Bannir';
+                            this.innerHTML = '🗑️';
+                            row.classList.remove('row-banned');
+                            statusBadge.className = 'status-badge status-active';
+                            statusBadge.textContent = 'Actif';
+                        }
+                    } else {
+                        alert("Erreur: " + data.message);
+                    }
+                })
+                .catch(e => {
+                    console.error(e);
+                    alert("Erreur réseau");
+                });
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

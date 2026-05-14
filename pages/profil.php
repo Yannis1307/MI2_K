@@ -101,44 +101,43 @@ require_once 'includes/header.php';
                     <span class="rank-badge"><?= htmlspecialchars($niveau_fidelite) ?></span>
                 </div>
 
-                <!-- champs editables (edition effective en phase 3) -->
+                <!-- champs editables (edition asynchrone) -->
                 <div class="identity-fields">
 
-                    <div class="field-row">
+                    <div class="field-row" data-field="login">
                         <span class="field-label">Pseudo</span>
                         <span class="field-value"><?= htmlspecialchars($user_data['login'] ?? '—') ?></span>
-                        <button class="btn-edit" title="Modifier">✏️</button>
+                        <button class="btn-edit js-edit-btn" title="Modifier">✏️</button>
                     </div>
 
-                    <div class="field-row">
+                    <div class="field-row" data-field="prenom">
                         <span class="field-label">Prénom</span>
                         <span class="field-value"><?= htmlspecialchars($user_data['prenom'] ?: '—') ?></span>
-                        <button class="btn-edit" title="Modifier">✏️</button>
+                        <button class="btn-edit js-edit-btn" title="Modifier">✏️</button>
                     </div>
 
-                    <div class="field-row">
+                    <div class="field-row" data-field="nom">
                         <span class="field-label">Nom</span>
                         <span class="field-value"><?= htmlspecialchars($user_data['nom'] ?? '—') ?></span>
-                        <button class="btn-edit" title="Modifier">✏️</button>
+                        <button class="btn-edit js-edit-btn" title="Modifier">✏️</button>
                     </div>
 
-                    <div class="field-row">
+                    <div class="field-row" data-field="email">
                         <span class="field-label">Email</span>
                         <span class="field-value"><?= htmlspecialchars($user_data['email'] ?? 'Non renseigné') ?></span>
-                        <button class="btn-edit" title="Modifier">✏️</button>
+                        <button class="btn-edit js-edit-btn" title="Modifier">✏️</button>
                     </div>
 
-                    <div class="field-row">
+                    <div class="field-row" data-field="telephone">
                         <span class="field-label">Téléphone</span>
-                        <span
-                            class="field-value"><?= htmlspecialchars($user_data['telephone'] ?: 'Non renseigné') ?></span>
-                        <button class="btn-edit" title="Modifier">✏️</button>
+                        <span class="field-value"><?= htmlspecialchars($user_data['telephone'] ?: 'Non renseigné') ?></span>
+                        <button class="btn-edit js-edit-btn" title="Modifier">✏️</button>
                     </div>
 
-                    <div class="field-row">
+                    <div class="field-row" data-field="adresse">
                         <span class="field-label">Adresse</span>
                         <span class="field-value"><?= htmlspecialchars($user_data['adresse'] ?? '—') ?></span>
-                        <button class="btn-edit" title="Modifier">✏️</button>
+                        <button class="btn-edit js-edit-btn" title="Modifier">✏️</button>
                     </div>
 
                     <div class="field-row">
@@ -178,7 +177,16 @@ require_once 'includes/header.php';
                     <div class="points-icon">💎</div>
                     <div class="points-info">
                         <span class="points-number"><?= number_format($points_fidelite, 0, ',', ' ') ?></span>
-                        <span class="points-label">Crédits Républicains</span>
+                        <span class="points-label">Points de Fidélité</span>
+                    </div>
+                </div>
+
+                <!-- solde de credits -->
+                <div class="points-display" style="margin-top: 15px; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3);">
+                    <div class="points-icon">💰</div>
+                    <div class="points-info">
+                        <span class="points-number" style="color: #00ff88;"><?= number_format(isset($user_data['solde_credits']) ? $user_data['solde_credits'] : 0, 2, ',', ' ') ?> ₹</span>
+                        <span class="points-label">Crédits de Réduction Disponibles</span>
                     </div>
                 </div>
 
@@ -361,6 +369,10 @@ require_once 'includes/header.php';
                                                 <a href="notation.php?id=<?= urlencode($cmd['id']) ?>" class="btn-edit"
                                                     title="Noter cette commande"
                                                     style="text-decoration:none; display:inline-block;">⭐ Noter</a>
+                                            <?php elseif ($statut_cmd === 'en attente'): ?>
+                                                <a href="modifier_commande.php?id=<?= urlencode($cmd['id']) ?>" class="btn-edit"
+                                                    title="Modifier cette commande"
+                                                    style="text-decoration:none; display:inline-block; border-color: #ffd700; color: #ffd700;">✏️ Modifier</a>
                                             <?php else: ?>
                                                 <span style="color:rgba(255,255,255,0.3);">—</span>
                                             <?php endif; ?>
@@ -375,6 +387,108 @@ require_once 'includes/header.php';
         </section>
 
     </div>
+
+    <!-- Script pour Edition Asynchrone -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('.js-edit-btn');
+        
+        editButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const row = this.closest('.field-row');
+                const champ = row.getAttribute('data-field');
+                const spanValue = row.querySelector('.field-value');
+                const currentValue = spanValue.textContent === '—' || spanValue.textContent === 'Non renseigné' ? '' : spanValue.textContent;
+                
+                // Si on est déjà en édition, on annule
+                if (row.querySelector('input')) return;
+
+                // Créer l'input
+                const input = document.createElement('input');
+                input.type = champ === 'email' ? 'email' : 'text';
+                input.value = currentValue;
+                input.style.padding = '5px';
+                input.style.borderRadius = '4px';
+                input.style.border = '1px solid #0ea5e9';
+                input.style.background = 'rgba(255,255,255,0.1)';
+                input.style.color = 'inherit';
+                input.style.flex = '1';
+                
+                // Remplacer le span et le bouton
+                spanValue.style.display = 'none';
+                this.style.display = 'none';
+                
+                // Boutons de validation / annulation
+                const saveBtn = document.createElement('button');
+                saveBtn.innerHTML = '✔️';
+                saveBtn.className = 'btn-edit';
+                saveBtn.title = 'Enregistrer';
+                
+                const cancelBtn = document.createElement('button');
+                cancelBtn.innerHTML = '❌';
+                cancelBtn.className = 'btn-edit';
+                cancelBtn.title = 'Annuler';
+                
+                const btnContainer = document.createElement('div');
+                btnContainer.style.display = 'flex';
+                btnContainer.style.gap = '5px';
+                btnContainer.appendChild(saveBtn);
+                btnContainer.appendChild(cancelBtn);
+
+                row.insertBefore(input, this);
+                row.insertBefore(btnContainer, this);
+                
+                input.focus();
+
+                // Annuler
+                cancelBtn.addEventListener('click', () => {
+                    input.remove();
+                    btnContainer.remove();
+                    spanValue.style.display = '';
+                    this.style.display = '';
+                });
+
+                // Sauvegarder via Fetch
+                saveBtn.addEventListener('click', () => {
+                    const newValue = input.value.trim();
+                    
+                    fetch('../api/update_profil.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            champ: champ,
+                            valeur: newValue
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Succès : maj de l'affichage
+                            spanValue.textContent = data.valeur || '—';
+                            spanValue.style.color = '#00ff88'; // feedback visuel bref
+                            setTimeout(() => spanValue.style.color = '', 2000);
+                        } else {
+                            // Erreur
+                            alert('Erreur: ' + data.message);
+                        }
+                        
+                        // Restauration de l'UI
+                        input.remove();
+                        btnContainer.remove();
+                        spanValue.style.display = '';
+                        this.style.display = '';
+                    })
+                    .catch(err => {
+                        alert('Erreur de connexion réseau.');
+                        console.error(err);
+                    });
+                });
+            });
+        });
+    });
+    </script>
 </main>
 
 <?php require_once 'includes/footer.php'; ?>

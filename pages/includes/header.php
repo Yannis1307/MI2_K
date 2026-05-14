@@ -9,6 +9,15 @@
     <title>La Table des Jedi - <?php echo isset($page_title) ? $page_title : 'Accueil'; ?></title>
     <!-- styles globaux -->
     <link rel="stylesheet" href="../css/common.css">
+    
+    <!-- theme cookie check et chargement CSS -->
+    <?php
+    $theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'dark';
+    if ($theme !== 'light' && $theme !== 'dark') {
+        $theme = 'dark'; // fallback
+    }
+    ?>
+    <link rel="stylesheet" id="theme-link" href="<?php echo $theme === 'light' ? '../css/light-theme.css' : ''; ?>">
     <!-- css specifique -->
     <?php if (!empty($page_css)) : ?>
     <link rel="stylesheet" href="../css/<?php echo $page_css; ?>">
@@ -41,6 +50,11 @@
 
         <!-- espace membre et recherche -->
         <div class="header-right">
+            <!-- bouton theme -->
+            <button id="theme-toggle" class="btn-member" style="background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.4); border-radius:50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor:pointer; margin-right: 15px;" title="Changer de thème">
+                <?php echo $theme === 'light' ? '🌑' : '☀️'; ?>
+            </button>
+
             <div class="member-space">
                 <?php
                 // calcul du nombre d'articles dans le panier
@@ -77,3 +91,31 @@
             </div>
         </div>
     </header>
+
+    <!-- script theme -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeBtn && themeLink) {
+            themeBtn.addEventListener('click', function() {
+                let currentTheme = 'dark';
+                // on vérifie si le thème clair est chargé
+                if (themeLink.getAttribute('href') === '../css/light-theme.css') {
+                    // passage au sombre
+                    themeLink.setAttribute('href', '');
+                    themeBtn.innerHTML = '☀️';
+                    currentTheme = 'dark';
+                } else {
+                    // passage au clair
+                    themeLink.setAttribute('href', '../css/light-theme.css');
+                    themeBtn.innerHTML = '🌑';
+                    currentTheme = 'light';
+                }
+                // sauvegarde dans un cookie (1 an)
+                document.cookie = "theme=" + currentTheme + "; max-age=" + (60*60*24*365) + "; path=/";
+            });
+        }
+    });
+    </script>

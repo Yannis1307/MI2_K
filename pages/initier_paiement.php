@@ -106,6 +106,23 @@ if ($total <= 0) {
     exit;
 }
 
+$total_initial = $total;
+$credits_utilises = 0;
+
+// Utilisation des credits
+if (isset($_POST['utiliser_credits']) && $_POST['utiliser_credits'] == '1') {
+    $solde = isset($_SESSION['user']['solde_credits']) ? $_SESSION['user']['solde_credits'] : 0;
+    if ($solde > 0) {
+        if ($solde >= $total) {
+            $credits_utilises = $total;
+            $total = 0;
+        } else {
+            $credits_utilises = $solde;
+            $total -= $solde;
+        }
+    }
+}
+
 // generation d'un identifiant de transaction unique
 $transaction_id = strtoupper(bin2hex(random_bytes(5)));
 
@@ -122,8 +139,66 @@ $_SESSION['commande_en_cours'] = [
     'etage' => $etage,
     'plats' => $plats_commandes,
     'menus' => $menus_commandes,
-    'total' => $total,
+    'total' => $total_initial,
+    'credits_utilises' => $credits_utilises
 ];
+
+// Si la commande est entierement payee avec les credits, on bypasse la banque
+if ($total == 0) {
+    $users_all = read_json('users.json');
+    $telephone_client = '';
+    foreach ($users_all as &$u) {
+        if ($u['id'] == $_SESSION['user']['id']) {
+            $telephone_client = isset($u['telephone']) ? $u['telephone'] : '';
+            // deduction des credits
+            $u['solde_credits'] -= $credits_utilises;
+            $_SESSION['user']['solde_credits'] = $u['solde_credits'];
+            break;
+        }
+    }
+    write_json('users.json', $users_all);
+
+    $nouvelle_commande = [
+        'id'               => 'JDI-' . strtoupper(substr(uniqid(), -5)),
+        'id_client'        => $_SESSION['user']['id'],
+        'login_client'     => $_SESSION['user']['login'],
+        'date'             => date('d/m/Y'),
+        'heure'            => date('H:i'),
+        'type'             => $type_commande,
+        'mode_retrait'     => $mode_retrait,
+        'heure_livraison'  => ($type_commande === 'planifiee') ? $heure_livraison : null,
+        'adresse'          => $adresse,
+        'telephone_client' => $telephone_client,
+        'plats'            => $plats_commandes,
+        'menus'            => $menus_commandes,
+        'total'            => $total_initial,
+        'statut'           => 'en attente',
+        'statut_paiement'  => 'accepte',
+        'transaction_id'   => $transaction_id,
+        'montant_paye'     => 0,
+        'credits_utilises' => $credits_utilises,
+        'id_livreur'       => null,
+        'note_livraison'   => null,
+        'note_qualite'     => null,
+        'commentaire'      => '',
+        'code_interphone'  => $code_interphone,
+        'etage'            => $etage
+    ];
+
+    $commandes   = read_json('commandes.json');
+    $commandes[] = $nouvelle_commande;
+    write_json('commandes.json', $commandes);
+
+    unset($_SESSION['panier']);
+    unset($_SESSION['panier_menus']);
+    unset($_SESSION['commande_en_cours']);
+
+    $_SESSION['flash_success'] = 'Commande #' . $nouvelle_commande['id'] . ' validée ! (Entièrement réglée avec vos crédits).';
+    header('Location: profil.php');
+    exit;
+}
+
+// on a deja assigne $_SESSION['commande_en_cours'] plus haut
 
 // parametres api bancaire
 require_once 'includes/getapikey.php';
