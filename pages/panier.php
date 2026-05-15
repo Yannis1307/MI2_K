@@ -181,7 +181,7 @@ require_once 'includes/header.php';
                 </div>
                 <div class="panel-body">
                     <!-- redirection vers le paiement bancaire -->
-                    <form method="POST" action="initier_paiement.php">
+                    <form method="POST" action="initier_paiement.php" onsubmit="this.querySelector('button[type=submit]').disabled=true; this.querySelector('button[type=submit]').innerHTML='Traitement...';">
 
                         <!-- parametres de la commande -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px;">

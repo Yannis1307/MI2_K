@@ -10,13 +10,16 @@ require_once 'includes/functions.php';
 // traitement du formulaire quand il est soumis en post
 $erreur = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login = isset($_POST['nomcode']) ? $_POST['nomcode'] : '';
+    $login = isset($_POST['nomcode']) ? trim($_POST['nomcode']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $planete = isset($_POST['planete']) ? $_POST['planete'] : '';
     $camp = isset($_POST['camp']) ? $_POST['camp'] : 'jedi';
 
-    // on lit les utilisateurs existants
+    if (strlen($email) > 50) {
+        $erreur = 'L\'email est trop long (maximum 50 caractères).';
+    } else {
+        // on lit les utilisateurs existants
     $users = read_json('users.json');
 
     // on verifie si l'email existe deja
@@ -72,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // on redirige vers la page de connexion
         header('Location: connexion.php');
         exit;
+    }
     }
 }
 

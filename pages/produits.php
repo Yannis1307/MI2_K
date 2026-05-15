@@ -126,7 +126,7 @@ require_once 'includes/header.php';
                         <div class="price-section">
                             <span class="price"><?= number_format($plat['prix'], 2, ',', '') ?> ₹</span>
                             <!-- ajout panier plat -->
-                            <form method="POST" action="ajouter_panier.php" style="display:inline;">
+                            <form method="POST" action="ajouter_panier.php" style="display:inline;" onsubmit="this.querySelector('.add-btn').disabled=true;">
                                 <input type="hidden" name="id_plat" value="<?= $plat['id'] ?>">
                                 <button type="submit" class="add-btn">+</button>
                             </form>
@@ -171,7 +171,7 @@ require_once 'includes/header.php';
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span class="menu-economie">Le menu complet</span>
                             <!-- ajout panier menu -->
-                            <form method="POST" action="ajouter_panier.php" style="display:inline;">
+                            <form method="POST" action="ajouter_panier.php" style="display:inline;" onsubmit="this.querySelector('.add-btn').disabled=true;">
                                 <input type="hidden" name="id_menu" value="<?= $menu['id'] ?>">
                                 <button type="submit" class="add-btn" style="padding: 5px 10px; font-size: 1.2em;">+</button>
                             </form>
@@ -183,105 +183,171 @@ require_once 'includes/header.php';
         </div>
     </main>
 
-    <!-- Script de filtrage asynchrone -->
+    <!-- Script de filtrage et tri DOM (côté client) -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const catSelect = document.getElementById('filter-category');
-        const dietSelect = document.getElementById('filter-diet');
-        const sortSelect = document.getElementById('filter-sort');
-        const searchInput = document.getElementById('product-search');
-        const grid = document.getElementById('products-grid');
-        const loader = document.getElementById('products-loader');
+        var catSelect = document.getElementById('filter-category');
+        var dietSelect = document.getElementById('filter-diet');
+        var sortSelect = document.getElementById('filter-sort');
+        var searchInput = document.getElementById('product-search');
+        var grid = document.getElementById('products-grid');
         
-        // Fonction pour generer le html d'un plat
-        function createProductCard(plat) {
-            let html = `
-            <div class="product-card">
-                <div class="card-glow"></div>
-                <div class="card-inner">`;
-            
-            if (plat.is_piquant) {
-                html += `<span class="holo-badge badge-hot">PIQUANT</span>`;
-            }
-            if (plat.is_vege && !plat.is_piquant) {
-                html += `<span class="holo-badge badge-nouveau">VÉGÉ</span>`;
-            }
-            
-            let allergenesText = (plat.allergenes && plat.allergenes.length > 0) ? plat.allergenes.join(', ') : 'Aucun connu';
-            let ingredientsText = plat.ingredients ? `<p class="ingredients"><strong>Ingrédients :</strong> ${plat.ingredients}</p>` : '';
-            let loreText = plat.lore ? `<p class="lore"><strong>Histoire Galactique :</strong> ${plat.lore}</p>` : '';
-            
-            let prixFormat = parseFloat(plat.prix).toFixed(2).replace('.', ',');
-
-            html += `
-                    <img src="../${plat.image}" alt="${plat.nom}">
-                    <div class="card-content">
-                        <h3 class="product-name">${plat.nom}</h3>
-                        <p class="product-desc">${plat.description}</p>
-                        <details class="product-details">
-                            <summary class="details-btn">En savoir plus [+]</summary>
-                            <div class="details-content">
-                                ${loreText}
-                                ${ingredientsText}
-                                <p class="allergens"><strong>Allergènes :</strong> ${allergenesText}</p>
-                            </div>
-                        </details>
-                        <div class="price-section">
-                            <span class="price">${prixFormat} ₹</span>
-                            <form method="POST" action="ajouter_panier.php" style="display:inline;">
-                                <input type="hidden" name="id_plat" value="${plat.id}">
-                                <button type="submit" class="add-btn">+</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-            return html;
+        // on recupere l'ordre initial des cartes au chargement
+        var initialCards = Array.from(grid.querySelectorAll('.product-card'));
+        for (var i = 0; i < initialCards.length; i++) {
+            initialCards[i].setAttribute('data-index', i);
+        }
+        
+        function formatPrice(price) {
+            return price.toFixed(2).replace('.', ',') + ' ₹';
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
-        // Fonction pour fetch
-        function fetchProducts() {
-            grid.style.opacity = '0.5';
-            loader.style.display = 'block';
-
-            const cat = catSelect.value;
-            const diet = dietSelect.value;
-            const sort = sortSelect.value;
-            const search = searchInput.value;
-
-            // Construit l'URL avec les parametres GET
-            const url = `../api/get_products.php?category=${encodeURIComponent(cat)}&diet=${encodeURIComponent(diet)}&sort=${encodeURIComponent(sort)}&search=${encodeURIComponent(search)}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    grid.innerHTML = ''; // vider
-                    if (data.success && data.plats.length > 0) {
-                        data.plats.forEach(plat => {
-                            grid.innerHTML += createProductCard(plat);
-                        });
-                    } else {
-                        grid.innerHTML = '<div style="width: 100%; text-align: center; color: rgba(255,255,255,0.5); padding: 40px; grid-column: 1 / -1;"><p>Aucun produit ne correspond à votre recherche.</p></div>';
+        // fonction pour trier le DOM existant
+        function applyLocalSort() {
+            var sortValue = sortSelect.value;
+            var currentCards = Array.from(grid.querySelectorAll('.product-card'));
+            
+            if (sortValue !== '') {
+                currentCards.sort(function(a, b) {
+                    var priceTextA = a.querySelector('.price').textContent;
+                    var priceTextB = b.querySelector('.price').textContent;
+                    var priceA = parseFloat(priceTextA.replace(' ₹', '').replace(',', '.'));
+                    var priceB = parseFloat(priceTextB.replace(' ₹', '').replace(',', '.'));
+                    
+                    if (sortValue === 'price_asc') {
+                        return priceA - priceB;
+                    } else if (sortValue === 'price_desc') {
+                        return priceB - priceA;
                     }
-                    grid.style.opacity = '1';
+                    return 0;
+                });
+            } else {
+                // Retour a l'ordre de l'index s'il existe
+                currentCards.sort(function(a, b) {
+                    var idxA = a.getAttribute('data-index') ? parseInt(a.getAttribute('data-index')) : 0;
+                    var idxB = b.getAttribute('data-index') ? parseInt(b.getAttribute('data-index')) : 0;
+                    return idxA - idxB;
+                });
+            }
+            
+            // Reorganisation dans le DOM
+            for (var k = 0; k < currentCards.length; k++) {
+                grid.appendChild(currentCards[k]);
+            }
+        }
+
+        // filtrage asynchrone via fetch
+        function applyAsyncFilter() {
+            var catValue = catSelect.value;
+            var dietValue = dietSelect.value;
+            var searchValue = searchInput.value.toLowerCase().trim();
+            
+            var loader = document.getElementById('products-loader');
+            loader.style.display = 'block';
+            grid.style.opacity = '0.5';
+
+            // construction de l'url de l'api
+            var url = '../api/get_products.php?category=' + encodeURIComponent(catValue) +
+                      '&diet=' + encodeURIComponent(dietValue) +
+                      '&search=' + encodeURIComponent(searchValue);
+            
+            fetch(url)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
                     loader.style.display = 'none';
+                    grid.style.opacity = '1';
+                    
+                    if (data.success) {
+                        // on vide la grille
+                        grid.innerHTML = '';
+                        
+                        var plats = data.plats;
+                        if (plats.length === 0) {
+                            var msg = document.createElement('div');
+                            msg.id = 'no-product-msg';
+                            msg.style.cssText = 'width: 100%; text-align: center; color: rgba(255,255,255,0.5); padding: 40px; grid-column: 1 / -1;';
+                            msg.innerHTML = '<p>Aucun produit ne correspond à votre recherche.</p>';
+                            grid.appendChild(msg);
+                            return;
+                        }
+                        
+                        // on regenere les cartes
+                        for (var j = 0; j < plats.length; j++) {
+                            var plat = plats[j];
+                            var card = document.createElement('div');
+                            card.className = 'product-card';
+                            card.setAttribute('data-category', escapeHtml(plat.categorie));
+                            card.setAttribute('data-index', j); // nouvel index
+                            
+                            var innerHTML = '<div class="card-glow"></div><div class="card-inner">';
+                            
+                            if (plat.is_piquant) {
+                                innerHTML += '<span class="holo-badge badge-hot">PIQUANT</span>';
+                            } else if (plat.is_vege) {
+                                innerHTML += '<span class="holo-badge badge-nouveau">VÉGÉ</span>';
+                            }
+                            
+                            innerHTML += '<img src="../' + escapeHtml(plat.image) + '" alt="' + escapeHtml(plat.nom) + '">';
+                            innerHTML += '<div class="card-content">';
+                            innerHTML += '<h3 class="product-name">' + escapeHtml(plat.nom) + '</h3>';
+                            innerHTML += '<p class="product-desc">' + escapeHtml(plat.description) + '</p>';
+                            
+                            // details
+                            innerHTML += '<details class="product-details"><summary class="details-btn">En savoir plus [+]</summary><div class="details-content">';
+                            if (plat.lore) {
+                                innerHTML += '<p class="lore"><strong>Histoire Galactique :</strong> ' + escapeHtml(plat.lore) + '</p>';
+                            }
+                            if (plat.ingredients) {
+                                innerHTML += '<p class="ingredients"><strong>Ingrédients :</strong> ' + escapeHtml(plat.ingredients) + '</p>';
+                            }
+                            if (plat.allergenes && plat.allergenes.length > 0) {
+                                innerHTML += '<p class="allergens"><strong>Allergènes :</strong> ' + escapeHtml(plat.allergenes.join(', ')) + '</p>';
+                            } else {
+                                innerHTML += '<p class="allergens"><strong>Allergènes :</strong> Aucun connu</p>';
+                            }
+                            innerHTML += '</div></details>';
+                            
+                            // prix et panier
+                            innerHTML += '<div class="price-section">';
+                            innerHTML += '<span class="price">' + formatPrice(plat.prix) + '</span>';
+                            innerHTML += '<form method="POST" action="ajouter_panier.php" style="display:inline;" onsubmit="this.querySelector(\'.add-btn\').disabled=true;">';
+                            innerHTML += '<input type="hidden" name="id_plat" value="' + escapeHtml(plat.id) + '">';
+                            innerHTML += '<button type="submit" class="add-btn">+</button>';
+                            innerHTML += '</form></div></div></div>';
+                            
+                            card.innerHTML = innerHTML;
+                            grid.appendChild(card);
+                        }
+                        
+                        // apres avoir reconstruit le dom, on applique le tri local
+                        applyLocalSort();
+                    }
                 })
-                .catch(err => {
-                    console.error('Erreur API Fetch:', err);
-                    grid.style.opacity = '1';
+                .catch(function(error) {
                     loader.style.display = 'none';
+                    grid.style.opacity = '1';
+                    console.error('Erreur API:', error);
                 });
         }
 
         // Ajout des events
-        catSelect.addEventListener('change', fetchProducts);
-        dietSelect.addEventListener('change', fetchProducts);
-        sortSelect.addEventListener('change', fetchProducts);
+        catSelect.addEventListener('change', applyAsyncFilter);
+        dietSelect.addEventListener('change', applyAsyncFilter);
         
-        let timeout = null;
+        // pour le tri on ne fait PAS d'appel API, on re-trie juste localement
+        sortSelect.addEventListener('change', applyLocalSort);
+        
+        var timeout = null;
         searchInput.addEventListener('input', function() {
             clearTimeout(timeout);
-            timeout = setTimeout(fetchProducts, 300); // debounce 300ms
+            timeout = setTimeout(applyAsyncFilter, 300); // debounce 300ms
         });
     });
     </script>

@@ -1,168 +1,230 @@
-/* css/light-theme.css - Thème "Jedi" Clair */
+/* css/light-theme.css - reset global du mode clair (douceur et homogeneite) */
+/* le fichier etant charge dynamiquement, les !important forcent la priorite sur les themes sombres */
 
-/* Modification des variables globales ou surcharge directe */
-body {
-    background: #f0f4f8 !important; /* Bleu-gris très clair */
-    color: #1a202c !important; /* Texte foncé pour lisibilité */
+/* 1. neutralisation globale du mode sombre (videos, filtres, animations) */
+#video-bg, .overlay, .card-glow, .product-card:hover .card-glow, .card-content::before, .menu-card::before, .history-container::before, .coupon-scanline, .details-content::before {
+    display: none !important;
 }
 
-/* Header et Navigation */
-header {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+/* 2. lutte contre le trop blanc : fond doux et homogene (gris-bleu perle) */
+body, main, #bienvenue, #histoire-galactique, #avis-clients, #frequents, .admin-footer {
+    background-color: #eef2f5 !important;
+    background-image: none !important;
 }
 
-header nav ul li a {
-    color: #334155 !important;
+/* on force le texte principal global en gris tres dense pour la lisibilite */
+body, main, h1, h2, h3, h4, h5, h6, p, span, div, li, td, th, label, .subtitle, .epic-title, .form-title, .menus-section-title, .section-title, .product-name, .menu-nom, .console-header h1, .field-value, .cell-pseudo, .coupon-title, .history-content h1, .stat-value, .contact-info h3, .footer-section h3, .product-desc, .menu-description, .form-subtitle, .lore, .ingredients, .allergens, .details-content p, .field-label, .points-label, .stat-label, .console-subtitle, .review-text, .history-content p, .contact-info li, .joke-text, .coupon-detail, .level-name, .level-footer, .toolbar-label, .toolbar-info, .admin-footer p, .footer-bottom {
+    color: #1f2937 !important; /* gris anthracite (#1f2937) */
+    text-shadow: none !important;
 }
 
-header nav ul li a:hover, header nav ul li a.active {
-    color: #0ea5e9 !important; /* Bleu Jedi */
-    border-bottom-color: #0ea5e9 !important;
+/* exceptions pour les textes qui doivent rester clairs (boutons, badges alertes) */
+.btn-submit, .btn-add, .add-btn, .btn-yellow, .btn-cyan, .btn-carte, .btn-transmission, .btn-ready, .btn-signup, .badge-hot, .status-banned, .btn-logout, .btn-logout-admin {
+    color: #ffffff !important;
 }
 
-/* Boutons dans le header */
-.btn-login, .btn-signup, .btn-member {
-    border-color: #94a3b8 !important;
-    color: #334155 !important;
+/* 3. l'effet feuille sur le bureau (cartes, panneaux, tableaux) */
+.panel, .card, .product-card, .stat-card, .review-card, .form-panel, .menu-card, .history-container, .points-display, .toolbar, .ticket, .delivery-card, .mission-card, header, footer, #main-footer, .admin-header, .admin-footer {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04) !important; /* profondeur elegante sans assombrir */
+    backdrop-filter: none !important;
 }
 
-.btn-login:hover {
-    background: #e2e8f0 !important;
+/* on annule les fonds internes des cartes pour eviter la double boite */
+.card-inner, .card-content {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* liens et navigation */
+a, header nav ul li a, .link-highlight {
+    color: #374151 !important;
+    text-shadow: none !important;
+}
+a:hover, header nav ul li a:hover, header nav ul li a.active, .link-highlight:hover {
+    color: #0284c7 !important; 
+}
+
+/* 4. homogeneite : tous les tableaux d'admin, commandes, profil */
+table, .orders-table, .admin-table, .table-container {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    border-collapse: separate !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04) !important; /* ajout de l'ombre portee douce */
+}
+th, .orders-table th, .admin-table th {
+    background-color: #f9fafb !important;
+    color: #4b5563 !important;
+    border-bottom: 2px solid #e5e7eb !important;
+    font-weight: 600 !important;
+}
+tr, td, .orders-table td, .admin-table td {
+    background-color: #ffffff !important;
+    color: #374151 !important; /* texte gris anthracite sur les lignes */
+    border-bottom: 1px solid #e5e7eb !important;
+}
+tr:hover td, .admin-table tbody tr:hover td {
+    background-color: #f3f4f6 !important;
+}
+
+/* 5. homogeneite : tous les formulaires et inputs */
+input, select, textarea, .product-search-input, .toolbar-input, .toolbar-select {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important; /* bordure grise legere */
+    color: #1f2937 !important; /* texte fonce */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+}
+input:focus, select:focus, textarea:focus, .product-search-input:focus, .toolbar-input:focus, .toolbar-select:focus {
+    border-color: #0284c7 !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+    outline: none !important;
+}
+input::placeholder, .product-search-input::placeholder, .toolbar-input::placeholder {
+    color: #9ca3af !important;
+}
+
+/* 6. couleurs d'accentuation denses (prix, points, boutons) */
+.price, .product-price, .order-price, .menu-plat-prix {
+    color: #15803d !important; /* vert fonce pro pour les prix */
+    font-weight: bold !important;
+}
+.points-number, .level-percent {
+    color: #0284c7 !important; /* bleu classique */
+}
+
+/* boutons principaux */
+.btn-submit, .btn-add, .add-btn, .btn-yellow, .btn-cyan, .btn-carte, .btn-transmission, .btn-ready, .btn-signup {
+    background: #0ea5e9 !important;
+    background-color: #0ea5e9 !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 6px rgba(14, 165, 233, 0.2) !important;
+}
+.btn-submit:hover, .btn-add:hover, .add-btn:hover, .btn-yellow:hover, .btn-cyan:hover, .btn-carte:hover, .btn-transmission:hover, .btn-ready:hover, .btn-signup:hover {
+    background-color: #0284c7 !important;
+    background: #0284c7 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* boutons secondaires */
+.btn-login, .btn-member, .btn-edit, .btn-edit-avatar, .action-btn, .filter-btn, .radio-custom, .btn-back {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #374151 !important;
+}
+.btn-login:hover, .btn-member:hover, .btn-edit:hover, .btn-edit-avatar:hover, .action-btn:hover, .filter-btn:hover, .btn-back:hover {
+    background: #f9fafb !important;
+    border-color: #0ea5e9 !important;
     color: #0ea5e9 !important;
 }
 
-.btn-signup {
-    background: linear-gradient(135deg, #0ea5e9, #3b82f6) !important;
-    color: white !important;
+/* bouton theme */
+#theme-toggle {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #1f2937 !important;
+}
+
+/* filtres actifs */
+.radio-label input[type="radio"]:checked+.radio-custom,
+#filter-tous:checked~.filters-container label[for="filter-tous"],
+#filter-boissons:checked~.filters-container label[for="filter-boissons"],
+#filter-plats:checked~.filters-container label[for="filter-plats"],
+#filter-snacks:checked~.filters-container label[for="filter-snacks"],
+#filter-specialites:checked~.filters-container label[for="filter-specialites"],
+#filter-vege:checked~.filters-container label[for="filter-vege"],
+#filter-gluten-free:checked~.filters-container label[for="filter-gluten-free"],
+#filter-piquant:checked~.filters-container label[for="filter-piquant"] {
+    background: #e0f2fe !important; 
+    border-color: #0ea5e9 !important;
+    color: #0ea5e9 !important;
+}
+
+/* badges et elements de statut (fonds tres legers et textes denses) */
+.rank-badge, .status-badge, .role-badge, .holo-badge, .badge-nouveau {
+    background: #e0f2fe !important;
+    color: #0369a1 !important;
+    border: 1px solid #bae6fd !important;
+}
+.status-delivered, .status-active, .status-unlocked {
+    background: #dcfce7 !important;
+    color: #15803d !important;
+    border: 1px solid #bbf7d0 !important;
+}
+.status-banned, .badge-hot, .btn-logout, .btn-logout-admin {
+    background: #fee2e2 !important;
+    color: #b91c1c !important;
+    border: 1px solid #fca5a5 !important;
+    animation: none !important;
+}
+.status-prep {
+    background: #fef9c3 !important;
+    color: #a16207 !important;
+    border: 1px solid #fde047 !important;
+    animation: none !important;
+}
+
+/* coupons (profil) */
+.reward-active {
+    background: #ffffff !important;
+    border: 2px dashed #0ea5e9 !important;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.1) !important;
+}
+.reward-locked {
+    background: #f3f4f6 !important;
+    border: 2px dashed #d1d5db !important;
+    opacity: 0.8 !important;
+    filter: none !important;
+}
+
+/* details (produits) */
+.details-content {
+    background: #f9fafb !important;
+    border-left: 3px solid #0ea5e9 !important;
+}
+
+/* barres de progression */
+.progress-bar-track {
+    background: #e5e7eb !important;
     border: none !important;
 }
-
-.btn-signup:hover {
-    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
-    box-shadow: 0 0 10px rgba(14, 165, 233, 0.5) !important;
-}
-
-/* Bouton Theme */
-#theme-toggle {
-    background: #e2e8f0 !important;
-    border: 1px solid #cbd5e1 !important;
-    color: #1a202c !important;
-}
-
-#theme-toggle:hover {
-    background: #cbd5e1 !important;
-}
-
-/* Sections et Panneaux */
-.panel, .card, .stat-card, .review-card {
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
-}
-
-.panel-header, .zone-header {
-    border-bottom: 1px solid #e2e8f0 !important;
-    background: #f8fafc !important;
-}
-
-.panel-header h2, .zone-header h2 {
-    color: #0f172a !important;
-}
-
-/* Textes et Titres */
-h1, h2, h3, h4, h5, h6 {
-    color: #0f172a !important;
-}
-
-.subtitle, p {
-    color: #475569 !important;
-}
-
-/* Tableaux */
-table, th, td {
-    border-color: #e2e8f0 !important;
-    color: #1a202c !important;
-}
-
-th {
-    background: #f1f5f9 !important;
-    color: #334155 !important;
-}
-
-/* Formulaires et Inputs */
-input, select, textarea {
-    background: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    color: #1a202c !important;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: #0ea5e9 !important;
-    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2) !important;
-}
-
-label {
-    color: #334155 !important;
-}
-
-/* Overlay assombri supprimé ou allégé */
-.overlay {
-    background: rgba(240, 244, 248, 0.8) !important;
-}
-
-/* Spécifique aux produits */
-.product-card {
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-}
-
-.product-info h3 {
-    color: #0f172a !important;
-}
-
-.product-price {
-    color: #0ea5e9 !important; /* Bleu au lieu de doré */
-}
-
-/* Boutons Ajouter Panier */
-.btn-add {
+.progress-bar-fill {
     background: #0ea5e9 !important;
-    color: white !important;
+    animation: none !important;
 }
 
-.btn-add:hover {
-    background: #0284c7 !important;
+/* avatars et logos */
+.avatar, .profile-avatar, #history-logo {
+    background: #ffffff !important;
+    border: 2px solid #d1d5db !important;
+    box-shadow: none !important;
 }
 
-/* Boutons de Dashboard (Modifier, etc.) */
-.btn-edit {
-    background: rgba(14, 165, 233, 0.1) !important;
-    border-color: #0ea5e9 !important;
-    color: #0ea5e9 !important;
+/* correction contraste modale admin */
+.admin-modal-box {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
 }
-
-.btn-edit:hover {
-    background: rgba(14, 165, 233, 0.2) !important;
+.admin-modal-close, .admin-modal-label, .admin-modal-field {
+    color: #374151 !important;
 }
-
-/* Alertes Flash */
-.flash-success {
-    background: rgba(16, 185, 129, 0.1) !important;
-    border-color: rgba(16, 185, 129, 0.4) !important;
-    color: #059669 !important;
+.admin-modal-title {
+    color: #1f2937 !important;
 }
-
-.flash-error {
-    background: rgba(239, 68, 68, 0.1) !important;
-    border-color: rgba(239, 68, 68, 0.4) !important;
-    color: #dc2626 !important;
+.admin-modal-input {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #374151 !important;
+    border-color: #d1d5db !important;
 }
-
-/* Footer */
-footer {
-    border-top: 1px solid #cbd5e1 !important;
-    background: #f8fafc !important;
-    color: #475569 !important;
+.admin-modal-input option {
+    background: #ffffff !important;
+    color: #374151 !important;
 }

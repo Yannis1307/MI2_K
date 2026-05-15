@@ -387,11 +387,12 @@
         "transaction_id": "3FBC975A01",
         "montant_paye": 5,
         "id_livreur": 6,
-        "note_livraison": null,
-        "note_qualite": null,
+        "note_livraison": 5,
+        "note_qualite": 5,
         "commentaire": "",
         "code_interphone": "",
-        "etage": ""
+        "etage": "",
+        "date_notation": "15/05/2026"
     },
     {
         "id": "JDI-5F172",
@@ -709,12 +710,12 @@
         "plats": [],
         "menus": [],
         "total": 0,
-        "statut": "en attente",
+        "statut": "en livraison",
         "statut_paiement": "accepte",
         "transaction_id": "627924E6B1",
         "montant_paye": 14,
         "credits_utilises": 0,
-        "id_livreur": null,
+        "id_livreur": "6",
         "note_livraison": null,
         "note_qualite": null,
         "commentaire": "",
@@ -744,7 +745,7 @@
         ],
         "menus": [],
         "total": 5,
-        "statut": "en attente",
+        "statut": "abandonné",
         "statut_paiement": "accepte",
         "transaction_id": "53F8385D2C",
         "montant_paye": 0,
@@ -770,7 +771,7 @@
         "plats": [],
         "menus": [],
         "total": 0,
-        "statut": "en attente",
+        "statut": "abandonné",
         "statut_paiement": "accepte",
         "transaction_id": "28CD71CF8D",
         "montant_paye": 5,
@@ -805,7 +806,7 @@
         ],
         "menus": [],
         "total": 6,
-        "statut": "en attente",
+        "statut": "abandonné",
         "statut_paiement": "accepte",
         "transaction_id": "082B2265A0",
         "montant_paye": 1,
@@ -816,5 +817,449 @@
         "commentaire": "",
         "code_interphone": "",
         "etage": ""
+    },
+    {
+        "id": "JDI-C853C",
+        "id_client": 71,
+        "login_client": "mehdi",
+        "date": "15/05/2026",
+        "heure": "13:26",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": "1",
+                "nom": "Lait Bleu",
+                "quantite": 1,
+                "prix_unitaire": 7,
+                "sous_total": 7
+            },
+            {
+                "id_plat": "3",
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            },
+            {
+                "id_plat": "8",
+                "nom": "Côtelettes de Dewback",
+                "quantite": 1,
+                "prix_unitaire": 20,
+                "sous_total": 20
+            },
+            {
+                "id_plat": "8",
+                "nom": "Côtelettes de Dewback",
+                "quantite": 1,
+                "prix_unitaire": 20,
+                "sous_total": 20
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 74.9,
+        "statut": "en livraison",
+        "statut_paiement": "accepte",
+        "transaction_id": "141B74651D",
+        "montant_paye": 47.9,
+        "credits_utilises": 0,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 47.9
+    },
+    {
+        "id": "JDI-A2BE6",
+        "id_client": 71,
+        "login_client": "mehdi",
+        "date": "15/05/2026",
+        "heure": "14:06",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "0625364585",
+        "plats": [
+            {
+                "id_plat": 5,
+                "nom": "Thé de Caf",
+                "quantite": 1,
+                "prix_unitaire": 4,
+                "sous_total": 4
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 2,
+                "prix_unitaire": 22.9,
+                "sous_total": 45.8,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            },
+            {
+                "id_menu": 2,
+                "nom": "Menu Maître Jedi",
+                "quantite": 1,
+                "prix_unitaire": 29.9,
+                "sous_total": 29.9,
+                "plats_details": [
+                    "Côtelettes de Dewback",
+                    "Thé de Caf",
+                    "Tartare de Tip-Yip"
+                ]
+            }
+        ],
+        "total": 79.7,
+        "statut": "abandonné",
+        "statut_paiement": "accepte",
+        "transaction_id": "60BE7912E4",
+        "montant_paye": 52.8,
+        "credits_utilises": 0,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 52.8
+    },
+    {
+        "id": "JDI-56A66",
+        "id_client": 71,
+        "login_client": "mehdi",
+        "date": "15/05/2026",
+        "heure": "14:21",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "0625364585",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            },
+            {
+                "id_plat": 9,
+                "nom": "Portion de Survie",
+                "quantite": 1,
+                "prix_unitaire": 3,
+                "sous_total": 3
+            },
+            {
+                "id_plat": 5,
+                "nom": "Thé de Caf",
+                "quantite": 1,
+                "prix_unitaire": 4,
+                "sous_total": 4
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            },
+            {
+                "id_menu": 2,
+                "nom": "Menu Maître Jedi",
+                "quantite": 1,
+                "prix_unitaire": 29.9,
+                "sous_total": 29.9
+            }
+        ],
+        "total": 64.8,
+        "statut": "abandonné",
+        "statut_paiement": "accepte",
+        "transaction_id": "DA9540232B",
+        "montant_paye": 30.9,
+        "credits_utilises": 0,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 30.9
+    },
+    {
+        "id": "JDI-4093A",
+        "id_client": 71,
+        "login_client": "mehdi",
+        "date": "15/05/2026",
+        "heure": "14:28",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "0625364585",
+        "plats": [
+            {
+                "id_plat": 8,
+                "nom": "Côtelettes de Dewback",
+                "quantite": 1,
+                "prix_unitaire": 20,
+                "sous_total": 20
+            },
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            },
+            {
+                "id_plat": 15,
+                "nom": "Tartare de Tip-Yip",
+                "quantite": 1,
+                "prix_unitaire": 16,
+                "sous_total": 16
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 2,
+                "prix_unitaire": 22.9,
+                "sous_total": 45.8,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 86.8,
+        "statut": "abandonné",
+        "statut_paiement": "accepte",
+        "transaction_id": "FA518EF054",
+        "montant_paye": 47.9,
+        "credits_utilises": 0,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 86.8
+    },
+    {
+        "id": "JDI-93E85",
+        "id_client": 71,
+        "login_client": "mehdi",
+        "date": "15/05/2026",
+        "heure": "14:29",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "0625364585",
+        "plats": [
+            {
+                "id_plat": 14,
+                "nom": "Ronto Wrap",
+                "quantite": 1,
+                "prix_unitaire": 14,
+                "sous_total": 14
+            },
+            {
+                "id_plat": 4,
+                "nom": "Soda de Spotchka",
+                "quantite": 1,
+                "prix_unitaire": 6,
+                "sous_total": 6
+            }
+        ],
+        "menus": [],
+        "total": 20,
+        "statut": "abandonné",
+        "statut_paiement": "accepte",
+        "transaction_id": "AA06E77EE0",
+        "montant_paye": 0,
+        "credits_utilises": 20,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-1BCE7",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "15/05/2026",
+        "heure": "21:14",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 2,
+                "prix_unitaire": 22.9,
+                "sous_total": 45.8,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 50.8,
+        "statut": "abandonné",
+        "statut_paiement": "accepte",
+        "transaction_id": "E23C0BEEAF",
+        "montant_paye": 27.9,
+        "credits_utilises": 0,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 50.8
+    },
+    {
+        "id": "JDI-5CE4D",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "15/05/2026",
+        "heure": "21:28",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            },
+            {
+                "id_plat": 12,
+                "nom": "Gaufres de l'Espace",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 35.9,
+        "statut": "en livraison",
+        "statut_paiement": "accepte",
+        "transaction_id": "21F3B47895",
+        "montant_paye": 35.9,
+        "credits_utilises": 0,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-8E7E5",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "15/05/2026",
+        "heure": "21:35",
+        "type": "immediate",
+        "mode_retrait": "emporter",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            },
+            {
+                "id_plat": 4,
+                "nom": "Soda de Spotchka",
+                "quantite": 1,
+                "prix_unitaire": 6,
+                "sous_total": 6
+            }
+        ],
+        "menus": [],
+        "total": 11,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "3D35A82053",
+        "montant_paye": 11,
+        "credits_utilises": 0,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
     }
 ]

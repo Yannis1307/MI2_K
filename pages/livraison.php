@@ -9,30 +9,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
     header('Location: connexion.php');
     exit;
 }
-
-// traitements des actions (confirmer livraison, abandon)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
-    $id_cmd = trim($_POST['id_commande']);
-    $action = isset($_POST['action']) ? $_POST['action'] : 'livrer';
-    $commandes = read_json('commandes.json');
-    $id_livreur = $_SESSION['user']['id'];
-
-    foreach ($commandes as $index => $cmd) {
-        if ($cmd['id'] === $id_cmd && $cmd['statut'] === 'en livraison' && $cmd['id_livreur'] == $id_livreur) {
-            if ($action === 'abandonner') {
-                $commandes[$index]['statut'] = 'abandonné';
-            } else {
-                $commandes[$index]['statut'] = 'livré';
-            }
-            write_json('commandes.json', $commandes);
-            break;
-        }
-    }
-
-    // evite resoumission
-    header('Location: livraison.php');
-    exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -178,11 +154,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
             <!-- actions -->
             <?php if ($mission) : ?>
             <div class="confirm-zone" style="display: flex; flex-direction: column; gap: 10px;">
-                <form method="POST" action="livraison.php" style="width: 100%;">
-                    <input type="hidden" name="id_commande" value="<?= htmlspecialchars($mission['id']) ?>">
-                    <button type="submit" name="action" value="livrer" class="btn-confirm-delivery" style="width: 100%; margin-bottom: 10px;">✅ CONFIRMER LA LIVRAISON</button>
-                    <button type="submit" name="action" value="abandonner" class="btn-help" style="width: 100%; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; color: #ff4444;">❌ SIGNALER COMME ABANDONNÉE</button>
-                </form>
+                <div style="width: 100%;">
+                    <button type="button" data-cmd="<?= htmlspecialchars($mission['id']) ?>" data-action="livrer" class="btn-confirm-delivery js-action-livraison" style="width: 100%; margin-bottom: 10px;">✅ CONFIRMER LA LIVRAISON</button>
+                    <button type="button" data-cmd="<?= htmlspecialchars($mission['id']) ?>" data-action="abandonner" class="btn-help js-action-livraison" style="width: 100%; background: rgba(255, 50, 50, 0.1); border: 1px solid #ff4444; color: #ff4444;">❌ SIGNALER COMME ABANDONNÉE</button>
+                </div>
             </div>
             <?php endif; ?>
 
@@ -196,8 +171,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
 
     <!-- bas de page -->
     <footer class="mobile-footer">
-        <p>&copy; 2026 La Table des Jedi — Interface Livreur · Projet Creative-Yumland (Phase #1)</p>
+        <p>&copy; 2026 La Table des Jedi — Interface Livreur · Projet Creative-Yumland (Phase #3)</p>
     </footer>
+
+    <!-- script de changement de statut en asynchrone -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var actionBtns = document.querySelectorAll('.js-action-livraison');
+        for (var i = 0; i < actionBtns.length; i++) {
+            actionBtns[i].addEventListener('click', function() {
+                var btn = this;
+                var idCmd = btn.getAttribute('data-cmd');
+                var action = btn.getAttribute('data-action');
+
+                // on desactive le bouton pendant la requete
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+
+                fetch('../api/update_statut_commande.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_commande: idCmd,
+                        action_statut: action
+                    })
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        // mise a jour asynchrone du dom sans recharger
+                        var banner = document.querySelector('.mission-banner h1');
+                        if (banner) {
+                            banner.innerHTML = (action === 'livrer') ? 'MISSION ACCOMPLIE' : 'MISSION ANNULÉE';
+                        }
+                        
+                        var container = document.querySelector('.confirm-zone');
+                        if (container) {
+                            container.innerHTML = '<div style="text-align: center; padding: 20px; font-size: 1.2em; color: ' + (action === 'livrer' ? '#00ff88' : '#ff4444') + ';">' + 
+                                                  (action === 'livrer' ? '✅ Colis livré avec succès.' : '❌ Colis signalé comme abandonné.') + '</div>';
+                        }
+                    } else {
+                        alert('Erreur: ' + data.message);
+                        btn.disabled = false;
+                        btn.style.opacity = '1';
+                    }
+                })
+                .catch(function(e) {
+                    console.error(e);
+                    alert('Erreur réseau.');
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
+            });
+        }
+    });
+    </script>
 
 </body>
 

@@ -2,21 +2,20 @@
 // demarrage automatique de la session
 session_start();
 
-// Verification du statut de l'utilisateur (bannissement en temps reel)
+// verification du statut banni a chaque chargement de page
 if (isset($_SESSION['user'])) {
-    $current_id = $_SESSION['user']['id'];
-    $path = __DIR__ . '/../../data/users.json';
-    if (file_exists($path)) {
-        $users = json_decode(file_get_contents($path), true);
-        if ($users) {
-            foreach ($users as $u) {
-                if ($u['id'] == $current_id) {
-                    if (isset($u['statut']) && $u['statut'] === 'banni') {
-                        // Utilisateur banni : on detruit la session
+    $chemin_users = '../data/users.json';
+    if (file_exists($chemin_users)) {
+        $liste_users = json_decode(file_get_contents($chemin_users), true);
+        if ($liste_users) {
+            foreach ($liste_users as $u) {
+                if ($u['id'] == $_SESSION['user']['id']) {
+                    $statut_u = isset($u['statut']) ? $u['statut'] : 'actif';
+                    if ($statut_u === 'banni') {
+                        // utilisateur banni : on detruit sa session immediatement
                         session_destroy();
-                        // On redirige vers la connexion
-                        $currentPage = basename($_SERVER['PHP_SELF']);
-                        if ($currentPage !== 'connexion.php') {
+                        $page_actuelle = basename($_SERVER['PHP_SELF']);
+                        if ($page_actuelle !== 'connexion.php') {
                             header('Location: connexion.php');
                             exit;
                         }
@@ -27,6 +26,7 @@ if (isset($_SESSION['user'])) {
         }
     }
 }
+
 
 // fonctions utilitaires pour le projet
 
