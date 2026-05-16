@@ -94,6 +94,13 @@ require_once 'includes/header.php';
                 }
                 ?>
 
+                <?php if (isset($_GET['banni']) && $_GET['banni'] === '1') : ?>
+                <p style="color: #ffaa00; text-align: center; margin-bottom: 15px; background: rgba(255,170,0,0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,170,0,0.3);">
+                    ⚠️ Votre compte a été suspendu. Votre session a été fermée.
+                </p>
+                <?php endif; ?>
+
+
                 <form class="auth-form" method="POST" action="">
                     <div class="form-group" style="position: relative;">
                         <label for="identifiant">Identifiant</label>
@@ -101,12 +108,13 @@ require_once 'includes/header.php';
                         <small id="identifiant-counter" style="position: absolute; right: 0; bottom: -20px; color: rgba(255,255,255,0.5); font-size: 0.8em;">0/30</small>
                     </div>
 
-                    <div class="form-group" style="position: relative;">
+                    <div class="form-group" style="position: relative; margin-bottom: 10px;">
                         <label for="password">Mot de passe</label>
                         <div style="position: relative; display: flex; align-items: center;">
-                            <input type="password" id="password" name="password" placeholder="Code d'accès sécurisé" style="width: 100%; padding-right: 40px;" required>
+                            <input type="password" id="password" name="password" placeholder="Code d'accès sécurisé" maxlength="50" style="width: 100%; padding-right: 40px;" required>
                             <span id="toggle-password" style="position: absolute; right: 10px; cursor: pointer; color: rgba(255,255,255,0.7); font-size: 1.2em;" title="Afficher/Masquer">👁️</span>
                         </div>
+                        <small id="password-counter" style="position: absolute; right: 0; bottom: -20px; color: rgba(255,255,255,0.5); font-size: 0.8em;">0/50</small>
                     </div>
 
                     <button type="submit" class="btn-submit btn-yellow">OUVRIR LE SAS</button>
@@ -131,12 +139,21 @@ require_once 'includes/header.php';
                 this.innerHTML = type === 'password' ? '👁️' : '🙈';
             });
 
-            // Character Counter
+            // Character Counters
             const identifiantField = document.getElementById('identifiant');
             const identifiantCounter = document.getElementById('identifiant-counter');
-            
+            const passwordCounter = document.getElementById('password-counter');
+
             identifiantField.addEventListener('input', function() {
                 identifiantCounter.textContent = this.value.length + '/30';
+            });
+
+            // compteur de caracteres pour le mot de passe
+            passwordField.addEventListener('input', function() {
+                const remaining = 50 - this.value.length;
+                passwordCounter.textContent = this.value.length + '/50';
+                // on passe au rouge quand il reste moins de 5 caracteres
+                passwordCounter.style.color = remaining <= 5 ? '#ff8844' : 'rgba(255,255,255,0.5)';
             });
 
             // Client-side Validation

@@ -3,20 +3,33 @@
 session_start();
 
 // verification du statut banni a chaque chargement de page
+// on utilise __DIR__ pour resoudre le chemin de maniere absolue,
+// peu importe si le fichier est inclus depuis pages/ ou depuis api/
 if (isset($_SESSION['user'])) {
-    $chemin_users = '../data/users.json';
-    if (file_exists($chemin_users)) {
-        $liste_users = json_decode(file_get_contents($chemin_users), true);
+    $chemin_users_abs = __DIR__ . '/../../data/users.json';
+    if (file_exists($chemin_users_abs)) {
+        $liste_users = json_decode(file_get_contents($chemin_users_abs), true);
         if ($liste_users) {
             foreach ($liste_users as $u) {
                 if ($u['id'] == $_SESSION['user']['id']) {
                     $statut_u = isset($u['statut']) ? $u['statut'] : 'actif';
                     if ($statut_u === 'banni') {
-                        // utilisateur banni : on detruit sa session immediatement
+                        // on detruit la session immediatement
+                        session_unset();
                         session_destroy();
+
+                        // si on est dans un contexte api (endpoint json), on
+                        // retourne une erreur json plutot qu'une redirection html
                         $page_actuelle = basename($_SERVER['PHP_SELF']);
+                        $dossier_actuel = basename(dirname($_SERVER['PHP_SELF']));
+                        if ($dossier_actuel === 'api') {
+                            echo json_encode(['success' => false, 'message' => 'Compte banni. Session terminée.']);
+                            exit;
+                        }
+
+                        // sinon redirection vers la page de connexion
                         if ($page_actuelle !== 'connexion.php') {
-                            header('Location: connexion.php');
+                            header('Location: connexion.php?banni=1');
                             exit;
                         }
                     }

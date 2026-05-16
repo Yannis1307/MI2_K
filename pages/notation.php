@@ -178,6 +178,9 @@ require_once 'includes/header.php';
                         placeholder="Rapport d'incident ou félicitations..."><?= isset($_POST['comment']) ? htmlspecialchars($_POST['comment']) : '' ?></textarea>
                 </fieldset>
 
+                <!-- zone d'erreur js (invisible par defaut) -->
+                <div id="js-notation-error" style="display:none; background: rgba(255,50,50,0.15); border: 1px solid rgba(255,50,50,0.4); padding: 12px 16px; border-radius: 10px; color: #ff8080; text-align: center; margin-bottom: 10px;"></div>
+
                 <!-- bouton d'envoi -->
                 <button type="submit" class="btn-submit btn-neon">
                     <span class="btn-text">⚡ ENVOYER LE RAPPORT</span>
@@ -188,4 +191,44 @@ require_once 'includes/header.php';
     </div>
 </main>
 
-<?php require_once 'includes/footer.php'; ?>
+<!-- validation js du formulaire de notation cote client -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('.rating-form');
+    var errorBox = document.getElementById('js-notation-error');
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            // on remet l'erreur a zero
+            errorBox.style.display = 'none';
+            errorBox.textContent = '';
+
+            // verification que la note qualite est selectionnee
+            var noteQualite = form.querySelector('input[name="food-rating"]:checked');
+            // verification que la note livraison est selectionnee
+            var noteLivraison = form.querySelector('input[name="delivery-rating"]:checked');
+
+            var message = '';
+
+            if (!noteQualite && !noteLivraison) {
+                message = '⚠️ Veuillez attribuer une note pour la qualité des vivres et pour la livraison.';
+            } else if (!noteQualite) {
+                message = '⚠️ Veuillez attribuer une note pour la qualité des vivres.';
+            } else if (!noteLivraison) {
+                message = '⚠️ Veuillez attribuer une note pour la livraison.';
+            }
+
+            // si une note manque, on bloque l'envoi et on affiche l'erreur
+            if (message) {
+                e.preventDefault();
+                errorBox.textContent = message;
+                errorBox.style.display = 'block';
+                // on scroll vers le message d'erreur
+                errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+});
+</script>
+
+<?php require_once 'includes/footer.php'; ?>
