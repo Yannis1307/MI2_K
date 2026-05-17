@@ -1,24 +1,115 @@
-# 🌌 La Table des Jedi - Projet Creative-Yumland
+# 🌌 La Table des Jedi — Projet Creative-Yumland
 
-Bienvenue sur le dépôt du projet **La Table des Jedi** (Phase 2 - PHP). 
-Ce projet a été réalisé dans le cadre de la filière préING2 (2025-2026).
+**Bienvenue sur le dépôt du projet La Table des Jedi** (Phase 3 — JavaScript & Requêtes Asynchrones).
+Ce projet a été réalisé dans le cadre de la filière **préING2 (2025-2026)**.
 
-## 🎯 Description  
-Application web dynamique simulant une plateforme de restauration dans l'univers Star Wars.  
-L'interface s'adapte à 4 profils distincts : **Client, Restaurateur, Livreur et Administrateur**.
+---
 
-### 🌟 Fonctionnalités (Phase 2)
-* **Système d'authentification** via sessions PHP.
-* **Base de données simulée** via la manipulation de fichiers internes `.json`.
-* **Tunnel d'achat dynamique** avec ajout de plats et menus au panier, saisie d'adresse et choix du retrait.
-* **Interaction API Bancaire** (redirection de paiement MD5 vers *CYBank*).
-* **Tableaux de bord dédiés** : Suivi des commandes, missions de livraison et profil client.
+## 🎯 Description
 
+Application web dynamique simulant une plateforme de restauration dans l'univers Star Wars.
+L'interface s'adapte à **4 profils distincts** : **Client, Restaurateur, Livreur et Administrateur**.
+
+---
+
+## ⭐ Nouveautés Phase 3
+
+- **Changement de charte graphique** : bouton mode clair/sombre (sans rechargement de page), préférence sauvegardée en cookie.
+- **Validation côté client** : vérification de tous les formulaires en JavaScript (email, téléphone, date, mot de passe…) avec messages d'erreur dynamiques et affichage/masquage du mot de passe.
+- **Compteur de caractères** en temps réel sur les champs limités (pseudo, email, mot de passe…).
+- **Modification du profil** en connexion asynchrone (fetch/AJAX) — sans rechargement de page.
+- **Filtres et tris asynchrones** sur la page produits (catégorie, régime alimentaire, saveur, prix…).
+- **Modification de commande** avant préparation : ajout/suppression d'articles avec mise à jour du total en temps réel et paiement complémentaire si nécessaire.
+- **Gestion des statuts de commande** par le restaurateur : `payée → en préparation → prête → assignée à un livreur`.
+- **Blocage/déblocage d'utilisateur** par l'admin en asynchrone (déconnexion immédiate de la session si bloqué).
+- **Confirmation de livraison** par le livreur.
+- **Notation des commandes** livrées (une seule fois par commande).
+
+---
 
 ## 🚀 Comment lancer le projet ?
-Cette Phase requiert un environnement serveur local supportant PHP (ex: **XAMPP**, **WAMP**).
 
-1. Placez ce projet dans le répertoire de votre serveur local (ex: `C:\xampp\htdocs\MI2_K-main`).
-2. Démarrez le serveur Web (ex: **Apache**) depuis votre interface XAMPP/WAMP.
+Cette phase requiert un environnement serveur local supportant PHP (ex : **XAMPP**, **WAMP**).
+
+1. Placez ce projet dans le répertoire de votre serveur local (ex : `C:\xampp\htdocs\MI2_K-main`).
+2. Démarrez le serveur Web (**Apache**) depuis votre interface XAMPP/WAMP.
 3. Ouvrez un navigateur sur : `http://localhost/MI2_K-main/pages/accueil.php`
-4. Connectez-vous (voir le fichier `data/users.json` pour obtenir la liste des identifiants existants).
+4. Connectez-vous avec l'un des comptes ci-dessous.
+
+---
+
+## 🔑 Comptes de test
+
+| Rôle | Login | Mot de passe |
+|---|---|---|
+| 👤 Client | `test` | `1234` |
+| 🍽️ Restaurateur | `Dex_Diner` | `1234` |
+| 🛡️ Administrateur | `Emp.Palpatine` | `1234` |
+| 🚚 Livreur | `L.Skywalker` | `1234` |
+
+> La liste complète des identifiants est également disponible dans `data/users.json`.
+
+---
+
+## 🗂️ Structure du projet
+
+```
+MI2_K-main/
+├── pages/          → Vues PHP (accueil, produits, profil, commandes…)
+├── scripts/        → Logique PHP (authentification, traitement des données…)
+├── libs/           → Bibliothèques PHP réutilisables
+├── js/             → Scripts JavaScript (validation, fetch, UI dynamique)
+├── css/            → Feuilles de style (charte principale + charte alternative)
+├── data/           → Fichiers JSON (users, plats, menus, commandes…)
+└── assets/         → Images et ressources statiques
+```
+
+---
+
+## ✅ Fonctionnalités Phase 3 — Récapitulatif
+
+### Tous les profils
+- Changement de thème CSS (clair/sombre) via bouton, sauvegardé en cookie
+- Validation JavaScript de tous les formulaires (sans rechargement)
+- Compteur de caractères sur les champs limités
+- Affichage/masquage du mot de passe (icône œil)
+
+### Client
+- Modification de son profil (connexion asynchrone)
+- Filtres et tris asynchrones sur la page produits
+- Modification d'une commande payée non encore en préparation
+- Paiement complémentaire si commande plus chère (API CYBank)
+- Notation d'une commande livrée (une seule fois)
+
+### Restaurateur
+- Changement de statut des commandes : `payée → en préparation → prête`
+- Attribution d'un livreur à une commande prête
+
+### Administrateur
+- Blocage/déblocage d'un utilisateur (requête asynchrone)
+- Déconnexion immédiate de la session de l'utilisateur bloqué
+
+### Livreur
+- Confirmation de livraison effectuée
+
+---
+
+## 🛠️ Technologies utilisées
+
+| Couche | Technologie |
+|---|---|
+| Front-end | HTML5, CSS3, JavaScript (ES6+) |
+| Back-end | PHP 8+ |
+| Données | JSON |
+| Paiement | API CYBank |
+| Versioning | Git / GitHub |
+
+---
+
+## 👥 Équipe
+
+Projet réalisé par le groupe **MI2_K** dans le cadre du cours **Informatique 4** — préING2, CY Tech 2025-2026.
+
+---
+
+*Que la Force soit avec votre code.* 🌟
