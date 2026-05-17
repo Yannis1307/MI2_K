@@ -1,0 +1,18 @@
+[
+    {
+        "id_user": 7,
+        "login_user": "Dex_Diner",
+        "role_user": "restaurateur",
+        "note": 5,
+        "commentaire": "azerazraz",
+        "date": "17/05/2026 20:24"
+    },
+    {
+        "id_user": 69,
+        "login_user": "test",
+        "role_user": "client",
+        "note": 5,
+        "commentaire": "",
+        "date": "17/05/2026 20:27"
+    }
+]

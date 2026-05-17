@@ -23,6 +23,16 @@ body, main, h1, h2, h3, h4, h5, h6, p, span, div, li, td, th, label, .subtitle, 
     color: #ffffff !important;
 }
 
+/* exceptions pour les etoiles de notation */
+.star-rating label {
+    color: #d1d5db !important; /* gris clair par defaut */
+}
+.star-rating label:hover,
+.star-rating label:hover~label,
+.star-rating input:checked~label {
+    color: #f59e0b !important; /* jaune vif au survol/clic */
+}
+
 /* 3. l'effet feuille sur le bureau (cartes, panneaux, tableaux) */
 .panel, .card, .product-card, .stat-card, .review-card, .form-panel, .menu-card, .history-container, .points-display, .toolbar, .ticket, .delivery-card, .mission-card, header, footer, #main-footer, .admin-header, .admin-footer {
     background-color: #ffffff !important;

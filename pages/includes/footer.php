@@ -15,7 +15,7 @@
 
         <!-- colonne centre : bouton transmission -->
         <div class="footer-section transmission">
-            <button class="btn-transmission">ENVOYER UNE TRANSMISSION</button>
+            <button class="btn-transmission" onclick="window.location.href='notation.php';">ENVOYER UNE TRANSMISSION</button>
         </div>
 
         <!-- colonne droite : droide r2-d2 en maintenance -->

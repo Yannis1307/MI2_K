@@ -1256,11 +1256,12 @@
         "montant_paye": 11,
         "credits_utilises": 0,
         "id_livreur": null,
-        "note_livraison": null,
-        "note_qualite": null,
+        "note_livraison": 5,
+        "note_qualite": 5,
         "commentaire": "",
         "code_interphone": "1dds",
-        "etage": "3e"
+        "etage": "3e",
+        "date_notation": "17/05/2026"
     },
     {
         "id": "JDI-811E7",
