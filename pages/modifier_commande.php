@@ -127,6 +127,19 @@ require_once 'includes/header.php';
                 <p style="font-size: 1.2em; margin-bottom: 10px;">Total initial : <strong><?= number_format($total_initial, 2) ?> ₹</strong></p>
                 <p style="font-size: 1.4em; margin-bottom: 10px; color: #ffd700;" id="txt-nouveau-total">Nouveau Total : <strong>0.00 ₹</strong></p>
                 <p id="txt-difference" style="margin-bottom: 20px;"></p>
+
+                <?php 
+                $solde = isset($_SESSION['user']['solde_credits']) ? $_SESSION['user']['solde_credits'] : 0;
+                if ($solde > 0): 
+                ?>
+                <div id="div-utiliser-credits" style="background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.4); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none; align-items: center; justify-content: flex-end; gap: 10px;">
+                    <input type="checkbox" id="utiliser_credits" value="1" style="width: 20px; height: 20px; cursor: pointer;">
+                    <label for="utiliser_credits" style="cursor: pointer; font-size: 1.1em; color: #00ff88; font-weight: bold;">
+                        Utiliser mes crédits disponibles (<?= number_format($solde, 2, ',', ' ') ?> ₹)
+                    </label>
+                </div>
+                <?php endif; ?>
+
                 <button type="button" id="btn-valider" class="btn-submit btn-yellow" style="font-size: 1.2em;">Valider les modifications</button>
             </div>
         </section>
@@ -139,6 +152,7 @@ require_once 'includes/header.php';
         <input type="hidden" name="menus" id="hidden-menus" value="">
         <input type="hidden" name="nouveau_total" id="hidden-nouveau-total" value="">
         <input type="hidden" name="total_initial" id="hidden-total-initial" value="<?= $total_initial ?>">
+        <input type="hidden" name="utiliser_credits" id="hidden-utiliser-credits" value="0">
     </form>
 
     <!-- styles pour les menus deroulants lisibles -->
@@ -259,18 +273,22 @@ require_once 'includes/header.php';
 
             // maj de la difference
             var diff = Math.round((nouveauTotal - totalInitial) * 100) / 100;
+            var divCredits = document.getElementById('div-utiliser-credits');
+            
             if (diff > 0) {
-                txtDiff.style.color = '#ffaa00';
-                txtDiff.textContent = 'Différence de +' + diff.toFixed(2) + ' ₹ à payer via CYBank.';
-                btnValider.textContent = '🔒 Payer le complément avec CYBank';
-            } else if (diff < 0) {
-                txtDiff.style.color = '#00ff88';
-                txtDiff.textContent = 'Bon de réduction de ' + Math.abs(diff).toFixed(2) + ' ₹ généré.';
-                btnValider.textContent = 'Valider les modifications';
+                if (divCredits) divCredits.style.display = 'flex';
+                majTexteBouton(diff);
             } else {
-                txtDiff.style.color = 'rgba(255,255,255,0.5)';
-                txtDiff.textContent = 'Aucune différence de prix.';
-                btnValider.textContent = 'Valider les modifications';
+                if (divCredits) divCredits.style.display = 'none';
+                if (diff < 0) {
+                    txtDiff.style.color = '#00ff88';
+                    txtDiff.textContent = 'Bon de réduction de ' + Math.abs(diff).toFixed(2) + ' ₹ généré.';
+                    btnValider.textContent = 'Valider les modifications';
+                } else {
+                    txtDiff.style.color = 'rgba(255,255,255,0.5)';
+                    txtDiff.textContent = 'Aucune différence de prix.';
+                    btnValider.textContent = 'Valider les modifications';
+                }
             }
 
             // ecouteurs sur les boutons retirer (plats)
@@ -290,6 +308,35 @@ require_once 'includes/header.php';
                     retirerMenu(idx);
                 });
             }
+        }
+
+        function majTexteBouton(diff) {
+            var creditsDispo = <?= isset($_SESSION['user']['solde_credits']) ? number_format($_SESSION['user']['solde_credits'], 2, '.', '') : '0' ?>;
+            var reste = diff;
+            var cb = document.getElementById('utiliser_credits');
+            if (cb && cb.checked) {
+                reste = Math.max(0, diff - creditsDispo);
+            }
+            if (reste > 0) {
+                txtDiff.style.color = '#ffaa00';
+                txtDiff.textContent = 'Différence de +' + reste.toFixed(2) + ' ₹ à payer par carte.';
+                btnValider.textContent = '🔒 Payer le complément par carte';
+            } else {
+                txtDiff.style.color = '#00ff88';
+                txtDiff.textContent = 'Différence couverte par vos crédits.';
+                btnValider.textContent = 'Valider avec les crédits';
+            }
+        }
+        
+        var cbCreditsListener = document.getElementById('utiliser_credits');
+        if (cbCreditsListener) {
+            cbCreditsListener.addEventListener('change', function() {
+                var nouveauTotal = calculerTotal();
+                var diff = Math.round((nouveauTotal - totalInitial) * 100) / 100;
+                if (diff > 0) {
+                    majTexteBouton(diff);
+                }
+            });
         }
 
         // fonction pour echapper le html
@@ -415,6 +462,12 @@ require_once 'includes/header.php';
 
             // appel obligatoire a l'api cy bank pour le surplus
             if (diff > 0) {
+                var cb = document.getElementById('utiliser_credits');
+                var hiddenCredits = document.getElementById('hidden-utiliser-credits');
+                if (hiddenCredits) {
+                    hiddenCredits.value = (cb && cb.checked) ? '1' : '0';
+                }
+                
                 // on remplit le formulaire cache et on redirige vers cybank
                 document.getElementById('hidden-plats').value = JSON.stringify(platsCommande);
                 document.getElementById('hidden-menus').value = JSON.stringify(menusCommande);

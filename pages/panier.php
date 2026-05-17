@@ -266,7 +266,7 @@ require_once 'includes/header.php';
                         <!-- bouton go -->
                         <button type="submit" class="btn-logout"
                             style="width: 100%; background: linear-gradient(135deg, #ffd700, #ff8c00); border: none; color: #1a1a2e; font-weight: bold; font-size: 1.1em; cursor: pointer; padding: 15px; border-radius: 10px; text-transform: uppercase; letter-spacing: 1px;">
-                            💳 Procéder au paiement — <?= number_format($total, 2, ',', '') ?> ₹
+                            💳 Procéder au paiement — <span id="txt-btn-total"><?= number_format($total, 2, ',', '') ?></span> ₹
                         </button>
                     </form>
                 </div>
@@ -275,5 +275,24 @@ require_once 'includes/header.php';
 
     </div>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var cbCredits = document.getElementById('utiliser_credits');
+        var txtBtnTotal = document.getElementById('txt-btn-total');
+        if (cbCredits && txtBtnTotal) {
+            var totalInitial = <?= number_format($total, 2, '.', '') ?>;
+            var creditsDispo = <?= isset($_SESSION['user']['solde_credits']) ? number_format($_SESSION['user']['solde_credits'], 2, '.', '') : '0' ?>;
+            
+            cbCredits.addEventListener('change', function() {
+                var totalFinal = totalInitial;
+                if (this.checked) {
+                    totalFinal = Math.max(0, totalFinal - creditsDispo);
+                }
+                txtBtnTotal.textContent = totalFinal.toFixed(2).replace('.', ',');
+            });
+        }
+    });
+</script>
 
 <?php require_once 'includes/footer.php'; ?>

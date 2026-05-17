@@ -710,7 +710,7 @@
         "plats": [],
         "menus": [],
         "total": 0,
-        "statut": "en livraison",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "627924E6B1",
         "montant_paye": 14,
@@ -874,7 +874,7 @@
             }
         ],
         "total": 74.9,
-        "statut": "en livraison",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "141B74651D",
         "montant_paye": 47.9,
@@ -1209,7 +1209,7 @@
             }
         ],
         "total": 35.9,
-        "statut": "en livraison",
+        "statut": "livré",
         "statut_paiement": "accepte",
         "transaction_id": "21F3B47895",
         "montant_paye": 35.9,
@@ -1256,6 +1256,346 @@
         "montant_paye": 11,
         "credits_utilises": 0,
         "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-811E7",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "01:57",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 2,
+                "nom": "Lait Vert",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 2,
+                "nom": "Menu Maître Jedi",
+                "quantite": 1,
+                "prix_unitaire": 29.9,
+                "sous_total": 29.9,
+                "plats_details": [
+                    "Côtelettes de Dewback",
+                    "Thé de Caf",
+                    "Tartare de Tip-Yip"
+                ]
+            }
+        ],
+        "total": 37.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "288AE44BFF",
+        "montant_paye": 37.9,
+        "credits_utilises": 0,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-0FBB1",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "01:58",
+        "type": "immediate",
+        "mode_retrait": "emporter",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 2,
+                "nom": "Lait Vert",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            },
+            {
+                "id_plat": 15,
+                "nom": "Tartare de Tip-Yip",
+                "quantite": 1,
+                "prix_unitaire": 16,
+                "sous_total": 16
+            }
+        ],
+        "menus": [],
+        "total": 24,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "EF2796B9A5",
+        "montant_paye": 8,
+        "credits_utilises": 0,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 24
+    },
+    {
+        "id": "JDI-1770F",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "02:00",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 27.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "9356A31315",
+        "montant_paye": 27.9,
+        "credits_utilises": 0,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-D2164",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "02:03",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 9,
+                "nom": "Portion de Survie",
+                "quantite": 2,
+                "prix_unitaire": 3,
+                "sous_total": 6
+            }
+        ],
+        "menus": [],
+        "total": 6,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "E474E9DBCF",
+        "montant_paye": 6,
+        "credits_utilises": 0,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-773E8",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "02:31",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 9,
+                "nom": "Portion de Survie",
+                "quantite": 1,
+                "prix_unitaire": 3,
+                "sous_total": 3
+            }
+        ],
+        "menus": [],
+        "total": 3,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "C82855CE1E",
+        "montant_paye": 0,
+        "credits_utilises": 5,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 3
+    },
+    {
+        "id": "JDI-464B2",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "02:39",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 2,
+                "nom": "Lait Vert",
+                "quantite": 1,
+                "prix_unitaire": 8,
+                "sous_total": 8
+            },
+            {
+                "id_plat": 13,
+                "nom": "Fruits Jogan",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 35.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "B4515C827A",
+        "montant_paye": 16,
+        "credits_utilises": 19.9,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-3879F",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "02:39",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "Allée des Rêves",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "menus": [],
+        "total": 5,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "C95176E536",
+        "montant_paye": 5,
+        "credits_utilises": 0,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-E014D",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "17/05/2026",
+        "heure": "02:39",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "2132123",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 10,
+                "nom": "Meiloorun",
+                "quantite": 1,
+                "prix_unitaire": 9,
+                "sous_total": 9
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 2,
+                "nom": "Menu Maître Jedi",
+                "quantite": 1,
+                "prix_unitaire": 29.9,
+                "sous_total": 29.9,
+                "plats_details": [
+                    "Côtelettes de Dewback",
+                    "Thé de Caf",
+                    "Tartare de Tip-Yip"
+                ]
+            }
+        ],
+        "total": 38.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "0D458B6CFC",
+        "montant_paye": 38.9,
+        "credits_utilises": 0,
+        "id_livreur": 6,
         "note_livraison": null,
         "note_qualite": null,
         "commentaire": "",

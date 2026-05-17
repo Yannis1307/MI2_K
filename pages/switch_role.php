@@ -21,7 +21,8 @@ if (isset($_GET['role'])) {
             'login' => $user_trouve['login'],
             'role' => $user_trouve['role'],
             'nom' => $user_trouve['nom'],
-            'prenom' => $user_trouve['prenom']
+            'prenom' => $user_trouve['prenom'],
+            'solde_credits' => isset($user_trouve['solde_credits']) ? $user_trouve['solde_credits'] : 0
         ];
 
         // redirection selon le role

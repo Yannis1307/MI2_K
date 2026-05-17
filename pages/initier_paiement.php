@@ -111,7 +111,16 @@ $credits_utilises = 0;
 
 // Utilisation des credits
 if (isset($_POST['utiliser_credits']) && $_POST['utiliser_credits'] == '1') {
-    $solde = isset($_SESSION['user']['solde_credits']) ? $_SESSION['user']['solde_credits'] : 0;
+    // lecture dans users.json obligatoire pour la securite
+    $users_all = read_json('users.json');
+    $solde = 0;
+    foreach ($users_all as $u) {
+        if ($u['id'] == $_SESSION['user']['id']) {
+            $solde = isset($u['solde_credits']) ? floatval($u['solde_credits']) : 0;
+            break;
+        }
+    }
+
     if ($solde > 0) {
         if ($solde >= $total) {
             $credits_utilises = $total;

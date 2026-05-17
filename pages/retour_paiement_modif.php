@@ -76,8 +76,29 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
     // comme ca la prochaine modification comparera au bon montant
     $commandes[$commande_index]['total_initial'] = $modif_data['nouveau_total'];
 
+    // mise a jour de la repartition du paiement
+    if (isset($modif_data['credits_utilises']) && $modif_data['credits_utilises'] > 0) {
+        $anc_credits = isset($commandes[$commande_index]['credits_utilises']) ? $commandes[$commande_index]['credits_utilises'] : 0;
+        $commandes[$commande_index]['credits_utilises'] = $anc_credits + $modif_data['credits_utilises'];
+    }
+    $anc_montant = isset($commandes[$commande_index]['montant_paye']) ? $commandes[$commande_index]['montant_paye'] : 0;
+    $commandes[$commande_index]['montant_paye'] = $anc_montant + $modif_data['difference'];
+
     // sauvegarde dans commandes.json
     write_json('commandes.json', $commandes);
+
+    // deduction des credits si utilises lors du complement
+    if (isset($modif_data['credits_utilises']) && $modif_data['credits_utilises'] > 0) {
+        $users_update = read_json('users.json');
+        foreach ($users_update as &$u) {
+            if ($u['id'] == $user_id) {
+                $u['solde_credits'] -= $modif_data['credits_utilises'];
+                $_SESSION['user']['solde_credits'] = $u['solde_credits'];
+                break;
+            }
+        }
+        write_json('users.json', $users_update);
+    }
 
     // nettoyage de la session de modification
     unset($_SESSION['modif_en_cours']);

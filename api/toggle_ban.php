@@ -16,7 +16,7 @@ if (!$data || !isset($data['id_user'])) {
     exit;
 }
 
-$id_user = (int)$data['id_user'];
+$id_user = (int) $data['id_user'];
 $users = read_json('../data/users.json');
 $updated = false;
 $new_status = '';
@@ -27,7 +27,7 @@ foreach ($users as &$u) {
             echo json_encode(['success' => false, 'message' => 'Impossible de bannir un administrateur.']);
             exit;
         }
-        
+
         $current = isset($u['statut']) ? $u['statut'] : 'actif';
         if ($current === 'banni') {
             $u['statut'] = 'actif';

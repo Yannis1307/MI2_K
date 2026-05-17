@@ -136,6 +136,66 @@ if ($difference <= 0) {
     exit;
 }
 
+$credits_utilises = 0;
+$reste_a_payer = $difference;
+
+if (isset($_POST['utiliser_credits']) && $_POST['utiliser_credits'] == '1') {
+    // verification obligatoire dans users.json
+    $users_all = read_json('users.json');
+    $solde = 0;
+    foreach ($users_all as $u) {
+        if ($u['id'] == $_SESSION['user']['id']) {
+            $solde = isset($u['solde_credits']) ? floatval($u['solde_credits']) : 0;
+            break;
+        }
+    }
+
+    if ($solde > 0) {
+        if ($solde >= $difference) {
+            $credits_utilises = $difference;
+            $reste_a_payer = 0;
+        } else {
+            $credits_utilises = $solde;
+            $reste_a_payer -= $solde;
+        }
+    }
+}
+
+// cas ou tout est paye par credits
+if ($reste_a_payer == 0 && $credits_utilises > 0) {
+    // deduction des credits
+    $users_update = read_json('users.json');
+    foreach ($users_update as &$u) {
+        if ($u['id'] == $_SESSION['user']['id']) {
+            $u['solde_credits'] -= $credits_utilises;
+            $_SESSION['user']['solde_credits'] = $u['solde_credits'];
+            break;
+        }
+    }
+    write_json('users.json', $users_update);
+
+    // mise a jour de la commande
+    $commandes_update = read_json('commandes.json');
+    foreach ($commandes_update as &$cmd) {
+        if ($cmd['id'] === $id_commande && $cmd['id_client'] == $_SESSION['user']['id']) {
+            $cmd['plats'] = $plats;
+            $cmd['menus'] = $menus;
+            $cmd['total'] = $vrai_nouveau_total;
+            $cmd['total_initial'] = $vrai_nouveau_total;
+
+            // mise a jour de la repartition du paiement
+            $anc_credits = isset($cmd['credits_utilises']) ? $cmd['credits_utilises'] : 0;
+            $cmd['credits_utilises'] = $anc_credits + $credits_utilises;
+            break;
+        }
+    }
+    write_json('commandes.json', $commandes_update);
+
+    $_SESSION['flash_success'] = 'Commande modifiée avec succès ! (Complément entièrement réglé avec vos crédits).';
+    header('Location: profil.php');
+    exit;
+}
+
 // generation d'un identifiant de transaction unique
 $transaction_id = strtoupper(bin2hex(random_bytes(5)));
 
@@ -147,7 +207,8 @@ $_SESSION['modif_en_cours'] = [
     'menus' => $menus,
     'nouveau_total' => $vrai_nouveau_total,
     'total_initial' => $total_initial,
-    'difference' => $difference
+    'difference' => $reste_a_payer,
+    'credits_utilises' => $credits_utilises
 ];
 
 // parametres api bancaire (meme vendeur que pour les commandes)
@@ -155,7 +216,7 @@ require_once 'includes/getapikey.php';
 
 $vendeur = 'TEST';
 $api_key = getAPIKey($vendeur);
-$montant = number_format($difference, 2, '.', '');
+$montant = number_format($reste_a_payer, 2, '.', '');
 
 // url de retour apres paiement (page dediee a la modification)
 $protocole = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
