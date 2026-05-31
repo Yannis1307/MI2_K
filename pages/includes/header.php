@@ -117,10 +117,18 @@
                 <?php endif; ?>
             </div>
 
-            <!-- barre de recherche -->
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="RECHERCHER...">
-                <button class="search-btn">🔍</button>
-            </div>
+            <!-- barre de recherche : formulaire GET vers produits.php -->
+            <form class="search-box" action="produits.php" method="GET" role="search">
+                <input
+                    type="text"
+                    name="q"
+                    class="search-input"
+                    placeholder="RECHERCHER..."
+                    aria-label="Rechercher un plat dans la carte"
+                    maxlength="100"
+                    value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>"
+                >
+                <button type="submit" class="search-btn" aria-label="Lancer la recherche">🔍</button>
+            </form>
         </div>
     </header>

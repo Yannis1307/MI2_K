@@ -1,0 +1,5 @@
+# Protection du dossier data/ : interdit l'accès direct aux fichiers JSON depuis le navigateur
+# Sans cette protection, n'importe qui peut lire users.json, commandes.json, etc.
+
+Order deny,allow
+Deny from all

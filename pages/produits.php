@@ -10,6 +10,9 @@ require_once 'includes/functions.php';
 // recuperation des plats
 $plats = read_json('plats.json');
 
+// lecture du terme de recherche pre-rempli depuis le header (protection XSS)
+$search_prefill = isset($_GET['q']) ? htmlspecialchars(trim($_GET['q']), ENT_QUOTES, 'UTF-8') : '';
+
 // indexation des plats par id
 $plats_by_id = [];
 foreach ($plats as $p) {
@@ -32,7 +35,10 @@ require_once 'includes/header.php';
 
     <!-- barre de recherche centree -->
     <div class="search-bar-container">
-        <input type="text" id="product-search" class="product-search-input" placeholder="🔍 Rechercher un plat...">
+        <input type="text" id="product-search" class="product-search-input"
+               placeholder="🔍 Rechercher un plat..."
+               aria-label="Rechercher un plat dans la carte"
+               value="<?php echo $search_prefill; ?>">
     </div>
 
     <div class="filters-container"
@@ -232,3 +238,16 @@ require_once 'includes/header.php';
 
 
 <?php require_once 'includes/footer.php'; ?>
+
+<?php if (!empty($search_prefill)): ?>
+<script>
+// si on arrive depuis la barre de recherche du header, on declenche le filtre automatiquement
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.getElementById('product-search');
+    if (searchInput && searchInput.value.trim() !== '') {
+        // on simule un evenement 'input' pour declencher le debounce JS deja en place
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+});
+</script>
+<?php endif; ?>
