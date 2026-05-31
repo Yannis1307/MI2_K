@@ -1,4 +1,4 @@
-/* livraison.css - interface mobile du livreur */
+/* livraison.css interface mobile du livreur */
 
 /* on retire les marges par defaut */
 * {
@@ -283,7 +283,7 @@ a {
     border-color: #ff8c00;
 }
 
-/* grid-column 1 / -1 : le telephone prend toute la largeur */
+/* gridcolumn 1 / 1 : le telephone prend toute la largeur */
 .access-phone {
     grid-column: 1 / -1;
     border-color: rgba(0, 255, 136, 0.25);
@@ -392,7 +392,7 @@ a {
     transition: all 0.4s ease;
 }
 
-/* flex-shrink: 0 : empeche la poignee de retrecir */
+/* flexshrink: 0 : empeche la poignee de retrecir */
 .slider-thumb {
     display: flex;
     align-items: center;
@@ -567,7 +567,7 @@ a {
 }
 
 /* sur desktop : on simule un ecran de telephone centre */
-/* radial-gradient : cree un halo lumineux au centre */
+/* radialgradient : cree un halo lumineux au centre */
 @media (min-width: 600px) {
     .mobile-main {
         padding: 30px;

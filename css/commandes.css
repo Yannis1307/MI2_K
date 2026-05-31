@@ -1,4 +1,4 @@
-/* commandes.css - interface cuisine / poste de preparation */
+/* commandes.css interface cuisine / poste de preparation */
 
 /* on retire les marges par defaut */
 * {
@@ -29,7 +29,7 @@ a {
 }
 
 
-/* grid-template-columns : divise le header en 3 colonnes (logo, titre, boutons) */
+/* gridtemplatecolumns : divise le header en 3 colonnes (logo, titre, boutons) */
 .kds-header {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -41,7 +41,7 @@ a {
     /* sticky : le header reste colle en haut quand on scrolle */
     position: sticky;
     top: 0;
-    /* z-index : pour que le header reste au dessus du contenu */
+    /* zindex : pour que le header reste au dessus du contenu */
     z-index: 100;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
@@ -74,7 +74,7 @@ a {
     color: #ff8c00;
     text-transform: uppercase;
     letter-spacing: 4px;
-    /* text-shadow : effet lumineux autour du texte */
+    /* textshadow : effet lumineux autour du texte */
     text-shadow: 0 0 15px rgba(255, 140, 0, 0.4);
 }
 
@@ -175,15 +175,15 @@ a {
 }
 
 /* zone generique (colonne) */
-/* flex-direction column : les elements s'empilent verticalement */
+/* flexdirection column : les elements s'empilent verticalement */
 .zone {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* en-tete de chaque zone */
-/* justify-content space-between : pousse les elements aux extremites */
+/* entete de chaque zone */
+/* justifycontent spacebetween : pousse les elements aux extremites */
 .zone-header {
     display: flex;
     justify-content: space-between;
@@ -209,7 +209,7 @@ a {
     border-radius: 3px;
 }
 
-/* zone commandes en attente - couleur orange */
+/* zone commandes en attente couleur orange */
 .zone-pending .zone-header {
     background: rgba(255, 140, 0, 0.08);
     border: 1px solid rgba(255, 140, 0, 0.2);
@@ -226,7 +226,7 @@ a {
     border: 1px solid rgba(255, 140, 0, 0.2);
 }
 
-/* zone livraison - couleur bleu */
+/* zone livraison couleur bleu */
 .zone-delivery .zone-header {
     background: rgba(100, 152, 255, 0.06);
     border: 1px solid rgba(100, 152, 255, 0.15);
@@ -281,7 +281,7 @@ a {
     box-shadow: 0 0 15px rgba(0, 191, 255, 0.08);
 }
 
-/* en-tete du ticket */
+/* entete du ticket */
 .ticket-header {
     display: flex;
     justify-content: space-between;
@@ -325,7 +325,7 @@ a {
 }
 
 /* timer critique en rouge qui clignote */
-/* animation step-end : clignotement net, pas progressif */
+/* animation stepend : clignotement net, pas progressif */
 .timer-critical {
     color: #ff4444;
     background: rgba(255, 68, 68, 0.1);
@@ -368,7 +368,7 @@ a {
     letter-spacing: 0.5px;
 }
 
-/* :last-child : on enleve la bordure du dernier element */
+/* :lastchild : on enleve la bordure du dernier element */
 .ticket-items li:last-child {
     border-bottom: none;
 }
@@ -653,7 +653,7 @@ a {
 
     .header-right {
         justify-content: center;
-        /* flex-wrap : les boutons passent a la ligne si pas assez de place */
+        /* flexwrap : les boutons passent a la ligne si pas assez de place */
         flex-wrap: wrap;
     }
 

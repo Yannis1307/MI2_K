@@ -1,7 +1,7 @@
-/* produits.css - styles specifiques a la page produits */
+/* produits.css styles specifiques a la page produits */
 
 
-/* fond semi-transparent avec degrade sombre */
+/* fond semitransparent avec degrade sombre */
 main {
     position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.95) 100%);
@@ -53,7 +53,7 @@ main {
 }
 
 /* champ de recherche avec effet de verre */
-/* backdrop-filter blur : flou derriere le champ, effet glassmorphism */
+/* backdropfilter blur : flou derriere le champ, effet glassmorphism */
 .product-search-input {
     width: 500px;
     padding: 15px 25px;
@@ -160,7 +160,7 @@ input[type="radio"][name="filter"] {
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: crosshair;
-    /* cubic-bezier : courbe d'animation avec rebond */
+    /* cubicbezier : courbe d'animation avec rebond */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     backdrop-filter: blur(10px);
     position: relative;
@@ -227,7 +227,7 @@ input[type="radio"][name="filter"] {
 
 .products-grid {
     display: grid;
-    /* repeat auto-fill : cree autant de colonnes que possible, minimum 300px */
+    /* repeat autofill : cree autant de colonnes que possible, minimum 300px */
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 40px;
     padding: 0 20px;
@@ -260,7 +260,7 @@ input[type="radio"][name="filter"] {
 
 .product-card:hover .card-glow {
     opacity: 0.6;
-    /* hue-rotate : fait tourner les couleurs en boucle, astuce trouvee en ligne */
+    /* huerotate : fait tourner les couleurs en boucle, astuce trouvee en ligne */
     animation: rotateGlow 3s linear infinite;
 }
 
@@ -275,7 +275,7 @@ input[type="radio"][name="filter"] {
 }
 
 /* contenu interne de la carte */
-/* backdrop-filter blur : flou derriere la carte, effet glassmorphism */
+/* backdropfilter blur : flou derriere la carte, effet glassmorphism */
 .card-inner {
     position: relative;
     background: rgba(0, 20, 40, 0.85);
@@ -302,7 +302,7 @@ input[type="radio"][name="filter"] {
 }
 
 /* image du produit */
-/* object-fit cover : l'image remplit la zone sans se deformer */
+/* objectfit cover : l'image remplit la zone sans se deformer */
 .card-inner img {
     width: 100%;
     height: 250px;
@@ -549,7 +549,7 @@ input[type="radio"][name="filter"] {
 }
 
 
-/* clip-path : forme biseautee pour les badges */
+/* clippath : forme biseautee pour les badges */
 /* astuce trouvee en ligne pour creer une forme geometrique en css */
 .holo-badge {
     position: absolute;
@@ -566,7 +566,7 @@ input[type="radio"][name="filter"] {
     backdrop-filter: blur(5px);
 }
 
-/* badge best-seller en jaune */
+/* badge bestseller en jaune */
 .badge-bestseller {
     background: linear-gradient(135deg, #f8e042, #ffa500);
     color: #000;
@@ -654,9 +654,7 @@ input[type="radio"][name="filter"] {
 }
 
 
-/* ==========================================
-   section nos menus galactiques
-   ========================================== */
+/* ========================================== section nos menus galactiques ========================================== */
 
 .menus-section {
     margin-top: 100px;

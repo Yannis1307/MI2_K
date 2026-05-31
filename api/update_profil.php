@@ -1,19 +1,19 @@
 <?php
 // api/update_profil.php
-// Point d'entrée asynchrone pour mettre à jour les données du profil client
+// point d'entrée asynchrone pour mettre à jour les données du profil client
 
 header('Content-Type: application/json');
 
 // on remonte d'un dossier car functions.php est dans pages/includes/
 require_once '../pages/includes/functions.php';
 
-// Verification de la session
+// verification de la session
 if (!isset($_SESSION['user'])) {
     echo json_encode(['success' => false, 'message' => 'Non autorisé.']);
     exit;
 }
 
-// Lecture du payload JSON
+// lecture du payload json
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
@@ -32,12 +32,12 @@ if (!in_array($champ, $champs_autorises)) {
     exit;
 }
 
-// Lecture des utilisateurs
+// lecture des utilisateurs
 $users = read_json('../data/users.json');
 $user_id = $_SESSION['user']['id'];
 $updated = false;
 
-// Verification unicité (email et login)
+// verification unicité (email et login)
 if ($champ === 'email' || $champ === 'login') {
     foreach ($users as $u) {
         if ($u['id'] !== $user_id && isset($u[$champ]) && strtolower($u[$champ]) === strtolower($valeur)) {
@@ -47,12 +47,12 @@ if ($champ === 'email' || $champ === 'login') {
     }
 }
 
-// Mise à jour
+// mise à jour
 foreach ($users as &$u) {
     if ($u['id'] === $user_id) {
         $u[$champ] = $valeur;
         $updated = true;
-        // Met à jour la session aussi si c'est un champ stocké en session
+        // met à jour la session aussi si c'est un champ stocké en session
         if (isset($_SESSION['user'][$champ])) {
             $_SESSION['user'][$champ] = $valeur;
         }

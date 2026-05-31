@@ -1602,5 +1602,213 @@
         "commentaire": "",
         "code_interphone": "1dds",
         "etage": "3e"
+    },
+    {
+        "id": "JDI-B1421",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "31/05/2026",
+        "heure": "13:50",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "12 allée des senateur",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 2,
+                "prix_unitaire": 5,
+                "sous_total": 10
+            },
+            {
+                "id_plat": 8,
+                "nom": "Côtelettes de Dewback",
+                "quantite": 1,
+                "prix_unitaire": 20,
+                "sous_total": 20
+            },
+            {
+                "id_plat": 4,
+                "nom": "Soda de Spotchka",
+                "quantite": 1,
+                "prix_unitaire": 6,
+                "sous_total": 6
+            }
+        ],
+        "menus": [],
+        "total": 36,
+        "statut": "abandonné",
+        "statut_paiement": "accepte",
+        "transaction_id": "B575EECF83",
+        "montant_paye": 56,
+        "credits_utilises": 0,
+        "id_livreur": "71",
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 36
+    },
+    {
+        "id": "JDI-6A431",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "31/05/2026",
+        "heure": "14:12",
+        "type": "immediate",
+        "mode_retrait": "emporter",
+        "heure_livraison": null,
+        "adresse": "",
+        "telephone_client": "",
+        "plats": [],
+        "menus": [
+            {
+                "id_menu": 2,
+                "nom": "Menu Maître Jedi",
+                "quantite": 1,
+                "prix_unitaire": 29.9,
+                "sous_total": 29.9,
+                "plats_details": [
+                    "Côtelettes de Dewback",
+                    "Thé de Caf",
+                    "Tartare de Tip-Yip"
+                ]
+            },
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 52.8,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "736B650909",
+        "montant_paye": 32.8,
+        "credits_utilises": 20,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "",
+        "etage": ""
+    },
+    {
+        "id": "JDI-17E74",
+        "id_client": 7,
+        "login_client": "Dex_Diner",
+        "date": "31/05/2026",
+        "heure": "14:34",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "Allée des Rêves",
+        "telephone_client": "+33 6 77 88 99 00",
+        "plats": [
+            {
+                "id_plat": 3,
+                "nom": "Jus de Jabba",
+                "quantite": 1,
+                "prix_unitaire": 5,
+                "sous_total": 5
+            }
+        ],
+        "menus": [],
+        "total": 5,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "0C563FD112",
+        "montant_paye": 0,
+        "credits_utilises": 5,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
+    },
+    {
+        "id": "JDI-AA64C",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "31/05/2026",
+        "heure": "14:36",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "Allée des Rêves",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 8,
+                "nom": "Côtelettes de Dewback",
+                "quantite": 3,
+                "prix_unitaire": 20,
+                "sous_total": 60
+            }
+        ],
+        "menus": [],
+        "total": 60,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "01DCBD5739",
+        "montant_paye": 120,
+        "credits_utilises": 0,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 60
+    },
+    {
+        "id": "JDI-EE878",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "31/05/2026",
+        "heure": "14:36",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "Allée des Rêves",
+        "telephone_client": "",
+        "plats": [],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 22.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "32CA9B5A2D",
+        "montant_paye": 0,
+        "credits_utilises": 22.9,
+        "id_livreur": 6,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
     }
 ]

@@ -1,12 +1,12 @@
-/* accueil.css - styles specifiques a la page d'accueil */
+/* accueil.css styles specifiques a la page d'accueil */
 
 
-/* degrade de semi-transparent a noir opaque sur la hauteur de l'ecran */
+/* degrade de semitransparent a noir opaque sur la hauteur de l'ecran */
 /* ca permet de voir la video de fond en haut, puis fond noir en bas */
 main {
     position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, black 100vh, black 100%);
-    /* z-index : pour que le contenu passe au dessus de la video */
+    /* zindex : pour que le contenu passe au dessus de la video */
     z-index: 1;
 }
 
@@ -120,7 +120,7 @@ input {
 }
 
 /* positionnement du slider selon le radio coche */
-/* translateX deplace le slider horizontalement */
+/* translatex deplace le slider horizontalement */
 #slide1:checked~#slider {
     transform: translateX(0%);
 }
@@ -146,7 +146,7 @@ input {
     transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
-    /* pointer-events none : les clics traversent le conteneur vers le slider */
+    /* pointerevents none : les clics traversent le conteneur vers le slider */
     pointer-events: none;
     z-index: 100;
     padding: 0 10px;
@@ -166,7 +166,7 @@ input {
     border: 2px solid #f8e042;
     font-size: 1.5rem;
     transition: all 0.3s ease;
-    /* pointer-events auto : reactive les clics sur les fleches */
+    /* pointerevents auto : reactive les clics sur les fleches */
     pointer-events: auto;
     user-select: none;
     box-shadow: 0 0 10px rgba(248, 224, 66, 0.3);
@@ -212,7 +212,7 @@ input {
     padding: 20px;
 }
 
-/* object-fit cover : l'image remplit la zone sans se deformer */
+/* objectfit cover : l'image remplit la zone sans se deformer */
 .slide img {
     width: 100%;
     max-height: 450px;
@@ -393,7 +393,7 @@ input {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
-/* nth-child : cible les elements pairs ou impairs pour alterner les couleurs */
+/* nthchild : cible les elements pairs ou impairs pour alterner les couleurs */
 .review-card:nth-child(odd) {
     background: linear-gradient(135deg, #f8e042 0%, #00ffff 100%);
 }

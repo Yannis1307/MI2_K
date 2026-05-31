@@ -42,8 +42,10 @@ $total_initial = isset($_POST['total_initial']) ? floatval($_POST['total_initial
 $plats = json_decode($plats_json, true);
 $menus = json_decode($menus_json, true);
 
-if (!$plats) $plats = [];
-if (!$menus) $menus = [];
+if (!$plats)
+    $plats = [];
+if (!$menus)
+    $menus = [];
 
 // verification que la commande n'est pas vide
 if (empty($plats) && empty($menus)) {
@@ -63,16 +65,16 @@ foreach ($plats as $k => $p) {
         header('Location: profil.php');
         exit;
     }
-    
+
     $id_plat = $p['id_plat'];
     if (isset($index_plats[$id_plat])) {
         $vrai_prix = floatval($index_plats[$id_plat]['prix']);
         $vrai_sous_total = $vrai_prix * $qte;
-        
+
         $plats[$k]['quantite'] = $qte;
         $plats[$k]['prix_unitaire'] = $vrai_prix;
         $plats[$k]['sous_total'] = $vrai_sous_total;
-        
+
         $vrai_nouveau_total += $vrai_sous_total;
     } else {
         $_SESSION['flash_error'] = 'Produit invalide détecté.';
@@ -89,16 +91,16 @@ foreach ($menus as $k => $m) {
         header('Location: profil.php');
         exit;
     }
-    
+
     $id_menu = $m['id_menu'];
     if (isset($index_menus[$id_menu])) {
         $vrai_prix = floatval($index_menus[$id_menu]['prix_total']);
         $vrai_sous_total = $vrai_prix * $qte;
-        
+
         $menus[$k]['quantite'] = $qte;
         $menus[$k]['prix_unitaire'] = $vrai_prix;
         $menus[$k]['sous_total'] = $vrai_sous_total;
-        
+
         $vrai_nouveau_total += $vrai_sous_total;
     } else {
         $_SESSION['flash_error'] = 'Menu invalide détecté.';
@@ -339,12 +341,7 @@ $control = md5($api_key . '#' . $transaction_id . '#' . $montant . '#' . $vendeu
         </form>
     </div>
 
-    <script>
-        // auto-soumission vers cybank apres un court delai
-        setTimeout(function () {
-            document.getElementById('cybank-form').submit();
-        }, 500);
-    </script>
+    <script src="../js/initier_paiement_modif.js" defer></script>
 </body>
 
 </html>

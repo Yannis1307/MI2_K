@@ -1,4 +1,4 @@
-/* connexion.css - styles specifiques aux pages connexion et inscription */
+/* connexion.css styles specifiques aux pages connexion et inscription */
 
 
 /* fond sombre avec formulaire centre au milieu de l'ecran */
@@ -34,7 +34,7 @@ main {
 }
 
 /* panneau avec effet de verre */
-/* backdrop-filter blur : flou derriere le panneau, donne un aspect glassmorphism */
+/* backdropfilter blur : flou derriere le panneau, donne un aspect glassmorphism */
 .form-panel {
     background: rgba(0, 20, 40, 0.85);
     backdrop-filter: blur(20px);

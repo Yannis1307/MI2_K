@@ -6,7 +6,7 @@ if (isset($_GET['role'])) {
     $users = read_json('users.json');
     $user_trouve = null;
 
-    // On cherche un utilisateur avec le rôle demandé pour s'y connecter
+    // on cherche un utilisateur avec le rôle demandé pour s'y connecter
     foreach ($users as $user) {
         if ($user['role'] === $role_cible && $user['statut'] !== 'banni') {
             $user_trouve = $user;
@@ -40,12 +40,12 @@ if (isset($_GET['role'])) {
             exit;
         }
     } else {
-        // Rôle non trouvé
+        // rôle non trouvé
         header('Location: accueil.php?error=role_not_found');
         exit;
     }
 }
 
-// Redirection par défaut si pas de rôle fourni
+// redirection par défaut si pas de rôle fourni
 header('Location: accueil.php');
 exit;

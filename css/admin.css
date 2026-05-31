@@ -1,4 +1,4 @@
-/* admin.css - console d'administration */
+/* admin.css console d'administration */
 
 /* on retire les marges par defaut */
 * {
@@ -8,7 +8,7 @@
 }
 
 /* fond sombre style terminal, police monospace */
-/* repeating-linear-gradient : cree des lignes de scan subtiles */
+/* repeatinglineargradient : cree des lignes de scan subtiles */
 /* astuce trouvee en ligne pour un effet ecran crt */
 body {
     background: #080c14;
@@ -170,7 +170,7 @@ main {
 }
 
 /* point vert qui clignote (curseur terminal) */
-/* animation step-end : clignotement net, pas progressif */
+/* animation stepend : clignotement net, pas progressif */
 .blink {
     color: #00ff88;
     text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
@@ -190,7 +190,7 @@ main {
 }
 
 
-/* flex-wrap : les cartes passent a la ligne si pas assez de place */
+/* flexwrap : les cartes passent a la ligne si pas assez de place */
 .stats-bar {
     display: flex;
     gap: 16px;
@@ -256,7 +256,7 @@ main {
     gap: 10px;
 }
 
-/* white-space nowrap : empeche le texte de passer a la ligne */
+/* whitespace nowrap : empeche le texte de passer a la ligne */
 .toolbar-label {
     font-size: 0.7rem;
     font-weight: bold;
@@ -298,7 +298,7 @@ main {
     color: rgba(200, 204, 212, 0.3);
 }
 
-/* margin-left auto : pousse l'element a droite dans un flex */
+/* marginleft auto : pousse l'element a droite dans un flex */
 .toolbar-info {
     font-size: 0.75rem;
     color: rgba(200, 204, 212, 0.35);
@@ -307,7 +307,7 @@ main {
 }
 
 
-/* overflow-x auto : ajoute un scroll horizontal si le tableau depasse */
+/* overflowx auto : ajoute un scroll horizontal si le tableau depasse */
 .table-container {
     overflow-x: auto;
     border: 1px solid #1a2540;
@@ -315,7 +315,7 @@ main {
     background: rgba(10, 16, 30, 0.5);
 }
 
-/* border-collapse : fusionne les bordures des cellules */
+/* bordercollapse : fusionne les bordures des cellules */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
@@ -361,7 +361,7 @@ main {
     vertical-align: middle;
 }
 
-/* nth-child : lignes zebrees (pair/impair) */
+/* nthchild : lignes zebrees (pair/impair) */
 .admin-table tbody tr:nth-child(even) {
     background: rgba(30, 45, 75, 0.4);
 }

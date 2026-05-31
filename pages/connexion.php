@@ -76,117 +76,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 require_once 'includes/header.php';
 ?>
 
-    <main>
-        <!-- formulaire de connexion -->
-        <div class="form-container">
-            <div class="form-panel">
-                <h1 class="form-title">IDENTIFICATION</h1>
-                <p class="form-subtitle">Accédez au réseau de la Résistance</p>
+<main>
+    <!-- formulaire de connexion -->
+    <div class="form-container">
+        <div class="form-panel">
+            <h1 class="form-title">IDENTIFICATION</h1>
+            <p class="form-subtitle">Accédez au réseau de la Résistance</p>
 
-                <!-- message d'erreur si identifiants incorrects -->
-                <?php if (!empty($erreur)) : ?>
+            <!-- message d'erreur si identifiants incorrects -->
+            <?php if (!empty($erreur)): ?>
                 <p style="color: #ff4444; text-align: center; margin-bottom: 15px;"><?php echo $erreur; ?></p>
-                <?php endif; ?>
+            <?php endif; ?>
 
-                <?php
-                if (isset($_SESSION['success_message'])) {
-                    echo '<p style="color: #00ff88; text-align: center; margin-bottom: 15px;">' . htmlspecialchars($_SESSION['success_message']) . '</p>';
-                    unset($_SESSION['success_message']);
-                }
-                ?>
+            <?php
+            if (isset($_SESSION['success_message'])) {
+                echo '<p style="color: #00ff88; text-align: center; margin-bottom: 15px;">' . htmlspecialchars($_SESSION['success_message']) . '</p>';
+                unset($_SESSION['success_message']);
+            }
+            ?>
 
-                <?php if (isset($_GET['banni']) && $_GET['banni'] === '1') : ?>
-                <p style="color: #ffaa00; text-align: center; margin-bottom: 15px; background: rgba(255,170,0,0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,170,0,0.3);">
+            <?php if (isset($_GET['banni']) && $_GET['banni'] === '1'): ?>
+                <p
+                    style="color: #ffaa00; text-align: center; margin-bottom: 15px; background: rgba(255,170,0,0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,170,0,0.3);">
                     ⚠️ Votre compte a été suspendu. Votre session a été fermée.
                 </p>
-                <?php endif; ?>
+            <?php endif; ?>
 
 
-                <form class="auth-form" method="POST" action="">
-                    <div class="form-group" style="position: relative;">
-                        <label for="identifiant">Identifiant</label>
-                        <input type="text" id="identifiant" name="identifiant" placeholder="Entrez votre nom de code" maxlength="30" required>
-                        <small id="identifiant-counter" style="position: absolute; right: 0; bottom: -20px; color: rgba(255,255,255,0.5); font-size: 0.8em;">0/30</small>
-                    </div>
-
-                    <div class="form-group" style="position: relative; margin-bottom: 10px;">
-                        <label for="password">Mot de passe</label>
-                        <div style="position: relative; display: flex; align-items: center;">
-                            <input type="password" id="password" name="password" placeholder="Code d'accès sécurisé" maxlength="50" style="width: 100%; padding-right: 40px;" required>
-                            <span id="toggle-password" style="position: absolute; right: 10px; cursor: pointer; color: rgba(255,255,255,0.7); font-size: 1.2em;" title="Afficher/Masquer">👁️</span>
-                        </div>
-                        <small id="password-counter" style="position: absolute; right: 0; bottom: -20px; color: rgba(255,255,255,0.5); font-size: 0.8em;">0/50</small>
-                    </div>
-
-                    <button type="submit" class="btn-submit btn-yellow">OUVRIR LE SAS</button>
-                </form>
-
-                <!-- lien vers inscription -->
-                <div class="form-footer">
-                    <p>Pas encore de compte ? <a href="inscription.php" class="link-highlight">S'enrôler</a></p>
+            <form class="auth-form" method="POST" action="">
+                <div class="form-group" style="position: relative;">
+                    <label for="identifiant">Identifiant</label>
+                    <input type="text" id="identifiant" name="identifiant" placeholder="Entrez votre nom de code"
+                        maxlength="30" required>
+                    <small id="identifiant-counter"
+                        style="position: absolute; right: 0; bottom: -20px; color: rgba(255,255,255,0.5); font-size: 0.8em;">0/30</small>
                 </div>
+
+                <div class="form-group" style="position: relative; margin-bottom: 10px;">
+                    <label for="password">Mot de passe</label>
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <input type="password" id="password" name="password" placeholder="Code d'accès sécurisé"
+                            maxlength="50" style="width: 100%; padding-right: 40px;" required>
+                        <span id="toggle-password"
+                            style="position: absolute; right: 10px; cursor: pointer; color: rgba(255,255,255,0.7); font-size: 1.2em;"
+                            title="Afficher/Masquer">👁️</span>
+                    </div>
+                    <small id="password-counter"
+                        style="position: absolute; right: 0; bottom: -20px; color: rgba(255,255,255,0.5); font-size: 0.8em;">0/50</small>
+                </div>
+
+                <button type="submit" class="btn-submit btn-yellow">OUVRIR LE SAS</button>
+            </form>
+
+            <!-- lien vers inscription -->
+            <div class="form-footer">
+                <p>Pas encore de compte ? <a href="inscription.php" class="link-highlight">S'enrôler</a></p>
             </div>
         </div>
+    </div>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle Password Visibility
-            const togglePassword = document.getElementById('toggle-password');
-            const passwordField = document.getElementById('password');
-            
-            togglePassword.addEventListener('click', function() {
-                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordField.setAttribute('type', type);
-                this.innerHTML = type === 'password' ? '👁️' : '🙈';
-            });
-
-            // Character Counters
-            const identifiantField = document.getElementById('identifiant');
-            const identifiantCounter = document.getElementById('identifiant-counter');
-            const passwordCounter = document.getElementById('password-counter');
-
-            identifiantField.addEventListener('input', function() {
-                identifiantCounter.textContent = this.value.length + '/30';
-            });
-
-            // compteur de caracteres pour le mot de passe
-            passwordField.addEventListener('input', function() {
-                const remaining = 50 - this.value.length;
-                passwordCounter.textContent = this.value.length + '/50';
-                // on passe au rouge quand il reste moins de 5 caracteres
-                passwordCounter.style.color = remaining <= 5 ? '#ff8844' : 'rgba(255,255,255,0.5)';
-            });
-
-            // Client-side Validation
-            const form = document.querySelector('.auth-form');
-            form.addEventListener('submit', function(e) {
-                // remove existing js errors
-                const existingError = document.getElementById('js-error');
-                if (existingError) existingError.remove();
-
-                const identifiant = identifiantField.value.trim();
-                const password = passwordField.value;
-                let errorMsg = '';
-
-                if (identifiant.length < 3) {
-                    errorMsg = 'L\'identifiant doit faire au moins 3 caractères.';
-                } else if (password.length === 0) {
-                    errorMsg = 'Veuillez saisir votre mot de passe.';
-                }
-
-                if (errorMsg) {
-                    e.preventDefault(); // Stop HTTP request
-                    const p = document.createElement('p');
-                    p.id = 'js-error';
-                    p.style.color = '#ff4444';
-                    p.style.textAlign = 'center';
-                    p.style.marginBottom = '15px';
-                    p.textContent = errorMsg;
-                    form.parentNode.insertBefore(p, form);
-                }
-            });
-        });
-        </script>
-    </main>
+    <script src="../js/connexion.js" defer></script>
+</main>
 
 <?php require_once 'includes/footer.php'; ?>

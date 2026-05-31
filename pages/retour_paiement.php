@@ -6,11 +6,11 @@ require_once 'includes/functions.php';
 require_once 'includes/getapikey.php';
 
 // recuperation des parametres get
-$transaction    = isset($_GET['transaction']) ? $_GET['transaction'] : '';
-$montant        = isset($_GET['montant'])     ? $_GET['montant']     : '';
-$vendeur        = isset($_GET['vendeur'])     ? $_GET['vendeur']     : '';
-$statut         = isset($_GET['status'])      ? $_GET['status']      : (isset($_GET['statut']) ? $_GET['statut'] : '');
-$control_recu   = isset($_GET['control'])     ? $_GET['control']     : '';
+$transaction = isset($_GET['transaction']) ? $_GET['transaction'] : '';
+$montant = isset($_GET['montant']) ? $_GET['montant'] : '';
+$vendeur = isset($_GET['vendeur']) ? $_GET['vendeur'] : '';
+$statut = isset($_GET['status']) ? $_GET['status'] : (isset($_GET['statut']) ? $_GET['statut'] : '');
+$control_recu = isset($_GET['control']) ? $_GET['control'] : '';
 
 // verification des parametres de base
 if (empty($transaction) || empty($statut) || empty($vendeur)) {
@@ -48,34 +48,34 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
 
     // creation de la nouvelle commande
     $nouvelle_commande = [
-        'id'               => 'JDI-' . strtoupper(substr(uniqid(), -5)),
-        'id_client'        => $commande_data['id_client'],
-        'login_client'     => $commande_data['login_client'],
-        'date'             => date('d/m/Y'),
-        'heure'            => date('H:i'),
-        'type'             => $commande_data['type'],
-        'mode_retrait'     => isset($commande_data['mode_retrait']) ? $commande_data['mode_retrait'] : 'livraison',
-        'heure_livraison'  => $commande_data['heure_livraison'],
-        'adresse'          => $commande_data['adresse'],
+        'id' => 'JDI-' . strtoupper(substr(uniqid(), -5)),
+        'id_client' => $commande_data['id_client'],
+        'login_client' => $commande_data['login_client'],
+        'date' => date('d/m/Y'),
+        'heure' => date('H:i'),
+        'type' => $commande_data['type'],
+        'mode_retrait' => isset($commande_data['mode_retrait']) ? $commande_data['mode_retrait'] : 'livraison',
+        'heure_livraison' => $commande_data['heure_livraison'],
+        'adresse' => $commande_data['adresse'],
         'telephone_client' => $telephone_client,
-        'plats'            => $commande_data['plats'],
-        'menus'            => isset($commande_data['menus']) ? $commande_data['menus'] : [],
-        'total'            => $commande_data['total'],
-        'statut'           => 'en attente',
-        'statut_paiement'  => 'accepte',
-        'transaction_id'   => $transaction,
-        'montant_paye'     => floatval($montant),
+        'plats' => $commande_data['plats'],
+        'menus' => isset($commande_data['menus']) ? $commande_data['menus'] : [],
+        'total' => $commande_data['total'],
+        'statut' => 'en attente',
+        'statut_paiement' => 'accepte',
+        'transaction_id' => $transaction,
+        'montant_paye' => floatval($montant),
         'credits_utilises' => isset($commande_data['credits_utilises']) ? $commande_data['credits_utilises'] : 0,
-        'id_livreur'       => null,
-        'note_livraison'   => null,
-        'note_qualite'     => null,
-        'commentaire'      => '',
-        'code_interphone'  => isset($commande_data['code_interphone']) ? $commande_data['code_interphone'] : '',
-        'etage'            => isset($commande_data['etage']) ? $commande_data['etage'] : ''
+        'id_livreur' => null,
+        'note_livraison' => null,
+        'note_qualite' => null,
+        'commentaire' => '',
+        'code_interphone' => isset($commande_data['code_interphone']) ? $commande_data['code_interphone'] : '',
+        'etage' => isset($commande_data['etage']) ? $commande_data['etage'] : ''
     ];
 
     // enregistrement dans commandes.json
-    $commandes   = read_json('commandes.json');
+    $commandes = read_json('commandes.json');
     $commandes[] = $nouvelle_commande;
     write_json('commandes.json', $commandes);
 
@@ -104,7 +104,7 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
     header('Location: profil.php');
     exit;
 
-// traitement si echec ou fraude
+    // traitement si echec ou fraude
 } else {
 
     // annulation

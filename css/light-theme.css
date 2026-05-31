@@ -1,4 +1,4 @@
-/* css/light-theme.css - reset global du mode clair (douceur et homogeneite) */
+/* css/lighttheme.css reset global du mode clair (douceur et homogeneite) */
 /* le fichier etant charge dynamiquement, les !important forcent la priorite sur les themes sombres */
 
 /* 1. neutralisation globale du mode sombre (videos, filtres, animations) */
@@ -6,7 +6,7 @@
     display: none !important;
 }
 
-/* 2. lutte contre le trop blanc : fond doux et homogene (gris-bleu perle) */
+/* 2. lutte contre le trop blanc : fond doux et homogene (grisbleu perle) */
 body, main, #bienvenue, #histoire-galactique, #avis-clients, #frequents, .admin-footer {
     background-color: #eef2f5 !important;
     background-image: none !important;
@@ -237,4 +237,36 @@ input::placeholder, .product-search-input::placeholder, .toolbar-input::placehol
 .admin-modal-input option {
     background: #ffffff !important;
     color: #374151 !important;
+}
+
+/* ===== nutritrack light mode ===== */
+.nutri-track-body {
+    background-color: #f9fafb !important;
+    background: #f9fafb !important;
+    border: none !important;
+}
+.macro-badge {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #1f2937 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+}
+.macro-cal { border-bottom: 4px solid #ef4444 !important; }
+.macro-pro { border-bottom: 4px solid #10b981 !important; }
+.macro-glu { border-bottom: 4px solid #f59e0b !important; }
+.macro-lip { border-bottom: 4px solid #06b6d4 !important; }
+
+/* calories block in product details light mode */
+.nutri-info-block {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+.nutri-energy {
+    color: #b45309 !important; /* dark orange/gold for contrast */
+}
+.nutri-macros {
+    color: #4b5563 !important; /* gray600 */
 }

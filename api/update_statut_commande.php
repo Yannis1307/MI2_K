@@ -40,7 +40,7 @@ $new_statut = '';
 foreach ($commandes as $index => $cmd) {
     if ($cmd['id'] === $id_cmd) {
 
-        // workflow du restaurateur : en attente -> en preparation -> prete -> en livraison
+        // workflow du restaurateur : en attente > en preparation > prete > en livraison
         if ($action_statut === 'preparation' && $cmd['statut'] === 'en attente') {
             $commandes[$index]['statut'] = 'en préparation';
             $new_statut = 'en préparation';

@@ -7,9 +7,18 @@
         "ingredients": "Lait de Bantha, extrait de cactus Hubba, cristaux de sel de Tatooine",
         "prix": 7,
         "categorie": "boissons",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/boisson/laitbleu.png",
-        "allergenes": ["Lactose"]
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/boisson\/laitbleu.png",
+        "allergenes": [
+            "Lactose"
+        ],
+        "calories": 151,
+        "proteines": 3,
+        "glucides": 41,
+        "lipides": 1
     },
     {
         "id": 2,
@@ -19,9 +28,19 @@
         "ingredients": "Lait de Thala-sirène, algues d'Ahch-To, essence de varech spatial",
         "prix": 8,
         "categorie": "boissons",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/boisson/laitvert.png",
-        "allergenes": ["Lactose", "Produits marins"]
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/boisson\/laitvert.png",
+        "allergenes": [
+            "Lactose",
+            "Produits marins"
+        ],
+        "calories": 142,
+        "proteines": 2,
+        "glucides": 26,
+        "lipides": 0
     },
     {
         "id": 3,
@@ -31,9 +50,16 @@
         "ingredients": "Fruits Gorga, pulpe de cactus géant, sucre de canne de Naboo, épices mystérieuses",
         "prix": 5,
         "categorie": "boissons",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/boisson/jusdejabba.jpg",
-        "allergenes": []
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/boisson\/jusdejabba.jpg",
+        "allergenes": [],
+        "calories": 193,
+        "proteines": 5,
+        "glucides": 28,
+        "lipides": 2
     },
     {
         "id": 4,
@@ -43,9 +69,19 @@
         "ingredients": "Krill de Nevarro, eau gazéifiée, piment des volcans, sirop de lave refroidie",
         "prix": 6,
         "categorie": "boissons",
-        "regimes": ["vege", "gluten-free", "piquant"],
-        "image": "images/boisson/spotchkasoda.jpg",
-        "allergenes": ["Crustacés"]
+        "regimes": [
+            "vege",
+            "gluten-free",
+            "piquant"
+        ],
+        "image": "images\/boisson\/spotchkasoda.jpg",
+        "allergenes": [
+            "Crustacés"
+        ],
+        "calories": 145,
+        "proteines": 5,
+        "glucides": 46,
+        "lipides": 3
     },
     {
         "id": 5,
@@ -55,9 +91,16 @@
         "ingredients": "Feuilles de Caf, eau purifiée, miel de Kashyyyk",
         "prix": 4,
         "categorie": "boissons",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/boisson/thedecaf.jpg",
-        "allergenes": []
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/boisson\/thedecaf.jpg",
+        "allergenes": [],
+        "calories": 229,
+        "proteines": 3,
+        "glucides": 30,
+        "lipides": 3
     },
     {
         "id": 6,
@@ -67,9 +110,17 @@
         "ingredients": "Volaille Nuna, herbes de Naboo, beurre de Nerf, citron de Theed",
         "prix": 15,
         "categorie": "plats",
-        "regimes": ["gluten-free"],
-        "image": "images/plats/rotidenuna.jpg",
-        "allergenes": ["Lactose"]
+        "regimes": [
+            "gluten-free"
+        ],
+        "image": "images\/plats\/rotidenuna.jpg",
+        "allergenes": [
+            "Lactose"
+        ],
+        "calories": 676,
+        "proteines": 21,
+        "glucides": 46,
+        "lipides": 18
     },
     {
         "id": 7,
@@ -79,9 +130,16 @@
         "ingredients": "Racines d'Endor, champignons lunaires, bouillon de légumes, herbes mystiques",
         "prix": 12,
         "categorie": "plats",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/plats/ragoutderacinedendor.jpg",
-        "allergenes": []
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/plats\/ragoutderacinedendor.jpg",
+        "allergenes": [],
+        "calories": 766,
+        "proteines": 26,
+        "glucides": 58,
+        "lipides": 17
     },
     {
         "id": 8,
@@ -91,9 +149,16 @@
         "ingredients": "Viande de Dewback, poivre des sables, piment rouge de Mos Eisley, huile d'olive galactique",
         "prix": 20,
         "categorie": "plats",
-        "regimes": ["gluten-free", "piquant"],
-        "image": "images/plats/cotelettesdedewback.jpg",
-        "allergenes": []
+        "regimes": [
+            "gluten-free",
+            "piquant"
+        ],
+        "image": "images\/plats\/cotelettesdedewback.jpg",
+        "allergenes": [],
+        "calories": 669,
+        "proteines": 20,
+        "glucides": 74,
+        "lipides": 27
     },
     {
         "id": 9,
@@ -103,9 +168,16 @@
         "ingredients": "Protéines végétales compressées, nutriments essentiels, arôme artificiel",
         "prix": 3,
         "categorie": "plats",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/plats/portiondesurvie.jpg",
-        "allergenes": []
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/plats\/portiondesurvie.jpg",
+        "allergenes": [],
+        "calories": 406,
+        "proteines": 47,
+        "glucides": 54,
+        "lipides": 15
     },
     {
         "id": 10,
@@ -115,9 +187,16 @@
         "ingredients": "100% Fruit Meiloorun naturel",
         "prix": 9,
         "categorie": "plats",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/plats/meiloorun.jpg",
-        "allergenes": []
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/plats\/meiloorun.jpg",
+        "allergenes": [],
+        "calories": 746,
+        "proteines": 40,
+        "glucides": 61,
+        "lipides": 14
     },
     {
         "id": 11,
@@ -128,8 +207,16 @@
         "prix": 10,
         "categorie": "snacks",
         "regimes": [],
-        "image": "images/snacks_et_sucreries/macaronsdenevarro.jpg",
-        "allergenes": ["Fruits à coque", "Gluten", "Œufs"]
+        "image": "images\/snacks_et_sucreries\/macaronsdenevarro.jpg",
+        "allergenes": [
+            "Fruits à coque",
+            "Gluten",
+            "Œufs"
+        ],
+        "calories": 286,
+        "proteines": 10,
+        "glucides": 44,
+        "lipides": 18
     },
     {
         "id": 12,
@@ -139,9 +226,19 @@
         "ingredients": "Farine complète, œufs de Porg, lait de Bantha, sirop de miel de Kashyyyk",
         "prix": 8,
         "categorie": "snacks",
-        "regimes": ["vege"],
-        "image": "images/snacks_et_sucreries/gauffresdelespaces.jpg",
-        "allergenes": ["Lactose", "Œufs", "Gluten"]
+        "regimes": [
+            "vege"
+        ],
+        "image": "images\/snacks_et_sucreries\/gauffresdelespaces.jpg",
+        "allergenes": [
+            "Lactose",
+            "Œufs",
+            "Gluten"
+        ],
+        "calories": 329,
+        "proteines": 7,
+        "glucides": 56,
+        "lipides": 13
     },
     {
         "id": 13,
@@ -151,9 +248,16 @@
         "ingredients": "100% Fruit Jogan naturel",
         "prix": 5,
         "categorie": "snacks",
-        "regimes": ["vege", "gluten-free"],
-        "image": "images/snacks_et_sucreries/fruitsjogan.jpg",
-        "allergenes": []
+        "regimes": [
+            "vege",
+            "gluten-free"
+        ],
+        "image": "images\/snacks_et_sucreries\/fruitsjogan.jpg",
+        "allergenes": [],
+        "calories": 223,
+        "proteines": 8,
+        "glucides": 40,
+        "lipides": 12
     },
     {
         "id": 14,
@@ -163,9 +267,17 @@
         "ingredients": "Saucisse de Ronto, pain pita galactique, sauce épicée, oignons grillés, poivrons rouges",
         "prix": 14,
         "categorie": "specialites",
-        "regimes": ["piquant"],
-        "image": "images/specialites_exotiques/rontowrap.jpg",
-        "allergenes": ["Gluten"]
+        "regimes": [
+            "piquant"
+        ],
+        "image": "images\/specialites_exotiques\/rontowrap.jpg",
+        "allergenes": [
+            "Gluten"
+        ],
+        "calories": 581,
+        "proteines": 47,
+        "glucides": 80,
+        "lipides": 30
     },
     {
         "id": 15,
@@ -175,8 +287,16 @@
         "ingredients": "Viande de Tip-Yip, huile d'olive d'Alderaan, échalotes, câpres, herbes d'Endor, jaune d'œuf",
         "prix": 16,
         "categorie": "specialites",
-        "regimes": ["gluten-free"],
-        "image": "images/specialites_exotiques/tartaredeyipyip.jpg",
-        "allergenes": ["Œufs"]
+        "regimes": [
+            "gluten-free"
+        ],
+        "image": "images\/specialites_exotiques\/tartaredeyipyip.jpg",
+        "allergenes": [
+            "Œufs"
+        ],
+        "calories": 620,
+        "proteines": 32,
+        "glucides": 60,
+        "lipides": 23
     }
 ]

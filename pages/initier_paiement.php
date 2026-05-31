@@ -80,7 +80,7 @@ foreach ($panier_menus as $id_menu => $quantite) {
         $m = $menus_index[$id_menu];
         $sous_total = $m['prix_total'] * $quantite;
         $total += $sous_total;
-        
+
         // recuperation des noms des plats inclus
         $plats_inclus_noms = [];
         foreach ($m['plats_inclus'] as $id_plat_inclus) {
@@ -88,7 +88,7 @@ foreach ($panier_menus as $id_menu => $quantite) {
                 $plats_inclus_noms[] = $plats_index[$id_plat_inclus]['nom'];
             }
         }
-        
+
         $menus_commandes[] = [
             'id_menu' => $id_menu,
             'nom' => $m['nom'],
@@ -109,7 +109,7 @@ if ($total <= 0) {
 $total_initial = $total;
 $credits_utilises = 0;
 
-// Utilisation des credits
+// utilisation des credits
 if (isset($_POST['utiliser_credits']) && $_POST['utiliser_credits'] == '1') {
     // lecture dans users.json obligatoire pour la securite
     $users_all = read_json('users.json');
@@ -152,7 +152,7 @@ $_SESSION['commande_en_cours'] = [
     'credits_utilises' => $credits_utilises
 ];
 
-// Si la commande est entierement payee avec les credits, on bypasse la banque
+// si la commande est entierement payee avec les credits, on bypasse la banque
 if ($total == 0) {
     $users_all = read_json('users.json');
     $telephone_client = '';
@@ -168,33 +168,33 @@ if ($total == 0) {
     write_json('users.json', $users_all);
 
     $nouvelle_commande = [
-        'id'               => 'JDI-' . strtoupper(substr(uniqid(), -5)),
-        'id_client'        => $_SESSION['user']['id'],
-        'login_client'     => $_SESSION['user']['login'],
-        'date'             => date('d/m/Y'),
-        'heure'            => date('H:i'),
-        'type'             => $type_commande,
-        'mode_retrait'     => $mode_retrait,
-        'heure_livraison'  => ($type_commande === 'planifiee') ? $heure_livraison : null,
-        'adresse'          => $adresse,
+        'id' => 'JDI-' . strtoupper(substr(uniqid(), -5)),
+        'id_client' => $_SESSION['user']['id'],
+        'login_client' => $_SESSION['user']['login'],
+        'date' => date('d/m/Y'),
+        'heure' => date('H:i'),
+        'type' => $type_commande,
+        'mode_retrait' => $mode_retrait,
+        'heure_livraison' => ($type_commande === 'planifiee') ? $heure_livraison : null,
+        'adresse' => $adresse,
         'telephone_client' => $telephone_client,
-        'plats'            => $plats_commandes,
-        'menus'            => $menus_commandes,
-        'total'            => $total_initial,
-        'statut'           => 'en attente',
-        'statut_paiement'  => 'accepte',
-        'transaction_id'   => $transaction_id,
-        'montant_paye'     => 0,
+        'plats' => $plats_commandes,
+        'menus' => $menus_commandes,
+        'total' => $total_initial,
+        'statut' => 'en attente',
+        'statut_paiement' => 'accepte',
+        'transaction_id' => $transaction_id,
+        'montant_paye' => 0,
         'credits_utilises' => $credits_utilises,
-        'id_livreur'       => null,
-        'note_livraison'   => null,
-        'note_qualite'     => null,
-        'commentaire'      => '',
-        'code_interphone'  => $code_interphone,
-        'etage'            => $etage
+        'id_livreur' => null,
+        'note_livraison' => null,
+        'note_qualite' => null,
+        'commentaire' => '',
+        'code_interphone' => $code_interphone,
+        'etage' => $etage
     ];
 
-    $commandes   = read_json('commandes.json');
+    $commandes = read_json('commandes.json');
     $commandes[] = $nouvelle_commande;
     write_json('commandes.json', $commandes);
 
@@ -207,7 +207,7 @@ if ($total == 0) {
     exit;
 }
 
-// on a deja assigne $_SESSION['commande_en_cours'] plus haut
+// on a deja assigne $_session['commande_en_cours'] plus haut
 
 // parametres api bancaire
 require_once 'includes/getapikey.php';
@@ -330,12 +330,7 @@ $control = md5($api_key . '#' . $transaction_id . '#' . $montant . '#' . $vendeu
         </form>
     </div>
 
-    <script>
-        // auto-soumission
-        setTimeout(function () {
-            document.getElementById('cybank-form').submit();
-        }, 500);
-    </script>
+    <script src="../js/initier_paiement.js" defer></script>
 </body>
 
 </html>

@@ -95,7 +95,7 @@
         "telephone": "+33 6 66 77 88 99",
         "adresse": "Ferme des Lars, Tatooine",
         "date_inscription": "10/01/2026",
-        "derniere_connexion": "17/05/2026",
+        "derniere_connexion": "31/05/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
@@ -112,12 +112,12 @@
         "telephone": "+33 6 77 88 99 00",
         "adresse": "Dex's Diner, CoCo Town, Coruscant",
         "date_inscription": "05/01/2026",
-        "derniere_connexion": "17/05/2026",
+        "derniere_connexion": "31/05/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
         "avatar": "r2d2_avatar.png",
-        "solde_credits": 9
+        "solde_credits": 4
     },
     {
         "id": 8,
@@ -130,7 +130,7 @@
         "telephone": "+33 6 00 00 00 01",
         "adresse": "Bureau du Sénat, Coruscant",
         "date_inscription": "01/01/2026",
-        "derniere_connexion": "17/05/2026",
+        "derniere_connexion": "31/05/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
@@ -182,12 +182,12 @@
         "telephone": "",
         "adresse": "Planète Tatooine",
         "date_inscription": "27/03/2026",
-        "derniere_connexion": "17/05/2026",
+        "derniere_connexion": "31/05/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
         "avatar": "han_avatar.png",
-        "solde_credits": 0
+        "solde_credits": 37.1
     },
     {
         "id": 70,
@@ -218,7 +218,7 @@
         "telephone": "0625364585",
         "adresse": "Planète Tatooine",
         "date_inscription": "15/05/2026",
-        "derniere_connexion": "17/05/2026",
+        "derniere_connexion": "31/05/2026",
         "points_fidelite": 0,
         "statut_premium": "vip",
         "statut": "actif",

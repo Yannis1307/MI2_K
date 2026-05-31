@@ -1,4 +1,4 @@
-/* common.css - styles partages entre toutes les pages du site */
+/* common.css styles partages entre toutes les pages du site */
 
 /* police google fonts pour les titres et le texte */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
@@ -80,7 +80,7 @@ a.active {
 }
 
 
-/* grid-template-columns : divise le header en 3 colonnes (logo, nav, droite) */
+/* gridtemplatecolumns : divise le header en 3 colonnes (logo, nav, droite) */
 header {
     display: grid;
     grid-template-columns: 200px 1fr 420px;
@@ -89,9 +89,9 @@ header {
     padding: 15px 30px;
     position: sticky;
     top: 0;
-    /* backdrop-filter blur : donne un effet de verre flou derriere le header */
+    /* backdropfilter blur : donne un effet de verre flou derriere le header */
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
-    /* z-index : pour que le header reste au dessus de tout le contenu */
+    /* zindex : pour que le header reste au dessus de tout le contenu */
     z-index: 1000;
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(248, 224, 66, 0.2);
@@ -99,7 +99,7 @@ header {
 }
 
 /* logo dans le header */
-/* drop-shadow : petit halo dore autour du logo */
+/* dropshadow : petit halo dore autour du logo */
 header img {
     width: 100%;
     max-width: 140px;
@@ -120,7 +120,7 @@ nav {
     align-items: center;
 }
 
-/* barre de navigation avec fond semi-transparent et bordure arrondie */
+/* barre de navigation avec fond semitransparent et bordure arrondie */
 nav ul {
     list-style: none;
     padding: 8px 16px;
@@ -223,7 +223,7 @@ ul li {
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* focus-within : quand on clique dans la barre de recherche */
+/* focuswithin : quand on clique dans la barre de recherche */
 .search-box:focus-within {
     border-color: var(--gold);
     box-shadow: 0 0 15px rgba(248, 224, 66, 0.4);
@@ -309,7 +309,7 @@ ul li {
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* drop-shadow sur les icones emoji du footer */
+/* dropshadow sur les icones emoji du footer */
 /* astuce trouvee en ligne pour donner un halo aux emoji */
 .contact-info .icon {
     margin-right: 10px;
@@ -335,7 +335,7 @@ ul li {
     letter-spacing: 3px;
     border-radius: 5px;
     cursor: crosshair;
-    /* cubic-bezier : courbe d'animation avec un petit rebond */
+    /* cubicbezier : courbe d'animation avec un petit rebond */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 0 15px rgba(248, 224, 66, 0.2);
 }
@@ -347,7 +347,7 @@ ul li {
     transform: scale(1.05);
 }
 
-/* section droite du footer avec le droide r2-d2 */
+/* section droite du footer avec le droide r2d2 */
 .unit-status {
     text-align: right;
     display: flex;
@@ -360,7 +360,7 @@ ul li {
     width: 100px;
     height: auto;
     margin-bottom: 20px;
-    /* drop-shadow : astuce trouvee en ligne pour creer un halo autour d'une image */
+    /* dropshadow : astuce trouvee en ligne pour creer un halo autour d'une image */
     filter: drop-shadow(0 0 10px rgba(248, 224, 66, 0.4));
     animation: flicker 4s infinite;
 }
@@ -386,7 +386,7 @@ ul li {
 }
 
 
-/* scintillement holographique pour le droide r2-d2 */
+/* scintillement holographique pour le droide r2d2 */
 /* le droide clignote comme un hologramme abime */
 @keyframes flicker {
 
@@ -473,7 +473,7 @@ ul li {
 }
 
 
-/* la video reste fixe en arriere-plan meme quand on scrolle */
+/* la video reste fixe en arriereplan meme quand on scrolle */
 #video-bg {
     position: fixed;
     right: 0;
@@ -482,13 +482,13 @@ ul li {
     min-height: 100%;
     width: auto;
     height: auto;
-    /* z-index negatif : la video est tout au fond */
+    /* zindex negatif : la video est tout au fond */
     z-index: -2;
-    /* object-fit cover : la video couvre tout sans deformation */
+    /* objectfit cover : la video couvre tout sans deformation */
     object-fit: cover;
 }
 
-/* voile sombre semi-transparent par dessus la video */
+/* voile sombre semitransparent par dessus la video */
 .overlay {
     position: fixed;
     top: 0;
@@ -497,4 +497,54 @@ ul li {
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
     z-index: -1;
+}
+
+/* ===== nutritrack styles ===== */
+.nutri-track-body {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    background: var(--bg-panel, rgba(0, 15, 35, 0.65));
+}
+.macro-badge {
+    background: var(--bg-dark, #000b1a);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-align: center;
+    color: var(--text, #e8e8e8);
+    font-weight: bold;
+    flex: 1;
+    min-width: 120px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.macro-val {
+    display: block;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+.macro-cal { border-bottom: 4px solid var(--red, #ff4444); }
+.macro-pro { border-bottom: 4px solid var(--green, #00ff88); }
+.macro-glu { border-bottom: 4px solid var(--gold, #f8e042); }
+.macro-lip { border-bottom: 4px solid var(--cyan, #00ffff); }
+
+/* calories block in product details */
+.nutri-info-block {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: var(--bg-dark, rgba(0,0,0,0.2));
+    border-radius: 8px;
+    border: 1px solid var(--glass-border, rgba(255,255,255,0.1));
+}
+.nutri-energy {
+    margin: 0;
+    color: var(--gold, #ffeb3b);
+}
+.nutri-macros {
+    margin: 5px 0 0 0;
+    font-size: 0.85em;
+    color: var(--text-muted, #aaa);
 }

@@ -7,11 +7,11 @@ require_once 'includes/functions.php';
 require_once 'includes/getapikey.php';
 
 // recuperation des parametres get de cybank
-$transaction    = isset($_GET['transaction']) ? $_GET['transaction'] : '';
-$montant        = isset($_GET['montant'])     ? $_GET['montant']     : '';
-$vendeur        = isset($_GET['vendeur'])     ? $_GET['vendeur']     : '';
-$statut         = isset($_GET['status'])      ? $_GET['status']      : (isset($_GET['statut']) ? $_GET['statut'] : '');
-$control_recu   = isset($_GET['control'])     ? $_GET['control']     : '';
+$transaction = isset($_GET['transaction']) ? $_GET['transaction'] : '';
+$montant = isset($_GET['montant']) ? $_GET['montant'] : '';
+$vendeur = isset($_GET['vendeur']) ? $_GET['vendeur'] : '';
+$statut = isset($_GET['status']) ? $_GET['status'] : (isset($_GET['statut']) ? $_GET['statut'] : '');
+$control_recu = isset($_GET['control']) ? $_GET['control'] : '';
 
 // verification des parametres de base
 if (empty($transaction) || empty($statut) || empty($vendeur)) {
@@ -111,7 +111,7 @@ if ($control_recu === $control_attendu && $statut === 'accepted') {
     header('Location: profil.php');
     exit;
 
-// traitement si echec ou fraude
+    // traitement si echec ou fraude
 } else {
 
     // nettoyage de la session de modification

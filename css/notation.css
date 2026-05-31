@@ -1,4 +1,4 @@
-/* notation.css - styles specifiques a la page de notation */
+/* notation.css styles specifiques a la page de notation */
 
 
 /* fond sombre avec formulaire centre */
@@ -33,7 +33,7 @@ main {
 }
 
 /* panneau avec effet de verre */
-/* backdrop-filter blur : flou derriere le panneau, effet glassmorphism */
+/* backdropfilter blur : flou derriere le panneau, effet glassmorphism */
 .form-panel {
     background: rgba(0, 20, 40, 0.85);
     backdrop-filter: blur(20px);
@@ -118,7 +118,7 @@ main {
 
 .rating-form {
     display: flex;
-    /* flex-direction column : les champs s'empilent verticalement */
+    /* flexdirection column : les champs s'empilent verticalement */
     flex-direction: column;
     gap: 30px;
 }
@@ -208,7 +208,7 @@ main {
 
 .star-rating {
     display: flex;
-    /* row-reverse : les etoiles sont inversees pour que le selecteur ~ fonctionne */
+    /* rowreverse : les etoiles sont inversees pour que le selecteur ~ fonctionne */
     /* le ~ selectionne les elements suivants, donc en inversant on peut colorer */
     /* toutes les etoiles precedentes quand on en survole une */
     flex-direction: row-reverse;
@@ -311,7 +311,7 @@ main {
 
 .btn-text {
     position: relative;
-    /* z-index : pour que le texte reste au dessus de l'effet ripple */
+    /* zindex : pour que le texte reste au dessus de l'effet ripple */
     z-index: 1;
 }
 

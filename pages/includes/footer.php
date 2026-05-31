@@ -18,7 +18,7 @@
             <button class="btn-transmission" onclick="window.location.href='notation.php';">ENVOYER UNE TRANSMISSION</button>
         </div>
 
-        <!-- colonne droite : droide r2-d2 en maintenance -->
+        <!-- colonne droite : droide r2d2 en maintenance -->
         <div class="footer-section unit-status">
             <img src="../images/r2d2_avatar.png" alt="Unité R2-D2 en maintenance" class="broken-droid">
             <p class="joke-text">

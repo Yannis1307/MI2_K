@@ -35,16 +35,39 @@ foreach ($menus as $menu) {
 $panier = isset($_SESSION['panier']) ? $_SESSION['panier'] : [];
 $panier_menus = isset($_SESSION['panier_menus']) ? $_SESSION['panier_menus'] : [];
 
-// calcul du total
+// calcul du total et des macros
 $total = 0;
+$total_calories = 0;
+$total_proteines = 0;
+$total_glucides = 0;
+$total_lipides = 0;
+
 foreach ($panier as $id_plat => $quantite) {
     if (isset($plats_index[$id_plat])) {
-        $total += $plats_index[$id_plat]['prix'] * $quantite;
+        $p = $plats_index[$id_plat];
+        $total += $p['prix'] * $quantite;
+
+        // calcul des macros du panier
+        $total_calories += (isset($p['calories']) ? $p['calories'] : 0) * $quantite;
+        $total_proteines += (isset($p['proteines']) ? $p['proteines'] : 0) * $quantite;
+        $total_glucides += (isset($p['glucides']) ? $p['glucides'] : 0) * $quantite;
+        $total_lipides += (isset($p['lipides']) ? $p['lipides'] : 0) * $quantite;
     }
 }
 foreach ($panier_menus as $id_menu => $quantite) {
     if (isset($menus_index[$id_menu])) {
         $total += $menus_index[$id_menu]['prix_total'] * $quantite;
+
+        // calcul des macros pour chaque menu
+        foreach ($menus_index[$id_menu]['plats_inclus'] as $id_plat) {
+            if (isset($plats_index[$id_plat])) {
+                $p = $plats_index[$id_plat];
+                $total_calories += (isset($p['calories']) ? $p['calories'] : 0) * $quantite;
+                $total_proteines += (isset($p['proteines']) ? $p['proteines'] : 0) * $quantite;
+                $total_glucides += (isset($p['glucides']) ? $p['glucides'] : 0) * $quantite;
+                $total_lipides += (isset($p['lipides']) ? $p['lipides'] : 0) * $quantite;
+            }
+        }
     }
 }
 
@@ -81,6 +104,29 @@ require_once 'includes/header.php';
             <?php unset($_SESSION['flash_error']); ?>
         <?php endif; ?>
 
+        <!-- nutritrack widget -->
+        <?php if (!empty($panier) || !empty($panier_menus)): ?>
+            <section class="panel nutri-track-panel">
+                <div class="panel-header" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                    <h2>🥗 Nutri-Track (Vos Macros)</h2>
+                </div>
+                <div class="panel-body nutri-track-body">
+                    <div class="macro-badge macro-cal">
+                        <span class="macro-val" id="macro-cal-val"><?= $total_calories ?></span> kcal
+                    </div>
+                    <div class="macro-badge macro-pro">
+                        <span class="macro-val" id="macro-pro-val"><?= $total_proteines ?></span>g Protéines
+                    </div>
+                    <div class="macro-badge macro-glu">
+                        <span class="macro-val" id="macro-glu-val"><?= $total_glucides ?></span>g Glucides
+                    </div>
+                    <div class="macro-badge macro-lip">
+                        <span class="macro-val" id="macro-lip-val"><?= $total_lipides ?></span>g Lipides
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+
         <?php if (empty($panier) && empty($panier_menus)): ?>
             <!-- panier vide -->
             <section class="panel">
@@ -88,7 +134,8 @@ require_once 'includes/header.php';
                     <h2>🍽️ Votre panier est vide</h2>
                 </div>
                 <div class="panel-body" style="text-align: center; padding: 40px;">
-                    <p style="font-size: 1.2em; margin-bottom: 20px; color: rgba(255,255,255,0.7);">Aucun article sélectionné
+                    <p style="font-size: 1.2em; margin-bottom: 20px; color: rgba(255,255,255,0.7);">Aucun article
+                        sélectionné
                         pour le moment.</p>
                     <a href="produits.php" class="btn-logout"
                         style="background: linear-gradient(135deg, #00b4d8, #0077b6); border: none; text-decoration: none; display: inline-block;">🍕
@@ -121,18 +168,26 @@ require_once 'includes/header.php';
                                         $p = $plats_index[$id_plat];
                                         $sous_total = $p['prix'] * $quantite;
                                         ?>
-                                        <tr>
+                                        <tr id="row-plat-<?= $id_plat ?>">
                                             <td><?= htmlspecialchars($p['nom']) ?></td>
                                             <td class="order-price"><?= number_format($p['prix'], 2, ',', '') ?> ₹</td>
-                                            <td><?= $quantite ?></td>
-                                            <td class="order-price"><?= number_format($sous_total, 2, ',', '') ?> ₹</td>
                                             <td>
-                                                <!-- retirer plat -->
-                                                <form method="POST" action="retirer_panier.php" style="display:inline;">
-                                                    <input type="hidden" name="id_plat" value="<?= $id_plat ?>">
-                                                    <button type="submit" class="btn-edit" title="Retirer"
-                                                        style="cursor:pointer;">🗑️</button>
-                                                </form>
+                                                <div style="display:flex; align-items:center; justify-content:center; gap: 10px;">
+                                                    <button type="button" class="btn-qty-minus" data-id="<?= $id_plat ?>"
+                                                        data-type="plat"
+                                                        style="background:var(--card-bg, rgba(255,255,255,0.1)); border:1px solid var(--border-color, rgba(255,255,255,0.2)); color:inherit; border-radius:5px; padding:5px 10px; cursor:pointer;">-</button>
+                                                    <span class="qty-val" id="qty-plat-<?= $id_plat ?>"><?= $quantite ?></span>
+                                                    <button type="button" class="btn-qty-plus" data-id="<?= $id_plat ?>"
+                                                        data-type="plat"
+                                                        style="background:var(--card-bg, rgba(255,255,255,0.1)); border:1px solid var(--border-color, rgba(255,255,255,0.2)); color:inherit; border-radius:5px; padding:5px 10px; cursor:pointer;">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="order-price"><span
+                                                    id="sub-plat-<?= $id_plat ?>"><?= number_format($sous_total, 2, ',', '') ?></span>
+                                                ₹</td>
+                                            <td>
+                                                <button type="button" class="btn-edit btn-remove-item" data-id="<?= $id_plat ?>"
+                                                    data-type="plat" title="Retirer" style="cursor:pointer;">🗑️</button>
                                             </td>
                                         </tr>
                                     <?php endif; ?>
@@ -144,18 +199,27 @@ require_once 'includes/header.php';
                                         $m = $menus_index[$id_menu];
                                         $sous_total = $m['prix_total'] * $quantite;
                                         ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($m['nom']) ?> <span style="font-size: 0.8em; color: rgba(255,255,255,0.5);">(Menu)</span></td>
+                                        <tr id="row-menu-<?= $id_menu ?>">
+                                            <td><?= htmlspecialchars($m['nom']) ?> <span
+                                                    style="font-size: 0.8em; color: rgba(255,255,255,0.5);">(Menu)</span></td>
                                             <td class="order-price"><?= number_format($m['prix_total'], 2, ',', '') ?> ₹</td>
-                                            <td><?= $quantite ?></td>
-                                            <td class="order-price"><?= number_format($sous_total, 2, ',', '') ?> ₹</td>
                                             <td>
-                                                <!-- retirer menu -->
-                                                <form method="POST" action="retirer_panier.php" style="display:inline;">
-                                                    <input type="hidden" name="id_menu" value="<?= $id_menu ?>">
-                                                    <button type="submit" class="btn-edit" title="Retirer"
-                                                        style="cursor:pointer;">🗑️</button>
-                                                </form>
+                                                <div style="display:flex; align-items:center; justify-content:center; gap: 10px;">
+                                                    <button type="button" class="btn-qty-minus" data-id="<?= $id_menu ?>"
+                                                        data-type="menu"
+                                                        style="background:var(--card-bg, rgba(255,255,255,0.1)); border:1px solid var(--border-color, rgba(255,255,255,0.2)); color:inherit; border-radius:5px; padding:5px 10px; cursor:pointer;">-</button>
+                                                    <span class="qty-val" id="qty-menu-<?= $id_menu ?>"><?= $quantite ?></span>
+                                                    <button type="button" class="btn-qty-plus" data-id="<?= $id_menu ?>"
+                                                        data-type="menu"
+                                                        style="background:var(--card-bg, rgba(255,255,255,0.1)); border:1px solid var(--border-color, rgba(255,255,255,0.2)); color:inherit; border-radius:5px; padding:5px 10px; cursor:pointer;">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="order-price"><span
+                                                    id="sub-menu-<?= $id_menu ?>"><?= number_format($sous_total, 2, ',', '') ?></span>
+                                                ₹</td>
+                                            <td>
+                                                <button type="button" class="btn-edit btn-remove-item" data-id="<?= $id_menu ?>"
+                                                    data-type="menu" title="Retirer" style="cursor:pointer;">🗑️</button>
                                             </td>
                                         </tr>
                                     <?php endif; ?>
@@ -165,7 +229,8 @@ require_once 'includes/header.php';
                                 <tr>
                                     <td colspan="3" style="text-align: right; font-weight: bold;">TOTAL :</td>
                                     <td class="order-price" style="font-weight: bold; font-size: 1.2em; color: #ffd700;">
-                                        <?= number_format($total, 2, ',', '') ?> ₹</td>
+                                        <span id="cart-total"><?= number_format($total, 2, ',', '') ?></span> ₹
+                                    </td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -181,7 +246,8 @@ require_once 'includes/header.php';
                 </div>
                 <div class="panel-body">
                     <!-- redirection vers le paiement bancaire -->
-                    <form method="POST" action="initier_paiement.php" onsubmit="this.querySelector('button[type=submit]').disabled=true; this.querySelector('button[type=submit]').innerHTML='Traitement...';">
+                    <form method="POST" action="initier_paiement.php"
+                        onsubmit="this.querySelector('button[type=submit]').disabled=true; this.querySelector('button[type=submit]').innerHTML='Traitement...';">
 
                         <!-- parametres de la commande -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px;">
@@ -213,7 +279,8 @@ require_once 'includes/header.php';
                             <!-- date -->
                             <div>
                                 <label
-                                    style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Date & Heure
+                                    style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">Date
+                                    & Heure
                                     (si planifiée) :</label>
                                 <input type="datetime-local" name="heure_livraison" value="<?= date('Y-m-d\TH:i') ?>"
                                     style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95em;">
@@ -251,48 +318,37 @@ require_once 'includes/header.php';
                         </div>
 
                         <!-- utilisation des crédits -->
-                        <?php 
+                        <?php
                         $solde = isset($_SESSION['user']['solde_credits']) ? $_SESSION['user']['solde_credits'] : 0;
-                        if ($solde > 0): 
-                        ?>
-                        <div style="background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.4); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                            <input type="checkbox" id="utiliser_credits" name="utiliser_credits" value="1" style="width: 20px; height: 20px; cursor: pointer;">
-                            <label for="utiliser_credits" style="cursor: pointer; font-size: 1.1em; color: #00ff88; font-weight: bold;">
-                                Utiliser mes crédits disponibles (<?= number_format($solde, 2, ',', ' ') ?> ₹)
-                            </label>
-                        </div>
+                        if ($solde > 0):
+                            ?>
+                            <div
+                                style="background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.4); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="utiliser_credits" name="utiliser_credits" value="1"
+                                    style="width: 20px; height: 20px; cursor: pointer;">
+                                <label for="utiliser_credits"
+                                    style="cursor: pointer; font-size: 1.1em; color: #00ff88; font-weight: bold;">
+                                    Utiliser mes crédits disponibles (<?= number_format($solde, 2, ',', ' ') ?> ₹)
+                                </label>
+                            </div>
                         <?php endif; ?>
 
                         <!-- bouton go -->
                         <button type="submit" class="btn-logout"
                             style="width: 100%; background: linear-gradient(135deg, #ffd700, #ff8c00); border: none; color: #1a1a2e; font-weight: bold; font-size: 1.1em; cursor: pointer; padding: 15px; border-radius: 10px; text-transform: uppercase; letter-spacing: 1px;">
-                            💳 Procéder au paiement — <span id="txt-btn-total"><?= number_format($total, 2, ',', '') ?></span> ₹
+                            💳 Procéder au paiement — <span
+                                id="txt-btn-total"><?= number_format($total, 2, ',', '') ?></span> ₹
                         </button>
                     </form>
                 </div>
             </section>
+            <!-- data pour js -->
+            <div id="cart-data" style="display:none;" data-total="<?= number_format($total, 2, '.', '') ?>"
+                data-credits="<?= isset($_SESSION['user']['solde_credits']) ? number_format($_SESSION['user']['solde_credits'], 2, '.', '') : '0' ?>">
+            </div>
         <?php endif; ?>
 
     </div>
 </main>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var cbCredits = document.getElementById('utiliser_credits');
-        var txtBtnTotal = document.getElementById('txt-btn-total');
-        if (cbCredits && txtBtnTotal) {
-            var totalInitial = <?= number_format($total, 2, '.', '') ?>;
-            var creditsDispo = <?= isset($_SESSION['user']['solde_credits']) ? number_format($_SESSION['user']['solde_credits'], 2, '.', '') : '0' ?>;
-            
-            cbCredits.addEventListener('change', function() {
-                var totalFinal = totalInitial;
-                if (this.checked) {
-                    totalFinal = Math.max(0, totalFinal - creditsDispo);
-                }
-                txtBtnTotal.textContent = totalFinal.toFixed(2).replace('.', ',');
-            });
-        }
-    });
-</script>
 
 <?php require_once 'includes/footer.php'; ?>

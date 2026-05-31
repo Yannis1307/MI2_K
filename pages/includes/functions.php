@@ -3,7 +3,7 @@
 session_start();
 
 // verification du statut banni a chaque chargement de page
-// on utilise __DIR__ pour resoudre le chemin de maniere absolue,
+// on utilise __dir__ pour resoudre le chemin de maniere absolue,
 // peu importe si le fichier est inclus depuis pages/ ou depuis api/
 if (isset($_SESSION['user'])) {
     $chemin_users_abs = __DIR__ . '/../../data/users.json';
