@@ -112,7 +112,7 @@
         "telephone": "+33 6 77 88 99 00",
         "adresse": "Dex's Diner, CoCo Town, Coruscant",
         "date_inscription": "05/01/2026",
-        "derniere_connexion": "31/05/2026",
+        "derniere_connexion": "10/06/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
@@ -182,12 +182,12 @@
         "telephone": "",
         "adresse": "Planète Tatooine",
         "date_inscription": "27/03/2026",
-        "derniere_connexion": "31/05/2026",
+        "derniere_connexion": "10/06/2026",
         "points_fidelite": 0,
         "statut_premium": "normal",
         "statut": "actif",
         "avatar": "han_avatar.png",
-        "solde_credits": 37.1
+        "solde_credits": 11.200000000000003
     },
     {
         "id": 70,

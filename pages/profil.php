@@ -345,10 +345,25 @@ require_once 'includes/header.php';
                                         $badge_text = 'Livré';
                                         $badge_style = '';
                                         $peut_noter = true;
+                                    } elseif ($statut_cmd === 'à récupérer') {
+                                        $badge_class = 'status-delivered';
+                                        $badge_text = 'À récupérer';
+                                        $badge_style = '';
+                                        $peut_noter = true;
                                     } elseif ($statut_cmd === 'en livraison') {
                                         $badge_class = 'status-prep';
                                         $badge_text = 'En livraison';
                                         $badge_style = '';
+                                        $peut_noter = false;
+                                    } elseif ($statut_cmd === 'prête') {
+                                        $badge_class = 'status-prep';
+                                        $badge_text = 'Prête';
+                                        $badge_style = 'border-color: #ffd700; color: #ffd700;';
+                                        $peut_noter = false;
+                                    } elseif ($statut_cmd === 'en préparation') {
+                                        $badge_class = 'status-prep';
+                                        $badge_text = 'En préparation';
+                                        $badge_style = 'border-color: #00e5ff; color: #00e5ff;';
                                         $peut_noter = false;
                                     } elseif ($statut_cmd === 'abandonné') {
                                         $badge_class = 'status-prep';

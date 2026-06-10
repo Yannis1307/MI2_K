@@ -1,5 +1,6 @@
 <?php
-$file = 'c:/xampp/htdocs/MI2_K-main/data/plats.json';
+// Chemin relatif vers le fichier JSON, indépendant du système (Linux, Windows, sans XAMPP)
+$file = __DIR__ . '/plats.json';
 $data = json_decode(file_get_contents($file), true);
 
 foreach ($data as &$plat) {

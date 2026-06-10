@@ -42,7 +42,7 @@ if (!$is_general_review) {
     if (
         !$commande
         || $commande['id_client'] != $_SESSION['user']['id']
-        || ($commande['statut'] !== 'livré' && $commande['statut'] !== 'livre')
+        || ($commande['statut'] !== 'livré' && $commande['statut'] !== 'livre' && $commande['statut'] !== 'à récupérer')
     ) {
         $_SESSION['flash_error'] = 'Cette commande ne peut pas être notée (elle n\'existe pas, ne vous appartient pas, ou n\'est pas encore livrée).';
         header('Location: profil.php');
@@ -152,7 +152,7 @@ require_once 'includes/header.php';
                         <span class="recall-status" style="font-size:0.8em; color: rgba(255,255,255,0.5);">
                             <?= htmlspecialchars(implode(', ', $detail_plats)) ?>
                         </span>
-                        <span class="recall-status" style="color: #7fff7f;">✅ Livrée —
+                        <span class="recall-status" style="color: #7fff7f;">✅ <?= $commande['statut'] === 'à récupérer' ? 'À récupérer' : 'Livrée' ?> —
                             <?= number_format($commande['total'], 2, ',', '') ?> ₹</span>
                     </div>
                 </div>

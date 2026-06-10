@@ -1810,5 +1810,100 @@
         "commentaire": "",
         "code_interphone": "1dds",
         "etage": "3e"
+    },
+    {
+        "id": "JDI-0FFE4",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "10/06/2026",
+        "heure": "20:57",
+        "type": "immediate",
+        "mode_retrait": "emporter",
+        "heure_livraison": null,
+        "adresse": "Allée des Rêves",
+        "telephone_client": "",
+        "plats": [
+            {
+                "id_plat": 9,
+                "nom": "Portion de Survie",
+                "quantite": 1,
+                "prix_unitaire": 3,
+                "sous_total": 3
+            },
+            {
+                "id_plat": 1,
+                "nom": "Lait Bleu",
+                "quantite": 1,
+                "prix_unitaire": 7,
+                "sous_total": 7
+            }
+        ],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 1,
+                "prix_unitaire": 22.9,
+                "sous_total": 22.9,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 32.9,
+        "statut": "livré",
+        "statut_paiement": "accepte",
+        "transaction_id": "AE7932ABA1",
+        "montant_paye": 7,
+        "credits_utilises": 25.9,
+        "id_livreur": null,
+        "note_livraison": 5,
+        "note_qualite": 5,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e",
+        "total_initial": 32.9,
+        "date_notation": "10/06/2026"
+    },
+    {
+        "id": "JDI-158FF",
+        "id_client": 69,
+        "login_client": "test",
+        "date": "10/06/2026",
+        "heure": "21:00",
+        "type": "immediate",
+        "mode_retrait": "livraison",
+        "heure_livraison": null,
+        "adresse": "22",
+        "telephone_client": "",
+        "plats": [],
+        "menus": [
+            {
+                "id_menu": 3,
+                "nom": "Menu Côté Obscur",
+                "quantite": 2,
+                "prix_unitaire": 22.9,
+                "sous_total": 45.8,
+                "plats_details": [
+                    "Fruits Jogan",
+                    "Ronto Wrap",
+                    "Soda de Spotchka"
+                ]
+            }
+        ],
+        "total": 45.8,
+        "statut": "prête",
+        "statut_paiement": "accepte",
+        "transaction_id": "D2928C4A00",
+        "montant_paye": 45.8,
+        "credits_utilises": 0,
+        "id_livreur": null,
+        "note_livraison": null,
+        "note_qualite": null,
+        "commentaire": "",
+        "code_interphone": "1dds",
+        "etage": "3e"
     }
 ]

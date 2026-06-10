@@ -178,7 +178,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
 
             <!-- support -->
             <div class="help-zone">
-                <button class="btn-help" onclick="alert('Probleme signalé vous recevrez une missive de notre part sous les 48 heures!')">⚠️
+                <button class="btn-help" onclick="alert('Fonction de signalement en cours de développement')">⚠️
                     SIGNALER UN PROBLÈME</button>
             </div>
 

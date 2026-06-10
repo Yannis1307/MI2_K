@@ -46,7 +46,8 @@ if (isset($_SESSION['user'])) {
 // lit un fichier json depuis le dossier data/ et le retourne en tableau php
 function read_json($filename)
 {
-    $path = '../data/' . $filename;
+    // Chemin absolu vers le dossier data basé sur la position de ce fichier (pour Linux/Windows)
+    $path = __DIR__ . '/../../data/' . $filename;
     if (!file_exists($path)) {
         return [];
     }
@@ -57,7 +58,8 @@ function read_json($filename)
 // ecrit un tableau php dans un fichier json du dossier data/
 function write_json($filename, $data)
 {
-    $path = '../data/' . $filename;
+    // Chemin absolu vers le dossier data basé sur la position de ce fichier
+    $path = __DIR__ . '/../../data/' . $filename;
     $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     file_put_contents($path, $json);
 }
